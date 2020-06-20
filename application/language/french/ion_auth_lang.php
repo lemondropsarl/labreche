@@ -24,6 +24,12 @@ $lang['account_creation_duplicate_email']       = 'Email déjà utilisé ou inva
 $lang['account_creation_duplicate_identity']    = 'Nom d\'utilisateur déjà utilisé ou invalide';
 $lang['account_creation_missing_default_group'] = 'Le groupe par défaut n\'est pas configuré';
 $lang['account_creation_invalid_default_group'] = 'Le nom du groupe par défaut n\'est pas valide';
+$lang['account_new']                            = 'Nouvequ compte';
+$lang['account_first_name_label']               = 'Prénom';
+$lang['account_last_name_label']                = 'Surnom';
+$lang['account_company_label']                  = 'Société';
+$lang['account_phone_label']                    = 'Téléphone';
+$lang['account_email_label']                    = 'Email';
 
 
 // Password
@@ -31,6 +37,8 @@ $lang['password_change_successful']   = 'Le mot de passe a été changé avec su
 $lang['password_change_unsuccessful'] = 'Impossible de changer le mot de passe';
 $lang['forgot_password_successful']   = 'Mail de réinitialisation du mot de passe envoyé';
 $lang['forgot_password_unsuccessful'] = 'Impossible de réinitialiser le mot de passe';
+$lang['password_label']                      = 'Mot de passe';
+$lang['password_confirm_label']              = 'Confirmation mot de passe';
 
 // Activation
 $lang['activate_successful']           = 'Compte activé';
@@ -61,8 +69,10 @@ $lang['group_update_successful']   = 'Informations sur le groupe mis à jour';
 $lang['group_delete_successful']   = 'Groupe supprimé';
 $lang['group_delete_unsuccessful'] = 'Impossible de supprimer le groupe';
 $lang['group_delete_notallowed']    = 'Le groupe Administrateur ne peut pas être supprimé';
-$lang['group_name_required']       = 'Le nom du groupe est un champ obligatoire';
+$lang['group_name_required']        = 'Le nom du groupe est un champ obligatoire';
 $lang['group_name_admin_not_alter'] = 'Le nom du groupe Admin ne peut pas être modifié';
+$lang['select_role']                = 'choisir le role';
+
 
 // Activation Email
 $lang['email_activation_subject']  = 'Activation du compte';

@@ -24,6 +24,8 @@ $lang['step_1']        = 'Step 1: Database installation';
 $lang['step_2']        = 'Step 2: Super admin user creation';
 $lang['step_3']        = 'INSTALLATION DONE SUCCESSFULLY';
 
+//Account
+$lang['register']      = 'Register';
 //Dashboard
 $lang['dashboard']      = 'Dashboard';
 $lang['welcome_message'] = 'Welcome to Webase';

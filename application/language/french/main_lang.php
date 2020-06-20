@@ -24,7 +24,7 @@ $lang['submit_go_to_app']   = 'Demarrér';
 $lang['step_1']        = 'Etape 1: Installation de base de donnée';
 $lang['step_2']        = 'Etape é: Création du super administrateur';
 $lang['step_3']        = 'INSTALLATION TERMINER AVEC SUCCESS';
-
+$lang['register']      = 'Enregistrer';
 //Dashboard
 $lang['dashboard']      = 'Tableau de bord';
 $lang['welcome_message'] = 'Bienvenue à Webase';
