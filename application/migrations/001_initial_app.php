@@ -106,7 +106,7 @@ class Migration_initial_app extends CI_Migration {
 			
 				'name'	=> 'dashboard',
 				'url'	=> 'dashboard',
-				'icon'  => 'material-icons',
+				'icon'  => 'fa-tachometer-alt',
 				'icon-name'	=> 'dashboard',
 				'text'	=> 'dashboard',
 				'parent'=> 'dashboard',
