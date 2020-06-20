@@ -26,5 +26,6 @@ $lang['step_2']        = 'Etape é: Création du super administrateur';
 $lang['step_3']        = 'INSTALLATION TERMINER AVEC SUCCESS';
 
 //Dashboard
+$lang['dashboard']      = 'Tableau de bord';
 $lang['welcome_message'] = 'Bienvenue à Webase';
 /* End of file filename.php */

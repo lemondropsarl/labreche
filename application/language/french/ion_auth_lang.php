@@ -46,7 +46,7 @@ $lang['login_unsuccessful']            = 'Erreur lors de la connexion';
 $lang['login_unsuccessful_not_active'] = 'Ce compte est inactif';
 $lang['login_timeout']                 = 'Compte temporairement bloqué suite à de trop nombreuses tentatives.  Veuillez réessayer plus tard.';
 $lang['logout_successful']             = 'Déconnexion effectuée avec succès';
-
+$lang['webase_connect']                = 'Connecter à webase';
 // Account Changes
 $lang['update_successful']   = 'Compte utilisateur mis à jour avec succès';
 $lang['update_unsuccessful'] = 'Impossible de mettre à jour le compte utilisateur';

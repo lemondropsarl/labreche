@@ -25,6 +25,7 @@ $lang['step_2']        = 'Step 2: Super admin user creation';
 $lang['step_3']        = 'INSTALLATION DONE SUCCESSFULLY';
 
 //Dashboard
+$lang['dashboard']      = 'Dashboard';
 $lang['welcome_message'] = 'Welcome to Webase';
 
 /* End of file filename.php */

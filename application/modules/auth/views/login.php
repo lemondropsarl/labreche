@@ -11,79 +11,81 @@ $this->app = $this->config->item('application','app');
 <html lang="en">
 
 <head>
-	<link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-	<link rel="icon" type="image/png" href="../assets/img/favicon.png">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-	<title>
-		<?php echo $this->app['name'];?>
-	</title>
-	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
-		name='viewport' />
-	<!--     Fonts and icons     -->
-	<link rel="stylesheet" type="text/css"
-		href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
-	<!-- Material Kit CSS -->
-	<link href="<?php echo base_url('assets/css/material-dashboard.css?v=2.1.0');?>" rel="stylesheet" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><?php echo $this->app['name']?> | Log in</title>
+
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css')?>">
+  <!-- icheck bootstrap -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css')?>">
 </head>
+<body class="hold-transition login-page">
+<div class="login-logo">
+    <a href="#"><b><?php echo $this->app['name']?></a>
+  </div>
+  <!-- /.login-logo -->
+  <div class="card">
+    <div class="card-body login-card-body">
+      <p class="login-box-msg"><?php echo lang('webase_connect')?></p>
 
-<body class="dark-edition">
+      <?php echo form_open('auth/login');?>
+        <div class="input-group mb-3">
+          <input type="text" name="username" class="form-control" placeholder="<?php echo $this->lang->line('login_identity_label');?>">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-user"></span>
+            </div>
+          </div>
+        </div>
+        <div class="input-group mb-3">
+          <input type="password" name="password" class="form-control" placeholder="<?php echo $this->lang->line('login_password_label');?>">
+          <div class="input-group-append">
+            <div class="input-group-text">
+              <span class="fas fa-lock"></span>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-8">
+            <div class="icheck-primary">
+              <input type="checkbox" id="remember">
+              <label for="remember">
+			  <?php echo $this->lang->line('login_remember_label');?>
+              </label>
+            </div>
+          </div>
+          <!-- /.col -->
+          <div class="col-4">
+            <button type="submit" class="btn btn-primary btn-block">
+			<?php echo $this->lang->line('login_heading'); ?>
+			</button>
+          </div>
+          <!-- /.col -->
+        </div>
+      <?php echo form_close()?>
 
-	<div class="container">
-		<div class="row justify-content-center">
-			<divc class="col-lg-6">
-				<div class="p-5">
-					<div class="text-center">
-						<h1 class="h4 text-light">Webase connect</h1>
-					</div>
-					<hr>
-					<?php echo form_open('auth/login');?>
+      <p class="mb-1">
+        <a href="#">
+		<?php echo $this->lang->line('forgot_password_heading') ;?>
+		</a>
+      </p>
+      
+    </div>
+    <!-- /.login-card-body -->
+  </div>
+  <!-- /.login-box -->
 
-					<div class="form-group bmd-form-group">
-						<label class="bmd-label-floating"><?php echo $this->lang->line('login_identity_label'); ?></label>
-						<input type="text" class="form-control" name="username" required />
-					</div>
-					<div class="form-group bmd-form-group">
-						<label class="bmd-label-floating"><?php echo $this->lang->line('login_password_label'); ?></label>
-						<input type="password" class="form-control" name="password" required/>
-					</div>
-					<div class="form-group">
-						<div class="custom-control custom-checkbox small">
-							<input type="checkbox" class="custom-control-input" id="remember">
-							<label class="custom-control-label" for="remember"><?php echo $this->lang->line('login_remember_label');?></label>
-						</div>
-					</div>
-					<button type="submit" class="btn btn-primary btn-user btn-block">
-						<?php echo $this->lang->line('login_heading'); ?>
-					</button>
-					<?php echo form_close();?>
-					<hr>
-					<div class="text-center">
-						<a class="small" href=""><?php echo $this->lang->line('forgot_password_heading') ;?></a>
-					</div>
-				</div>
-			</divc>
-
-
-		</div>
-	</div>
-
-	<!--   Core JS Files   -->
-	<script src="<?php echo base_url('assets/js/core/jquery.min.js');?>"></script>
-	<script src="<?php echo base_url('assets/js/core/popper.min.js');?>"></script>
-	<script src="<?php echo base_url('assets/js/core/bootstrap-material-design.min.js');?>"></script>
-	<script src="https://unpkg.com/default-passive-events"></script>
-	<script src="<?php echo base_url('assets/js/plugins/perfect-scrollbar.jquery.min.js');?>"></script>
-	<!-- Place this tag in your head or just before your close body tag. -->
-	<script async defer src="https://buttons.github.io/buttons.js"></script>
-	<!--  Google Maps Plugin    -->
-	<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-	<!-- Chartist JS -->
-	<script src="<?php echo base_url('assets/js/plugins/chartist.min.js');?>"></script>
-	<!--  Notifications Plugin    -->
-	<script src="<?php echo base_url('assets/js/plugins/bootstrap-notify.js');?>"></script>
-	<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-	<script src="<?php echo base_url('assets/js/material-dashboard.js?v=2.1.0');?>"></script>
+<!-- jQuery -->
+<script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js')?>"></script>
+<!-- Bootstrap 4 -->
+<script src="<?php echo base_url('/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url('assets/dist/js/adminlte.min.js')?>"></script>
 </body>
 
 </html>

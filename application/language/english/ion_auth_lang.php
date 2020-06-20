@@ -44,7 +44,7 @@ $lang['login_unsuccessful']                  = 'Incorrect Login';
 $lang['login_unsuccessful_not_active']       = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful']                   = 'Logged Out Successfully';
-
+$lang['webase_connect']                      = 'Connect to webase';
 // Account Changes
 $lang['update_successful']                   = 'Account Information Successfully Updated';
 $lang['update_unsuccessful']                 = 'Unable to Update Account Information';
