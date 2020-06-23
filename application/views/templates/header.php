@@ -28,9 +28,9 @@ $active = '';
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css')?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
-	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
-  <!-- Toastr -->
-   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css')?>">
+	<link rel="stylesheet"
+		href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css')?>">	
 
 </head>
 <!--
@@ -44,6 +44,7 @@ $active = '';
 -->
 
 <body class="hold-transition sidebar-mini">
+	
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">

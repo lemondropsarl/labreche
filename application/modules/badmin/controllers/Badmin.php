@@ -9,6 +9,8 @@ class Badmin extends MX_Controller {
         parent::__construct();
         $this->load->library('ion_auth');       
         $this->load->library('ion_auth_acl');
+        $this->load->library('toastr');
+        
         $this->load->model('nav_model');
         $this->load->model('admin_model');
         
@@ -162,7 +164,7 @@ class Badmin extends MX_Controller {
 
     public function groups_permissions()
     {
-        $data['message']                = "";
+        
         $data['title']                  =  $this->lang->line('perm_management');
         $data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
@@ -285,9 +287,9 @@ class Badmin extends MX_Controller {
            $this->ion_auth_acl->add_permission_to_group($group_id,$v);
         }
         
-        $this->session->set_flashdata('message',$this->lang->line('add_group_success_msg'));
+        $this->toastr->success($this->lang->line('add_group_success_msg'));
         
-        redirect('badmin/groups_permissions');
+        redirect('badmin/groups_permissions','refresh');
 
 
     }

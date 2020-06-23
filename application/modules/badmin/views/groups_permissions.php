@@ -1,16 +1,6 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-$message = $this->session->flashdata('message');
-
-if ($message != "") {?>
-    
-   <script type="text/javascript">
-       var message = <?php echo $message ;?>
-       toastr.success(message);
-   </script>;
-<?php }
 ?>
-
 <div class="content">
 	<div class="container-fluid">
        

@@ -49,12 +49,24 @@ $this->app = $this->config->item('application','app');
 <!-- bootstrap color picker -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
 <!-- Tempusdominus Bootstrap 4 -->
-<script src="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.')?>'"></script>
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
 <!-- Toastr -->
-<script src="<?php echo base_url('/plugins/toastr/toastr.min.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
+<script type="text/javascript">
+  $(function () {
+    <?php if ($this->session->flashdata('success')) {?>
+        toastr.success("<?php echo $this->session->flashdata('success'); ?>");
+    <?php } else if ($this->session->flashdata('error')) {?>
+        toastr.error("<?php echo $this->session->flashdata('error'); ?>");
+    <?php } else if ($this->session->flashdata('warning')) {?>
+        toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
+    <?php } else if ($this->session->flashdata('info')) {?>
+        toastr.info("<?php echo $this->session->flashdata('info'); ?>");
+    <?php }?>
+  });
+</script>
 
 </body>
 </html>
