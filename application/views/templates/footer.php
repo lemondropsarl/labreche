@@ -52,6 +52,9 @@ $this->app = $this->config->item('application','app');
 <script src="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.')?>'"></script>
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
+<!-- Toastr -->
+<script src="<?php echo base_url('/plugins/toastr/toastr.min.js')?>"></script>
 
 </body>
 </html>

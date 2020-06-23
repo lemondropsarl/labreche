@@ -162,6 +162,7 @@ class Badmin extends MX_Controller {
 
     public function groups_permissions()
     {
+        $data['message']                = "";
         $data['title']                  =  $this->lang->line('perm_management');
         $data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
@@ -283,6 +284,9 @@ class Badmin extends MX_Controller {
         foreach ($perm_ids as $v) {
            $this->ion_auth_acl->add_permission_to_group($group_id,$v);
         }
+        
+        $this->session->set_flashdata('message',$this->lang->line('add_group_success_msg'));
+        
         redirect('badmin/groups_permissions');
 
 
