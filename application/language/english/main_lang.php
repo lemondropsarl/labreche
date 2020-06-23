@@ -30,4 +30,28 @@ $lang['register']      = 'Register';
 $lang['dashboard']      = 'Dashboard';
 $lang['welcome_message'] = 'Welcome to Webase';
 
+//regular
+$lang['new']            = 'New';
+$lang['list_users']     = 'List of users';
+$lang['perm_management'] = 'Permissions management';
+$lang['user_detail']    = 'User details';
+$lang['user_profile']   = 'User profile';
+$lang['user_complete_profile']  = 'complete your profile';
+$lang['update_profile_label']   = 'Update profile';
+$lang['allow']                  = 'Allow';
+$lang['deny']                   ='Deny';
+$lang['inherit']                = 'Inherit';
+$lang['inherit_from_group']     = "Inherited from group";
+$lang['permissions']            = 'Permissions';
+$lang['update_permission']      = 'Update permission';
+$lang['manage_user_permission'] = 'Manage user permissions';
+$lang['manage_user_group'] = 'Manage user groups';
+$lang['groups']             ='Groups';
+$lang['no_label']           = 'No';
+$lang['yes_label']          ='Yes';
+$lang['update_group_acl']   = 'Update access';
+
+$lang['list_of_group']      = 'List of groups';
+$lang['name_label']         = 'Name';
+$lang['description_label']  = 'Description';
 /* End of file filename.php */

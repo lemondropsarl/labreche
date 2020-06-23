@@ -30,6 +30,8 @@ $lang['account_last_name_label']                = 'Surnom';
 $lang['account_company_label']                  = 'Société';
 $lang['account_phone_label']                    = 'Téléphone';
 $lang['account_email_label']                    = 'Email';
+$lang['account_username_label']                 = "Nom d'utilisateur";
+
 
 
 // Password

@@ -1,10 +1,13 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
+
 global $app;
 $this->load->config('app',TRUE);
 $this->app = $this->config->item('application','app');
-$user_id = $this->session->userdata('user_id');
+$user = $this->session->userdata('identity');
+
+
 $active = '';
 ?>
 <!DOCTYPE html>
@@ -13,7 +16,7 @@ $active = '';
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>AdminLTE 3 | Dashboard 3</title>
+	<title><?php echo $this->app['name'];?> <?php echo $title ?></title>
 
 	<!-- Google Font: Source Sans Pro -->
 	<link rel="stylesheet"
@@ -24,6 +27,8 @@ $active = '';
 	<link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 	<!-- Theme style -->
 	<link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
+
 </head>
 <!--
 `body` tag options:
@@ -44,9 +49,9 @@ $active = '';
 				<li class="nav-item">
 					<a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
 				</li>
-				<li class="nav-item d-none d-sm-inline-block">
-					<a href="index3.html" class="nav-link">Home</a>
-				</li>
+				<!--li class="nav-item d-none d-sm-inline-block">
+					<a href="<?php echo base_url('dashboard')?>" class="nav-link">Home</a>
+				</li-->
 			</ul>
 			<!-- SEARCH FORM -->
 			<form class="form-inline ml-3">
@@ -132,7 +137,7 @@ $active = '';
 							class="img-circle elevation-2" alt="User Image">
 					</div>
 					<div class="info">
-						<a href="#" class="d-block">Cedric Mataso</a>
+						<a href="#" class="d-block"><?php echo $user?></a>
 					</div>
 				</div>
 
@@ -207,7 +212,7 @@ $active = '';
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
-								<li class="breadcrumb-item active">Dashboard v3</li>
+								<li class="breadcrumb-item active"><?php echo $title ?></li>
 							</ol>
 						</div><!-- /.col -->
 					</div><!-- /.row -->

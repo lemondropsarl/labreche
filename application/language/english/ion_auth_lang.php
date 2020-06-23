@@ -27,7 +27,7 @@ $lang['account_last_name_label']                = 'Last name';
 $lang['account_company_label']                  = 'Company';
 $lang['account_phone_label']                    = 'Telephone';
 $lang['account_email_label']                    = 'Email';
-
+$lang['account_username_label']                 = 'Username';
 
 
 

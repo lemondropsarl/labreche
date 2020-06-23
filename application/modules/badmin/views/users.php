@@ -6,17 +6,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 		<!-- your content here -->
 		<div class="row">
             <div class="col-md-12">
-				<div class="card">
-					<div class="card-header card-header-primary">
-						<a class="pull-right card-header-icon" href="<?php echo base_url('auth/create_user');?>">
-							<i class="material-icons">add_circle</i>
+				<div class="card card-outline card-primary">
+					<div class="card-header">
+					<p>
+						<a class="pull-right btn btn-primary" href="<?php echo base_url('auth/create_user');?>">
+							<?php echo lang('new')?>
 						</a>
-						<h4 class="card-title ">List of users</h4>
+					</p>
+						<h4 class="card-title"><?php echo lang('list_users')?></h4>
                   		<!--p class="card-category"> Here is a subtitle for this table</p-->
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table">
+							<table class="table table-striped">
 								<thead class="text-primary">
 									<th>First name</th>
 									<th>Ladt name</th>
@@ -45,6 +47,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 		</div>
 	</div>
+</div>
 </div>
 
 
