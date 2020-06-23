@@ -30,7 +30,7 @@ $active = '';
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
 	<link rel="stylesheet"
 		href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
-	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css')?>">	
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css')?>">
 
 </head>
 <!--
@@ -44,7 +44,7 @@ $active = '';
 -->
 
 <body class="hold-transition sidebar-mini">
-	
+
 	<div class="wrapper">
 		<!-- Navbar -->
 		<nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -115,6 +115,7 @@ $active = '';
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 					</div>
 				</li>
+				
 				<li class="nav-item">
 					<a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button"><i
 							class="fas fa-th-large"></i></a>
@@ -211,7 +212,8 @@ $active = '';
 				<div class="container-fluid">
 					<div class="row mb-2">
 						<div class="col-sm-6">
-							<h1 class="m-0 text-dark">Dashboard</h1>
+							<h1 class="m-0 text-dark">
+							</h1>
 						</div><!-- /.col -->
 						<div class="col-sm-6">
 							<ol class="breadcrumb float-sm-right">

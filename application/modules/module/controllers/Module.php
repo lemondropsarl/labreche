@@ -22,7 +22,17 @@ class Module extends MX_Controller {
         $this->load->library('ion_auth');
         $this->load->library('ion_auth_acl');
         
-        
+		$siteLang = $this->session->userdata('site_lang');
+        if ($siteLang) {
+		  
+           $this->lang->load('main',$siteLang);
+           $this->lang->load('ion_auth',$siteLang);
+        } else {
+		  
+           $this->lang->load('main','english');
+           $this->lang->load('ion_auth','english');
+
+        }
     }
     
 
@@ -32,8 +42,8 @@ class Module extends MX_Controller {
         if (! $this->ion_auth->logged_in()) {
             redirect('auth');
         }else{
-
-            $data['modules'] = $this->module_model->get_modules();
+			$data['title']					= lang('module_manage');
+            $data['modules'] 				= $this->module_model->get_modules();
             $data['menus']			  	   =   $this->nav_model->get_nav_menus();
             $data['subs']				   =   $data['menus'];
             $data['acl_modules']		   =   $this->nav_model->get_acl_modules();
