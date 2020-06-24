@@ -48,5 +48,30 @@ $lang['manage_user_group'] = 'Gerér les groupes';
 $lang['groups']             ='Groupes';
 $lang['no_label']           = 'Non';
 $lang['yes_label']          ='Oui';
-$lang['update_group_acl']   = '?ise à jour access';
+$lang['update_group_acl']   = 'Mise à jour access';
+
+$lang['list_of_group']      = 'Liste des groupes';
+$lang['name_label']         = 'Nom';
+$lang['description_label']  = 'Déscription';
+$lang['list_of_permission'] = 'Les permissions';
+$lang['key_label']          = 'Lettre Clé';
+$lang['group_permissions_label']  = 'Permissions et groupes';
+$lang['Read']                 = 'Lecture';
+$lang['Write']                 = 'Ecriture';
+$lang['Admin']                 = 'Admin';
+$lang['Super']                 = 'Super';
+$lang['new_group_label']        = 'Nouvequ groupe';
+$lang['new_permission_label']   = 'Nouvelle permission';
+$lang['save_label']             = 'Enregistrer';
+
+//Alert messages
+$lang['add_group_success_msg']  = "Groupe ajouté avec succèss";
+
+//mODULE
+$lang['module_manage']          = 'Gestion des modules';
+$lang['module_installed_label'] = 'Modules installé';
+$lang['update_label']           = 'Mettre à jour';
+$lang['preloaded']               = 'Préchargé';
+$lang['module_quick_action_label']      = 'Actions rapide';
+$lang['module_online_label']            = 'Modules en ligne';
 /* End of file filename.php */
