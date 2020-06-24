@@ -9,10 +9,22 @@ class Badmin extends MX_Controller {
         parent::__construct();
         $this->load->library('ion_auth');       
         $this->load->library('ion_auth_acl');
+        $this->load->library('toastr');
+        
         $this->load->model('nav_model');
         $this->load->model('admin_model');
         
-        
+        $siteLang = $this->session->userdata('site_lang');
+        if ($siteLang) {
+		  
+           $this->lang->load('main',$siteLang);
+           $this->lang->load('ion_auth',$siteLang);
+        } else {
+		  
+           $this->lang->load('main','english');
+           $this->lang->load('ion_auth','english');
+
+        }
         
         if( ! $this->ion_auth_acl->has_permission('A') )
             redirect('dashboard');
@@ -29,6 +41,8 @@ class Badmin extends MX_Controller {
 		$data['subs']				   =   $data['menus'];
         $data['acl_modules']		   =   $this->nav_model->get_acl_modules();
         $data['users']                 =   $this->ion_auth->users()->result();
+        $data['message']                = $this->session->flashdata('message');
+        $data['title']                  = 'Manage users';
 
         $this->load->view('templates/header', $data);      
         $this->load->view('users', $data);
@@ -39,6 +53,7 @@ class Badmin extends MX_Controller {
     {
         $data['permissions']    =   $this->ion_auth_acl->permissions('full');
         $data['groups'] = $this->ion_auth->groups()->result();
+        $data['title']  = '';
         $this->load->view('admin/permissions', $data);
     }
 
@@ -149,7 +164,8 @@ class Badmin extends MX_Controller {
 
     public function groups_permissions()
     {
-
+        
+        $data['title']                  =  $this->lang->line('perm_management');
         $data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
         $data['acl_modules']		   =   $this->nav_model->get_acl_modules();
@@ -240,7 +256,7 @@ class Badmin extends MX_Controller {
            redirect("badmin/manage_user/{$user_id}",'refresh');
         }
         $user_groups    =   $this->ion_auth_acl->get_user_groups($user_id);
-
+        $data['title']                  = $this->lang->line('user_detail');
         $data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
         $data['acl_modules']		   =   $this->nav_model->get_acl_modules();
@@ -270,7 +286,10 @@ class Badmin extends MX_Controller {
         foreach ($perm_ids as $v) {
            $this->ion_auth_acl->add_permission_to_group($group_id,$v);
         }
-        redirect('badmin/groups_permissions');
+        
+        $this->toastr->success($this->lang->line('add_group_success_msg'));
+        
+        redirect('badmin/groups_permissions','refresh');
 
 
     }

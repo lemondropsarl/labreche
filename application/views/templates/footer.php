@@ -5,216 +5,69 @@ global $app;
 $this->load->config('app',TRUE);
 $this->app = $this->config->item('application','app');
 ?>
-<footer class="footer">
-        <div class="container-fluid">
-          <nav class="float-left">
-            <ul>
-              <li>
-                <a href="https://www.lemondropsarl.com">
-                Lemondrop Sarl
-                </a>
-              </li>
-            </ul>
-          </nav>
-          <div class="copyright float-right">
-            &copy;
-            <script>
+ <!-- Control Sidebar -->
+ <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+  <!-- Main Footer -->
+  <footer class="main-footer">
+    <strong>Copyright &copy;  <script>
               document.write(new Date().getFullYear())
-            </script>, Copyright <?php echo $this->app['name'];?>
-          </div>
-          <!-- your footer here -->
-        </div>
-      </footer>
+            </script> <?php echo $this->app['name'];?> <a href="https://www.lemondropsarl.com">Lemondrop Technology</a>.</strong>
+    All rights reserved.
+    <div class="float-right d-none d-sm-inline-block">
+      <b>Version</b> 1.0.0
     </div>
-  </div>
-  <!--   Core JS Files   -->
-  <script src="<?php echo base_url('assets/js/core/jquery.min.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/core/popper.min.js');?>"></script>
-  <script src="<?php echo base_url('assets/js/core/bootstrap-material-design.min.js');?>"></script>
-  <script src="https://unpkg.com/default-passive-events"></script>
-  <script src="<?php echo base_url('assets/js/plugins/perfect-scrollbar.jquery.min.js');?>"></script>
-  <!-- Place this tag in your head or just before your close body tag. -->
-  <script async defer src="https://buttons.github.io/buttons.js"></script>
-  <!--  Google Maps Plugin    -->
-  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-  <!-- Chartist JS -->
-  <script src="<?php echo base_url('assets/js/plugins/chartist.min.js');?>"></script>
-  <!--  Notifications Plugin    -->
-  <script src="<?php echo base_url('assets/js/plugins/bootstrap-notify.js');?>"></script>
-  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-  <script src="<?php echo base_url('assets/js/material-dashboard.js?v=2.1.0');?>"></script>
-  
+  </footer>
+</div>
+<!-- ./wrapper -->
+<!-- REQUIRED SCRIPTS -->
 
+<!-- jQuery -->
+<script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js')?>"></script>
+<!-- Bootstrap -->
+<script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js')?>"></script>
+<!-- AdminLTE -->
+<script src="<?php echo base_url('assets/dist/js/adminlte.js')?>"></script>
 
+<!-- OPTIONAL SCRIPTS -->
+<script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js')?>"></script>
+<script src="<?php echo base_url('assets/dist/js/demo.js')?>"></script>
+<script src="<?php echo base_url('assets/dist/js/pages/dashboard3.js')?>"></script>
+<!-- jQuery -->
+<!-- Bootstrap 4 -->
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js')?>"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="<?php echo base_url('assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js')?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/jquery.inputmask.min.js')?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js')?>"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url('assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js')?>"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<!-- Bootstrap Switch -->
+<script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
+<!-- Toastr -->
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
+<script type="text/javascript">
+  $(function () {
+    <?php if ($this->session->flashdata('success')) {?>
+        toastr.success("<?php echo $this->session->flashdata('success'); ?>");
+    <?php } else if ($this->session->flashdata('error')) {?>
+        toastr.error("<?php echo $this->session->flashdata('error'); ?>");
+    <?php } else if ($this->session->flashdata('warning')) {?>
+        toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
+    <?php } else if ($this->session->flashdata('info')) {?>
+        toastr.info("<?php echo $this->session->flashdata('info'); ?>");
+    <?php }?>
+  });
+</script>
 
-
-
-
-
-
-  
-  <script>
-    $(document).ready(function() {
-      $().ready(function() {
-        $sidebar = $('.sidebar');
-
-        $sidebar_img_container = $sidebar.find('.sidebar-background');
-
-        $full_page = $('.full-page');
-
-        $sidebar_responsive = $('body > .navbar-collapse');
-
-        window_width = $(window).width();
-
-        $('.fixed-plugin a').click(function(event) {
-          // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
-          if ($(this).hasClass('switch-trigger')) {
-            if (event.stopPropagation) {
-              event.stopPropagation();
-            } else if (window.event) {
-              window.event.cancelBubble = true;
-            }
-          }
-        });
-
-        $('.fixed-plugin .active-color span').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-color', new_color);
-          }
-
-          if ($full_page.length != 0) {
-            $full_page.attr('filter-color', new_color);
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.attr('data-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .background-color .badge').click(function() {
-          $(this).siblings().removeClass('active');
-          $(this).addClass('active');
-
-          var new_color = $(this).data('background-color');
-
-          if ($sidebar.length != 0) {
-            $sidebar.attr('data-background-color', new_color);
-          }
-        });
-
-        $('.fixed-plugin .img-holder').click(function() {
-          $full_page_background = $('.full-page-background');
-
-          $(this).parent('li').siblings().removeClass('active');
-          $(this).parent('li').addClass('active');
-
-
-          var new_image = $(this).find("img").attr('src');
-
-          if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            $sidebar_img_container.fadeOut('fast', function() {
-              $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-              $sidebar_img_container.fadeIn('fast');
-            });
-          }
-
-          if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $full_page_background.fadeOut('fast', function() {
-              $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-              $full_page_background.fadeIn('fast');
-            });
-          }
-
-          if ($('.switch-sidebar-image input:checked').length == 0) {
-            var new_image = $('.fixed-plugin li.active .img-holder').find("img").attr('src');
-            var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
-
-            $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
-            $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
-          }
-
-          if ($sidebar_responsive.length != 0) {
-            $sidebar_responsive.css('background-image', 'url("' + new_image + '")');
-          }
-        });
-
-        $('.switch-sidebar-image input').change(function() {
-          $full_page_background = $('.full-page-background');
-
-          $input = $(this);
-
-          if ($input.is(':checked')) {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar_img_container.fadeIn('fast');
-              $sidebar.attr('data-image', '#');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page_background.fadeIn('fast');
-              $full_page.attr('data-image', '#');
-            }
-
-            background_image = true;
-          } else {
-            if ($sidebar_img_container.length != 0) {
-              $sidebar.removeAttr('data-image');
-              $sidebar_img_container.fadeOut('fast');
-            }
-
-            if ($full_page_background.length != 0) {
-              $full_page.removeAttr('data-image', '#');
-              $full_page_background.fadeOut('fast');
-            }
-
-            background_image = false;
-          }
-        });
-
-        $('.switch-sidebar-mini input').change(function() {
-          $body = $('body');
-
-          $input = $(this);
-
-          if (md.misc.sidebar_mini_active == true) {
-            $('body').removeClass('sidebar-mini');
-            md.misc.sidebar_mini_active = false;
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar();
-
-          } else {
-
-            $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
-
-            setTimeout(function() {
-              $('body').addClass('sidebar-mini');
-
-              md.misc.sidebar_mini_active = true;
-            }, 300);
-          }
-
-          // we simulate the window Resize so the charts will get updated in realtime.
-          var simulateWindowResize = setInterval(function() {
-            window.dispatchEvent(new Event('resize'));
-          }, 180);
-
-          // we stop the simulation of Window Resize after the animations are completed
-          setTimeout(function() {
-            clearInterval(simulateWindowResize);
-          }, 1000);
-
-        });
-      });
-    });
-  </script>
 </body>
-
 </html>
+

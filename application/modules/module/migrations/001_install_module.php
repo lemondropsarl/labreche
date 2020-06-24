@@ -30,7 +30,7 @@ class Migration_install_module extends CI_Migration {
             [
                 'name'	=> 'module',
                 'url'	=> '',
-                'icon'  => 'material-icons',
+                'icon'  => 'fa-th-large21`',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Modules',
 				'parent'=> '',
@@ -42,7 +42,7 @@ class Migration_install_module extends CI_Migration {
                 'url'	=> 'module',
                 'icon'  => 'material-icons',
 				'icon-name'	=> 'apps',
-				'text'	=> 'Liste de modules',
+				'text'	=> 'Extensions',
 				'parent'=> 'module',
 				'order' => 210,
 				'perm_key'=> 'A'

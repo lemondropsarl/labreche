@@ -29,8 +29,8 @@ class Migration_initial_admin extends MY_Migration {
             [
                 'name'	=> 'badmin',
                 'url'	=> '',
-                'icon'  => 'material-icons',
-				'icon-name'	=> 'brightness_auto',
+                'icon'  => 'fa-cog',
+				'icon-name'	=> '',
 				'text'	=> 'administration',
 				'parent'=> '',
 				'order' => 100,

@@ -38,7 +38,8 @@ class Dashboard extends MX_Controller {
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
-		
+		$data['title']					=  lang('dashboard');
+				
 		$this->load->view('templates/header',$data);
 		$this->load->view('index',$data);
 		$this->load->view('templates/footer');

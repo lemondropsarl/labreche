@@ -21,6 +21,15 @@ $lang['account_creation_duplicate_email']       = 'Email Already Used or Invalid
 $lang['account_creation_duplicate_identity']    = 'Identity Already Used or Invalid';
 $lang['account_creation_missing_default_group'] = 'Default group is not set';
 $lang['account_creation_invalid_default_group'] = 'Invalid default group name set';
+$lang['account_new']                            = 'New account';
+$lang['account_first_name_label']               = 'First name';
+$lang['account_last_name_label']                = 'Last name';
+$lang['account_company_label']                  = 'Company';
+$lang['account_phone_label']                    = 'Telephone';
+$lang['account_email_label']                    = 'Email';
+$lang['account_username_label']                 = 'Username';
+
+
 
 
 // Password
@@ -28,6 +37,8 @@ $lang['password_change_successful']          = 'Password Successfully Changed';
 $lang['password_change_unsuccessful']        = 'Unable to Change Password';
 $lang['forgot_password_successful']          = 'Password Reset Email Sent';
 $lang['forgot_password_unsuccessful']        = 'Unable to email the Reset Password link';
+$lang['password_label']                      = 'Password';
+$lang['password_confirm_label']              = 'Confirm password';
 
 // Activation
 $lang['activate_successful']                 = 'Account Activated';
@@ -44,6 +55,7 @@ $lang['login_unsuccessful']                  = 'Incorrect Login';
 $lang['login_unsuccessful_not_active']       = 'Account is inactive';
 $lang['login_timeout']                       = 'Temporarily Locked Out.  Try again later.';
 $lang['logout_successful']                   = 'Logged Out Successfully';
+$lang['webase_connect']                      = 'Connect to webase';
 
 // Account Changes
 $lang['update_successful']                   = 'Account Information Successfully Updated';
@@ -60,6 +72,7 @@ $lang['group_delete_unsuccessful']           = 'Unable to delete group';
 $lang['group_delete_notallowed']             = 'Can\'t delete the administrators\' group';
 $lang['group_name_required']                 = 'Group name is a required field';
 $lang['group_name_admin_not_alter']          = 'Admin group name can not be changed';
+$lang['select_role']                         = 'Select role';
 
 // Activation Email
 $lang['email_activation_subject']            = 'Account Activation';

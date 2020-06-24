@@ -27,9 +27,13 @@ class Auth extends MX_Controller
         if ($siteLang) {
 		   $this->lang->load('auth',$siteLang);
 		   $this->lang->load('ion_auth',$siteLang);
+		   $this->lang->load('main',$siteLang);
+
         } else {
 		   $this->lang->load('auth','english');
 		   $this->lang->load('ion_auth','english');
+		   $this->lang->load('main','english');
+
         }
 		$this->form_validation->set_error_delimiters($this->config->item('error_start_delimiter', 'ion_auth'), $this->config->item('error_end_delimiter', 'ion_auth'));
 	}
@@ -522,7 +526,7 @@ class Auth extends MX_Controller
 			}
 			// redirect them back to the admin page
 			$this->session->set_flashdata('message', $this->ion_auth->messages());
-			redirect("auth", 'refresh');
+			redirect("badmin/users", 'refresh');
 		}
 		else
 		{
@@ -580,11 +584,11 @@ class Auth extends MX_Controller
 			];
 
 			//$this->$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
-			$header['menus']			  	   =   $this->nav_model->get_nav_menus();
-		    $header['subs']				       =   $header['menus'];
-			$header['acl_modules']		       =   $this->nav_model->get_acl_modules();
-			$this->data['group_available'] 	   = $this->ion_auth_model->get_groups('full');
-			$this->load->view('templates/header',$header);			
+			$this->data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		    $this->data['subs']				   =   $this->data['menus'];
+			$this->data['acl_modules']		       =   $this->nav_model->get_acl_modules();
+			$this->data['group_available'] 	       = $this->ion_auth_model->get_groups('full');
+			$this->load->view('templates/header',$this->data);			
 			$this->load->view('create_user', $this->data);
 			$this->load->view('templates/footer',);
 			
