@@ -155,7 +155,7 @@ class Starter extends MX_Controller {
                         'user_id'   => '1',
                         'perm_id'   => '4',
                         'value'     => '1'
-                    ] 
+                   ]
                 ];
                 $this->db->insert_batch('users_permissions', $up);
                 
