@@ -75,4 +75,8 @@ $lang['update_label']           = ' Update';
 $lang['preloaded']               = 'Preloaded';
 $lang['module_quick_action_label']      = 'Quick actions';
 $lang['module_online_label']            = 'Online modules';
+
+$lang['upload_error_wip']       = "The file you are trying to upload is not a .zip file. Please try again.";
+$lang['upload_sp_ch_error']     = "Make Sure the file-name doesn't have any special characters. File-name must be the name of module being installed.";
+$lang['install_label']          = "Install";
 /* End of file filename.php */
