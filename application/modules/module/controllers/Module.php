@@ -20,7 +20,9 @@ class Module extends MX_Controller {
 
         $this->load->library('form_validation');
         $this->load->library('ion_auth');
-        $this->load->library('ion_auth_acl');
+		$this->load->library('ion_auth_acl');
+		$this->load->library('toastr');
+		
         
 		$siteLang = $this->session->userdata('site_lang');
         if ($siteLang) {
@@ -42,6 +44,7 @@ class Module extends MX_Controller {
         if (! $this->ion_auth->logged_in()) {
             redirect('auth');
         }else{
+			$data['module_name']			="";
 			$data['title']					= lang('module_manage');
             $data['modules'] 				= $this->module_model->get_modules();
             $data['menus']			  	   =   $this->nav_model->get_nav_menus();
@@ -52,7 +55,83 @@ class Module extends MX_Controller {
             $this->load->view('browse', $data);
             $this->load->view('templates/footer');  
         }
-    }
+	}
+	//File Upload 
+	function do_upload() {
+			
+        $config['upload_path'] = './uploads/';
+		$config['allowed_types'] = '*';
+		$config['max_size'] = '4096';
+		$config['overwrite'] = TRUE;
+
+		$this->load->library('upload', $config);
+
+		if (!$this->upload->do_upload('extension')) {
+			$error = array('error' => $this->upload->display_errors());
+			return $error;
+		} else {
+			$data = array('upload_data' => $this->upload->data());
+			return $data['upload_data'];
+		}
+	}
+	function upload_module(){
+		if (!$this->ion_auth->logged_in()) {
+            redirect('auth');
+        } else {	
+			$file_upload = $this->do_upload(); 
+			$filename= $file_upload['file_name'];
+			$filname_without_ext = pathinfo($filename, PATHINFO_FILENAME);		
+			if(isset($file_upload['error'])){
+				$this->toastr->error($file_upload['error']);		
+				
+				$data['title']					= lang('module_manage');
+            	$data['modules'] 				= $this->module_model->get_modules();
+            	$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+            	$data['subs']				   =   $data['menus'];
+            	$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+            	$data['permissions']           =   $this->ion_auth_acl->permissions('full', 'perm_key');
+            	$this->load->view('templates/header', $data);
+            	$this->load->view('browse', $data);
+            	$this->load->view('templates/footer');
+			}elseif($file_upload['file_ext']!='.zip'){
+				$data['error'] = lang('upload_error_zip');		
+				$data['title']					= lang('module_manage');
+            	$data['modules'] 				= $this->module_model->get_modules();
+            	$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+            	$data['subs']				   =   $data['menus'];
+            	$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+           		$data['permissions']           =   $this->ion_auth_acl->permissions('full', 'perm_key');
+            	$this->load->view('templates/header', $data);
+            	$this->load->view('browse', $data);
+            	$this->load->view('templates/footer');
+			}elseif(preg_match('/^[a-z_]+$/',$filname_without_ext)) {
+				$data['error'] = "";
+				$data['module_name'] = $filname_without_ext;
+				//unzip module		
+				$this->unzip_module($filname_without_ext);
+				$data['title']					= lang('module_manage');
+            	$data['modules'] 				= $this->module_model->get_modules();
+            	$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+            	$data['subs']				   =   $data['menus'];
+            	$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+            	$data['permissions']           =   $this->ion_auth_acl->permissions('full', 'perm_key');
+            	$this->load->view('templates/header', $data);
+            	$this->load->view('browse', $data);
+            	$this->load->view('templates/footer');
+			}else{			
+				$this->toastr->error(lang('upload_sp_ch_error'));		
+				$data['title']					= lang('module_manage');
+            	$data['modules'] 				= $this->module_model->get_modules();
+            	$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+            	$data['subs']				   =   $data['menus'];
+            	$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+            	$data['permissions']           =   $this->ion_auth_acl->permissions('full', 'perm_key');
+            	$this->load->view('templates/header', $data);
+            	$this->load->view('browse', $data);
+            	$this->load->view('templates/footer');
+			}
+		}
+	}
     public function unzip_module($module_name){
 		$file_name = "./uploads/".$module_name.".zip";
 		$uploads = "./uploads";
@@ -61,11 +140,16 @@ class Module extends MX_Controller {
 			//Replace Files
 			full_copy($uploads."/".$module_name, "./application/modules/".$module_name);
 			//echo "Unzip Successfully completed";
+			delete_files($file_name,TRUE);
 		}else{
 			//echo "Error while unzipping the file";
 		}
 		
-    }
+	}
+	public function install_module(){
+		$module_name = $this->uri->segment(3);
+		
+	}
     public function update_extension(){
 		
 		$module_name = $this->uri->segment(3);	

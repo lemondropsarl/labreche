@@ -19,7 +19,32 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					
 					<div class="card-body">
-
+							<div class="row">
+								<div class="col-md-6">
+								<?php echo form_open_multipart()?>
+									<div class=" wrapper">
+										<input type="file" name="extension"/>
+										<button type="submit" class="btn btn-warning"><i class="fas fa-upload"></i></button>
+									</div>
+									<?php echo form_Close()?>
+								</div>
+								<?php if ($module_name !="") {?>
+									<div class="col-md-6">
+									<?php echo form_open('module/install_module/'.$module_name);?>
+									
+										<div class="card">
+											<div class="card-body">
+												<p class="text-center"><?php echo lang('upload_success')?></p>
+												<div>
+													<button class="btn btn-success"><?php echo lang('install_label')?></button>
+												</div>
+											</div>
+										</div>
+										<?php echo form_close();?>
+										
+									</div>
+							<?php	}?>
+							</div>
 					</div>
 				</div>
 			</div>
