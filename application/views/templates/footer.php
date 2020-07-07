@@ -53,17 +53,16 @@ $this->app = $this->config->item('application','app');
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js')?>"></script>
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js')?>"></script>
 <!-- Toastr -->
-<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
 <script type="text/javascript">
   $(function () {
     <?php if ($this->session->flashdata('success')) {?>
-        toastr.success("<?php echo $this->session->flashdata('success'); ?>");
+        toastr.success("<?php $this->session->flashdata('success'); ?>");
     <?php } else if ($this->session->flashdata('error')) {?>
-        toastr.error("<?php echo $this->session->flashdata('error'); ?>");
+        toastr.error("<?php  $this->session->flashdata('error'); ?>");
     <?php } else if ($this->session->flashdata('warning')) {?>
-        toastr.warning("<?php echo $this->session->flashdata('warning'); ?>");
+        toastr.warning("<?php $this->session->flashdata('warning'); ?>");
     <?php } else if ($this->session->flashdata('info')) {?>
-        toastr.info("<?php echo $this->session->flashdata('info'); ?>");
+        toastr.info("<?php $this->session->flashdata('info'); ?>");
     <?php }?>
   });
 </script>

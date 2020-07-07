@@ -30,7 +30,9 @@ $active = '';
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css')?>">
 	<link rel="stylesheet"
 		href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
-	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css')?>">
+	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.css')?>">
+	<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
+
 
 </head>
 <!--
