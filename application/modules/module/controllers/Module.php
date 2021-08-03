@@ -31,8 +31,8 @@ class Module extends MX_Controller {
            $this->lang->load('ion_auth',$siteLang);
         } else {
 		  
-           $this->lang->load('main','english');
-           $this->lang->load('ion_auth','english');
+           $this->lang->load('main','french');
+           $this->lang->load('ion_auth','french');
 
         }
     }
