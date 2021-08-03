@@ -15,7 +15,6 @@ class Auth extends MX_Controller
 		$this->load->database();
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-		
 		$this->load->library('form_validation');
 		//$this->load->library('migration');
 		$this->load->helper(['url', 'language']);
@@ -43,7 +42,7 @@ class Auth extends MX_Controller
 	 */
 	public function index()
 	{
-
+		
 		if (!$this->ion_auth->logged_in())
 		{
 			// redirect them to the login page

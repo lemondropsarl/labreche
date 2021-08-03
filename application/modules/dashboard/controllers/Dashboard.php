@@ -8,10 +8,13 @@ class Dashboard extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
+		$this->load->library('migration');
+		$this->migration->latest();
 		$this->load->model('nav_model');
 		
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
+		$this->migration->latest();
 		if (!$this->ion_auth->logged_in()) {
 			redirect('auth/login');
 		}
@@ -19,7 +22,7 @@ class Dashboard extends MX_Controller {
         if ($siteLang) {
            $this->lang->load('main',$siteLang);
         } else {
-           $this->lang->load('main','english');
+           $this->lang->load('main','french');
 		}
 		
 

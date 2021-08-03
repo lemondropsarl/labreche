@@ -8,37 +8,38 @@ class Starter extends MX_Controller {
     public function __construct()
     {
         parent::__construct();
-       
+        
         $this->load->helper(['url','language']);
         $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
         $acceptLang = ['french','english'];
-        $lang = in_array($lang, $acceptLang) ? $lang : 'english';
-         
+        $lang = in_array($lang, $acceptLang) ? $lang : 'french';
+        
         $this->lang->load('main',$lang);
-            
+       
         //Check if the application has been installed or not
         $database_file = APPPATH.'config/database.php';
         if(file_exists($database_file)){
             $this->load->database();
-                     
+            
             $tb = $this->db->list_tables();
-           
+            
             if (sizeof($tb) > 0) {
-                                
+                
                 if (count($this->db->get('users')->num_rows()) >=  1) {
-                     $this->load->library('session');
-                     $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
-                     $acceptLang = ['french','english'];
-                     $lang = in_array($lang, $acceptLang) ? $lang : 'english';
-                     
-                     $this->session->set_userdata('site_lang',$lang);
+                    $this->load->library('session');
+                    $lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+                    $acceptLang = ['french','english'];
+                    $lang = in_array($lang, $acceptLang) ? $lang : 'english';
                     
+                    $this->session->set_userdata('site_lang',$lang);
+                   
                     redirect('dashboard');
                 }
             }else {
-                   # code...
-                $this->load->library('migration');
-                $this->migration->migrate_all_modules();
+                # code...
+                
+                    $this->load->library('migration');
+                   $this->migration->migrate_all_modules();
             }
         }
     }
