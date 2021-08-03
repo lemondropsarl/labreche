@@ -34,7 +34,7 @@ class product_model extends CI_Model {
         return $this->db->insert_id();
 
     }
-    public function create_product($data)
+    public function add_product($data)
     {
         $this->db->insert('product', $data);
         return $this->db->insert_id();

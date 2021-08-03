@@ -170,6 +170,16 @@ class Migration_initial_product extends CI_Migration {
 				'parent'=> 'product',
 				'order' => 310,
 				'perm_key'=> 'A'
+            ],
+            [
+                'name'	=> 'create_product',
+                'url'	=> 'product/create',
+                'icon'  => 'material-icons',
+				'icon-name'	=> 'apps',
+				'text'	=> 'Ajouter article',
+				'parent'=> 'product',
+				'order' => 320,
+				'perm_key'=> 'A'
             ]
             
         ];

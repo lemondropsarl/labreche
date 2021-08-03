@@ -42,27 +42,52 @@ class Product extends MX_Controller {
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
-		$data['title']					=  lang('dashboard');
+		$data['title']					=  'Articles';
+        $data['products']               = $this->product_model->get_all_products();
         # code...
         $this->load->view('templates/header',$data);
-        $this->load->view('list');
+        $this->load->view('list_product',$data);
         $this->load->view('templates/footer');
-
-
-        
+    
     }
     public function create(Type $var = null)
     {
+        $data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Articles';
         # code...
-        $this->load->view('templates/header');
-        $this->load->view('create_product');
-        $this->load->view('templates/footer');
+        if ($this->form_validation->run() == FALSE) {
+            # code...
+            $this->load->view('templates/header',$data);
+            $this->load->view('create_product');
+            $this->load->view('templates/footer');
+        }else{
+            # code...
+            //ON AJOUTE LES DONNées dans le db ici
+            $model = array(
+                'product_name' => $this->input->post('pname'),
+                'product_code' => $this->input->post('pcode'),
+                'unit_price' => $this->input->post('price'),
+                'product_brand' => $this->input->post('pbrand'),
+                'product_model' => $this->input->post('pmodel'),
+                'cat_id_fk' => $this->input->post('pcat_id'),
+                'vehicule_id_fk' => $this->input->post('pvehicule_id'),
+                'product_status' => true
+                
+            );
+            $this->product_model->add_product($model);
+
+            //si deja on va ajouter les information du stock alors faut le faire ici
+        }
     }
     public function edit(Type $var = null)
     {
         # code...
         $this->load->view('templates/header');
-        $this->load->view('edit_product');
+        $this->load->view('create_product');
         $this->load->view('templates/footer');
     }
     
@@ -78,6 +103,20 @@ class Product extends MX_Controller {
         # code...
         $this->load->view('templates/header');
         $this->load->view('search_product');
+        $this->load->view('templates/footer');
+    }
+    public function create_category(Type $var = null)
+    {
+        # code...
+        $this->load->view('templates/header');
+        $this->load->view('create_category');
+        $this->load->view('templates/footer');
+    }
+    public function create_vehicule(Type $var = null)
+    {
+        # code...
+        $this->load->view('templates/header');
+        $this->load->view('create_category');
         $this->load->view('templates/footer');
     }
     
