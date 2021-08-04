@@ -81,7 +81,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<div class="invalid-feedback">Please fill out this field.</div>
 									</div>
 									<div class="form-group">
-										<a href="#create_vehicule"><i class="fas fa-plus-square"></i> Ajouter type véhicule</a>
+										<a href="#" data-toggle="modal" data-target="#modalVehicule"><i class="fas fa-plus-square"></i> Ajouter type véhicule</a>
 									</div>
 									<div class="form-group">
 										<label for="categorie">Catégorie:</label>
@@ -92,7 +92,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<div class="invalid-feedback">Please fill out this field.</div>
 									</div>
 									<div class="form-group">
-										<a href="#create_categorie"><i class="fas fa-plus-square"></i> Ajouter catégorie</a>
+										<a href="#" data-toggle="modal" data-target="#modalCategory"><i class="fas fa-plus-square" ></i> Ajouter catégorie</a>
 									</div>
 								</div>
 							</div>
@@ -106,4 +106,46 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 		</div>
 	</div>
+</div>
+
+<!-- Modal vehicule -->
+<div class="modal fade" id="modalVehicule" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal category -->
+<div class="modal fade" id="modalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>
