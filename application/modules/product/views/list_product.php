@@ -6,10 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container-fluid">
 		<!-- your content here -->
 		<div class="row">
-
-		
-					<div class="col-lg-3">
-
+							<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 						<div class="small-box bg-info">
 							<div class="inner">
 								<h3>1500</h3>
@@ -20,7 +17,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
 						<div class="small-box bg-purple">
 							<div class="inner">
@@ -32,7 +29,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							</div>
 						</div>
 					</div>
-					<div class="col-lg-3">
+					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
 						<div class="small-box bg-primary">
 							<div class="inner">
@@ -44,7 +41,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							</div>
 						</div>
 					</div>
-				
 
             <div class="col-md-12">
 				<div class="card card-outline card-secondary">
@@ -55,8 +51,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="row" style="margin-top:1%;">
-						<div class="dropdown col-md-4 col-sm-10 col-xs-10 offset-md-2 form-group">
-							<button type="button" class="btn btn-primary dropdown-toggle form-control col-sm-10 col-xs-10" data-toggle="dropdown">
+						<div class="dropdown col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
+							<button type="button" class="btn btn-primary dropdown-toggle form-control col-sm-10 col-xs-10 " data-toggle="dropdown">
 								Catégorie
 							</button>
 							<div class="dropdown-menu">
@@ -65,7 +61,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<a class="dropdown-item" href="#">catégorie 3</a>
 							</div>
 						</div>
-						<div class="col-md-4 col-sm-10 col-xs-10 form-group" >
+						<div class="col-md-5 col-sm-10 col-xs-10 form-group" >
 							<input type="search" name="" id="" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
