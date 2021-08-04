@@ -34,7 +34,7 @@ class Migration_install_module extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Modules',
 				'parent'=> '',
-				'order' => 200,
+				'order' => 1000,
 				'perm_key'=> 'A'
             ],
             [
@@ -44,7 +44,7 @@ class Migration_install_module extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Extensions',
 				'parent'=> 'module',
-				'order' => 210,
+				'order' => 1100,
 				'perm_key'=> 'A'
             ]
             

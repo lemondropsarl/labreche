@@ -33,7 +33,7 @@ class Migration_initial_admin extends MY_Migration {
 				'icon-name'	=> '',
 				'text'	=> 'administration',
 				'parent'=> '',
-				'order' => 100,
+				'order' => 900,
 				'perm_key'=> 'R'
             ],
             //admin sub menus
@@ -44,7 +44,7 @@ class Migration_initial_admin extends MY_Migration {
 				'icon-name'	=> '',
 				'text'	=> 'Users',
 				'parent'=> 'badmin',
-				'order' => 110,
+				'order' => 910,
 				'perm_key'=> 'R'
             ],
             [
@@ -54,7 +54,7 @@ class Migration_initial_admin extends MY_Migration {
 				'icon-name'	=> '',
 				'text'	=> 'Groups & Permissions',
 				'parent'=> 'badmin',
-				'order' => 120,
+				'order' => 920,
 				'perm_key'=> 'R'
             ]
         ];

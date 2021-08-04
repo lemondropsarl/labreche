@@ -158,7 +158,7 @@ class Migration_initial_product extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Articles',
 				'parent'=> '',
-				'order' => 300,
+				'order' => 200,
 				'perm_key'=> 'A'
             ],
             [
@@ -168,7 +168,7 @@ class Migration_initial_product extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Liste des articles',
 				'parent'=> 'product',
-				'order' => 310,
+				'order' => 210,
 				'perm_key'=> 'A'
             ],
             [
@@ -178,7 +178,7 @@ class Migration_initial_product extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Ajouter article',
 				'parent'=> 'product',
-				'order' => 320,
+				'order' => 220,
 				'perm_key'=> 'A'
             ]
             

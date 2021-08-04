@@ -1,0 +1,304 @@
+<?php 
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+class Migration_initial_warehouse extends CI_Migration {
+
+    private $tables;
+    public function __construct()
+    {
+        $this->load->dbforge();
+        $this->load->config('warehouse/warehouse',TRUE);
+        $this->tables = $this->config->item('tables','warehouse');
+    }
+
+    public function up() {
+        $this->dbforge->drop_table($this->tables['product_location'],TRUE);
+        $this->dbforge->add_field([
+            'prod_loc_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'prod_loc_prod_id' => [
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'unique' => TRUE
+                
+            ],
+            'prod_loc_zone_id' => [
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                
+            ],
+            'prod_loc_shelf_id' => [
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',              
+            ]
+        ]);
+        $this->dbforge->add_key('prod_loc_id',TRUE);
+        $this->dbforge->create_table($this->tables['product_location'],TRUE);
+        
+        $this->dbforge->drop_table($this->tables['zone_location'],TRUE);
+        $this->dbforge->add_field([
+            'zone_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'zone_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20',
+               
+            ]
+        ]);
+        $this->dbforge->add_key('zone_id',TRUE);
+        $this->dbforge->create_table($this->tables['zone_location'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['shelf_location'],TRUE);
+        $this->dbforge->add_field([
+            'shelf_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'shelf_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20',
+                'unique' => TRUE
+            ]
+        ]);
+        $this->dbforge->add_key('shelf_id',TRUE);
+        $this->dbforge->create_table($this->tables['shelf_location'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['last_update_stock'],TRUE);
+        $this->dbforge->add_field([
+            'lus_product_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'unique' => TRUE
+            ],
+            'lus_quantity' => [
+                'type' => 'int',
+                'constraint' => '4'
+            ],
+            'lus_prod_loc_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+               
+            ],
+            'lus_min_quantity' => [
+                'type' => 'int',
+                'constraint' => '4'
+            ],
+            'lus_updated_date' => [
+                'type' => 'date'
+                
+            ]
+            
+        ]);
+        $this->dbforge->create_table($this->tables['last_update_stock'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['warehouses'],TRUE);
+        $this->dbforge->add_field([
+            'warehouse_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'warehouse_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20',
+                'unique' => TRUE
+            ],
+            'warehouse_address' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50'
+            ]
+        ]);
+        $this->dbforge->add_key('warehouse_id',TRUE);
+        $this->dbforge->create_table($this->tables['warehouses'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['warehouse_stock'],TRUE);
+        $this->dbforge->add_field([
+            'ws_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'ws_product_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                
+            ],
+            'warehouse_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+               
+            ],
+            'ws_quantity' => [
+                'type' => 'int',
+                'constraint' => '4'
+            ],
+            'updated_date' => [
+                'type' => 'date',               
+            ]
+        ]);
+        $this->dbforge->add_key('ws_id',TRUE);
+        $this->dbforge->create_table($this->tables['warehouse_stock'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['stock_entries_in'],TRUE);
+        $this->dbforge->add_field([
+            'si_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'si_product_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                
+            ],
+            'si_quantity' => [
+                'type' => 'int',
+                'constraint' => '4'
+            ],
+            'si_entry_date' => [
+                'type' => 'date',               
+            ],
+            'si_user_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4'
+            ]
+        ]);
+        $this->dbforge->add_key('si_id',TRUE);
+        $this->dbforge->create_table($this->tables['stock_entries_in'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['stock_entries_out'],TRUE);
+        $this->dbforge->add_field([
+            'so_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                'auto_increment' => TRUE
+            ],
+            'so_product_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4',
+                
+            ],
+            'so_quantity' => [
+                'type' => 'int',
+                'constraint' => '4'
+            ],
+            'so_entry_date' => [
+                'type' => 'date',               
+            ],
+            'so_dest_ware_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4'
+            ],
+            'so_user_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint' => '4'
+            ]
+        ]);
+        $this->dbforge->add_key('so_id',TRUE);
+        $this->dbforge->create_table($this->tables['stock_entries_out'],TRUE);
+
+        //ad constraint 
+        $query1 = 'ALTER TABLE'.' '. $this->tables['warehouse_stock'].'  '.
+        'ADD CONSTRAINT ws_FK_ID FOREIGN KEY (warehouse_id) REFERENCES'.' '. $this->tables['warehouses'].' '.'(warehouse_id)';
+        $query2 = 'ALTER TABLE'.' '. $this->tables['last_update_stock'].'  '.
+        'ADD CONSTRAINT w_ID FOREIGN KEY (lus_prod_loc_id) REFERENCES'.' '. $this->tables['product_location'].' '.'(prod_loc_id)';
+        $this->db->query($query1);
+        $this->db->query($query2);
+
+        //add acl modules
+        $acls = [
+            [
+                'module_name'   => 'warehouse',
+                'group_id'      => 1,
+                'value'         => '1'
+            ],
+            [
+                'module_name'   => 'warehouse',
+                'group_id'      => 2,
+                'value'         => '1'
+            ],
+        ];
+        $this->db->insert_batch('acl_modules', $acls);
+        
+        $menus = [
+            //warehouse menu
+            [
+                'name'	=> 'warehouse',
+                'url'	=> '',
+                'icon'  => 'fa-cog',
+				'icon-name'	=> '',
+				'text'	=> 'Gestion stock',
+				'parent'=> '',
+				'order' => 300,
+				'perm_key'=> 'R'
+            ],
+            //warehouse sub menus
+            [
+                'name'	=> 'check_stock',
+                'url'	=> 'warehouse/check',
+                'icon'  => 'material-icons',
+				'icon-name'	=> '',
+				'text'	=> 'Voir stock',
+				'parent'=> 'warehouse',
+				'order' => 310,
+				'perm_key'=> 'R'
+            ],
+            [
+                'name'	=> 'entry_in',
+                'url'	=> 'warehouse/entry_in',
+                'icon'  => 'material-icons',
+				'icon-name'	=> '',
+				'text'	=> 'Entrée stock',
+				'parent'=> 'warehouse',
+				'order' => 320,
+				'perm_key'=> 'R'
+            ],
+            [
+                'name'	=> 'entry_out',
+                'url'	=> 'warehouse/entry_in',
+                'icon'  => 'material-icons',
+				'icon-name'	=> '',
+				'text'	=> 'Sortie stock',
+				'parent'=> 'warehouse',
+				'order' => 330,
+				'perm_key'=> 'R'
+            ]
+
+        ];
+        $this->db->insert_batch('navigation_menu', $menus);
+        
+        $module = [
+			'module_name'		    => 'warehouse',
+			'module_display_name'	=> 'Gestion stock',
+			'module_description'	=> 'This extension handle all your stock operations and management',
+			'module_status'			=>'1',
+			'module_version'		=>'1.0.0',
+			'is_preloaded'			=> '1'
+
+		];
+		$this->db->insert('modules', $module);
+    }
+
+    public function down() {
+        $this->dbforge->drop_table($this->tables['product_location'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['zone_location'],TRUE);
+        $this->dbforge->drop_table($this->tables['shelf_location'],TRUE);
+        $this->dbforge->drop_table($this->tables['last_update_stock'],TRUE);
+        $this->dbforge->drop_table($this->tables['warehouses'],TRUE);
+        $this->dbforge->drop_table($this->tables['warehouse_stock'],TRUE);
+        $this->dbforge->drop_table($this->tables['stock_entries_in'],TRUE);
+        $this->dbforge->drop_table($this->tables['stock_entries_out'],TRUE);
+
+    }
+
+}
+
+/* End of file initial_warehouse.php */
