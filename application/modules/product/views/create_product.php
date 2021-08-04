@@ -92,7 +92,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<div class="invalid-feedback">Please fill out this field.</div>
 									</div>
 									<div class="form-group">
-										<a href="#" data-toggle="modal" data-target="#modalCategory"><i class="fas fa-plus-square" ></i> Ajouter catégorie</a>
+										<a href="#" data-toggle="modal" data-target="#modalCategory"><i class="fas fa-plus-square"></i> Ajouter catégorie</a>
 									</div>
 								</div>
 							</div>
@@ -110,42 +110,73 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <!-- Modal vehicule -->
 <div class="modal fade" id="modalVehicule" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ajouter type véhicule</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php echo form_open('product/create'); ?>
+			<div class="modal-body">
+
+				<form class="form" action="" method="post">
+					<div class="form-group">
+						<label for="nom_vehicule">Nom véhicule</label>
+						<input type="text" class="form-control" name="" id="nom_vehicule" placeholder="Nom véhicule" require>
+					</div>
+					<div class="form-group">
+						<label for="marque_vehicule">Marque</label>
+						<input type="text" class="form-control" name="" id="marque_vehicule" placeholder="Marque véhicule" require>
+					</div>
+					<div class="form-group">
+						<label for="modele_vehicule">Modele</label>
+						<input type="text" class="form-control" name="" id="modele_vehicule" placeholder="Modele véhicule" require>
+					</div>
+				</form>
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="button" class="btn btn-success">Enregistrer</button>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
 </div>
 
 <!-- Modal category -->
 <div class="modal fade" id="modalCategory" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ajouter catégorie</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<?php echo form_open('product/create'); ?>
+			<div class="modal-body">
+
+				<form class="form" action="" method="post">
+					<div class="form-group">
+						<label for="cat_name">Nom catégorie</label>
+						<input type="text" class="form-control" name="" id="cat_name" placeholder="Nom catégorie" require>
+					</div>
+					<div class="form-group">
+						<label for="cat_description">Description</label>
+						<textarea class="form-control" name="cat_description" id="cat_description" cols="30" rows="5" placeholder="Déscription catégorie"></textarea>
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="button" class="btn btn-success">Enregistrer</button>
+			</div>
+			<?php echo form_close(); ?>
+		</div>
+	</div>
 </div>
