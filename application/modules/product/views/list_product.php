@@ -70,9 +70,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<table class="table table-bordered">
 								<thead>
 									<tr>
+										<th>Code article</th>
 										<th>Nom article</th>
-										<th>Code Article</th>
-										<th>Prix Unitaire</th>
+										<th>Marque</th>
+										<th>Modèle</th>
+										<th>Prix </th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -80,8 +82,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<?php foreach ($products as $item) { ?>
 
 										<tr>
-											<th><?php echo $item['product_name']; ?></th>
 											<th><?php echo $item['product_code']; ?></th>
+											<th><?php echo $item['product_name']; ?></th>
 											<th><?php echo $item['unit_price']; ?></th>
 										</tr>
 									<?php } ?>

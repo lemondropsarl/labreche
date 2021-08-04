@@ -14,14 +14,11 @@ class Product extends MX_Controller {
         $this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
-		$this->load->helper('file');
-        $this->load->helper('unzip_helper');
         $this->load->helper('mainpage_helper');
-
         $this->load->library('form_validation');
         $this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-		$this->load->library('toastr');
+		
 
         $siteLang = $this->session->userdata('site_lang');
         if ($siteLang) {
@@ -50,7 +47,7 @@ class Product extends MX_Controller {
         $this->load->view('templates/footer');
     
     }
-    public function create(Type $var = null)
+    public function create()
     {
         $data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
 		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
@@ -105,12 +102,15 @@ class Product extends MX_Controller {
         $this->load->view('search_product');
         $this->load->view('templates/footer');
     }
-    public function create_category(Type $var = null)
+    public function create_category()
     {
-        # code...
-        $this->load->view('templates/header');
-        $this->load->view('create_category');
-        $this->load->view('templates/footer');
+        $model = array(
+            'cat_name' => $this->input->post('cat_name'),
+            'cat_description' => $this->input->post('cat_description'),
+            
+            
+        );
+        $this->product_model->add_category($model);
     }
     public function create_vehicule(Type $var = null)
     {

@@ -150,7 +150,7 @@ $active = '';
 
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview" role="menu"
 						data-accordion="false">
 
 						<!-- Add icons to the links using the .nav-icon class

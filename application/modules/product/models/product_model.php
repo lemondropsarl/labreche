@@ -45,6 +45,18 @@ class product_model extends CI_Model {
         return $query->row_array();
  
     }
+    //get categories list
+    public function get_categories()
+    {
+        $query = $this->db->get('categories');
+        return $query->result();
+    }
+    //get vehicules list
+    public function get_vehicules()
+    {
+        $query = $this->db->get('vehicule');
+        return $query->result();
+    }
 }
 
 /* End of file filename.php */
