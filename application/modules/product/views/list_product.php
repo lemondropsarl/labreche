@@ -6,10 +6,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container-fluid">
 		<!-- your content here -->
 		<div class="row">
-<<<<<<< HEAD
-			<div class="col-md-12">
 
-=======
+			
+
             <div class="col-md-12">
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
