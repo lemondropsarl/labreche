@@ -4,17 +4,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Migration_initial_product extends CI_Migration {
 
-    
+    private $tables;
     public function __construct()
     {
 
         $this->load->dbforge();
         $this->load->database();
+        $this->load->config('product/poduct',TRUE);
+        $this->tables = $this->config->item('tables','product');;
        
     }
 
     public function up() {
-        $this->dbforge->drop_table('vehicule',TRUE);
+        $this->dbforge->drop_table($this->tables['vehicule'],TRUE);
         $this->dbforge->add_field([
             'vehicule_id' =>[
                 'type' => 'MEDIUMINT',
@@ -39,9 +41,9 @@ class Migration_initial_product extends CI_Migration {
             ]          
         ]);
         $this->dbforge->add_key('vehicule_id', TRUE);
-        $this->dbforge->create_table('vehicule');
+        $this->dbforge->create_table($this->tables['vehicule']);
 
-        $this->dbforge->drop_table('categories',TRUE);
+        $this->dbforge->drop_table($this->tables['categories'],TRUE);
         $this->dbforge->add_field([
 
             'cat_id' => [
@@ -61,9 +63,9 @@ class Migration_initial_product extends CI_Migration {
             ]
         ]);
         $this->dbforge->add_key('cat_id',TRUE);
-        $this->dbforge->create_table('categories',TRUE);
+        $this->dbforge->create_table($this->tables['categories'],TRUE);
 
-        $this->dbforge->drop_table('product',TRUE);
+        $this->dbforge->drop_table($this->tables['product'],TRUE);
         $this->dbforge->add_field([
             'product_id' => [
                 'type' => 'MEDIUMINT',
@@ -108,14 +110,14 @@ class Migration_initial_product extends CI_Migration {
 
         ]);
         $this->dbforge->add_key('product_id',TRUE);
-        $this->dbforge->create_table('product',TRUE);
+        $this->dbforge->create_table($this->tables['product'],TRUE);
 
         
 
-        $query1 = 'ALTER TABLE product'.'  '.
-        'ADD CONSTRAINT fk_ve_id FOREIGN KEY (vehicule_id_fk) REFERENCES vehicule (vehicule_id)';
-        $query2 = 'ALTER TABLE product'.' '.
-        'ADD CONSTRAINT fk_cat_id FOREIGN KEY (cat_id_fk) REFERENCES categories (cat_id)';
+        $query1 = 'ALTER TABLE'.' '.$this->tables['product'].'  '.
+        'ADD CONSTRAINT fk_ve_id FOREIGN KEY (vehicule_id_fk) REFERENCES'.' '.$this->tables['vehicule'].' '.' (vehicule_id)';
+        $query2 = 'ALTER TABLE'.' '.$this->tables['vehicule'].' '.
+        'ADD CONSTRAINT fk_cat_id FOREIGN KEY (cat_id_fk) REFERENCES'.' '.$this->tables['categories'].' '.' (cat_id)';
 
         $this->db->query($query1);
         $this->db->query($query2);
@@ -189,9 +191,9 @@ class Migration_initial_product extends CI_Migration {
     }
             
     public function down() {
-        $this->dbforge->drop_table('vehicule',TRUE);
-        $this->dbforge->drop_table('categories',TRUE);
-        $this->dbforge->drop_table('product',TRUE);
+        $this->dbforge->drop_table($this->tables['vehicule'],TRUE);
+        $this->dbforge->drop_table($this->tables['categories'],TRUE);
+        $this->dbforge->drop_table($this->tables['product'],TRUE);
 
     }
 
