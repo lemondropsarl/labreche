@@ -10,7 +10,7 @@ class Migration_initial_product extends CI_Migration {
 
         $this->load->dbforge();
         $this->load->database();
-        $this->load->config('product/poduct',TRUE);
+        $this->load->config('product/product',TRUE);
         $this->tables = $this->config->item('tables','product');;
        
     }
@@ -22,10 +22,6 @@ class Migration_initial_product extends CI_Migration {
                 'type' => 'MEDIUMINT',
                 'constraint' => '4',
                 'auto_increment' => TRUE
-            ],
-            'vehicule_name' =>[
-                'type' => 'VARCHAR',
-                'constraint' => '50',
             ],
             'vehicule_brand' => [
                 'type' => 'VARCHAR',
@@ -42,6 +38,15 @@ class Migration_initial_product extends CI_Migration {
         ]);
         $this->dbforge->add_key('vehicule_id', TRUE);
         $this->dbforge->create_table($this->tables['vehicule']);
+        $this->dbforge->drop_table($this->tables['uom'],TRUE);
+        $this->dbforge->add_field([
+            
+            'uom_name' => [
+                'type' => 'VARCHAR',
+                'constraint' => '50'
+            ]      
+        ]);
+        $this->dbforge->create_table($this->tables['uom']);
 
         $this->dbforge->drop_table($this->tables['categories'],TRUE);
         $this->dbforge->add_field([
@@ -95,11 +100,19 @@ class Migration_initial_product extends CI_Migration {
                 'constraint' => '20',
                 'null' => TRUE
             ],
-            'cat_id_fk' => [
+            'product_cat_id' => [
                 'type' => 'MEDIUMINT',
                 'constraint' => '4'
             ],
-            'vehicule_id_fk' => [
+            'product_uom' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20'
+            ],
+            'product_currency' => [
+                'type' => 'VARCHAR',
+                'constraint' => '3'
+            ],
+            'product_vehicule_id' => [
                 'type' => 'MEDIUMINT',
                 'constraint' => '4'
             ],
@@ -115,14 +128,33 @@ class Migration_initial_product extends CI_Migration {
         
 
         $query1 = 'ALTER TABLE'.' '.$this->tables['product'].'  '.
-        'ADD CONSTRAINT fk_ve_id FOREIGN KEY (vehicule_id_fk) REFERENCES'.' '.$this->tables['vehicule'].' '.' (vehicule_id)';
-        $query2 = 'ALTER TABLE'.' '.$this->tables['vehicule'].' '.
-        'ADD CONSTRAINT fk_cat_id FOREIGN KEY (cat_id_fk) REFERENCES'.' '.$this->tables['categories'].' '.' (cat_id)';
+        'ADD CONSTRAINT fk_ve_id FOREIGN KEY (product_vehicule_id) REFERENCES'.' '.$this->tables['vehicule'].' '.' (vehicule_id)';
+        $query2 = 'ALTER TABLE'.' '.$this->tables['product'].' '.
+        'ADD CONSTRAINT fk_cat_id FOREIGN KEY (product_cat_id) REFERENCES'.' '.$this->tables['categories'].' '.' (cat_id)';
 
         $this->db->query($query1);
         $this->db->query($query2);
 
+        // seed UOM data
+        $uoms = [
+            [
+                'uom_name' => 'BOUTEILLE'
+            ],
+            [
+                'uom_name' => 'PIECE'
+             ],
+             [
 
+                 'uom_name' => 'CARTON',
+             ],
+             [
+
+                 'uom_name' => 'LITRE',
+             ]
+            
+        ];
+        $this->db->insert_batch('uom', $uoms);
+        
         //adding to acl module table
         $acls = [
             [
@@ -192,6 +224,7 @@ class Migration_initial_product extends CI_Migration {
             
     public function down() {
         $this->dbforge->drop_table($this->tables['vehicule'],TRUE);
+        $this->dbforge->drop_table($this->tables['uom'],TRUE);
         $this->dbforge->drop_table($this->tables['categories'],TRUE);
         $this->dbforge->drop_table($this->tables['product'],TRUE);
 

@@ -55,31 +55,40 @@ class Product extends MX_Controller {
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'Articles';
+
+        //get categories and vehicules for dropdown list
+        $data['categories'] = $this->product_model->get_categories();
+        $data['vehicules'] = $this->product_model->get_vehicules();
+        $data['uoms'] = $this->product_model->get_uoms();
+
         # code...
-        if ($this->form_validation->run() == FALSE) {
+        
             # code...
             $this->load->view('templates/header',$data);
-            $this->load->view('create_product');
+            $this->load->view('create_product',$data);
             $this->load->view('templates/footer');
-        }else{
-            # code...
-            //ON AJOUTE LES DONNées dans le db ici
-            $model = array(
-                'product_name' => $this->input->post('pname'),
-                'product_code' => $this->input->post('pcode'),
-                'unit_price' => $this->input->post('price'),
-                'product_brand' => $this->input->post('pbrand'),
-                'product_model' => $this->input->post('pmodel'),
-                'cat_id_fk' => $this->input->post('pcat_id'),
-                'vehicule_id_fk' => $this->input->post('pvehicule_id'),
-                'product_status' => true
-                
-            );
-            $this->product_model->add_product($model);
-
-            //si deja on va ajouter les information du stock alors faut le faire ici
-        }
     }
+    public function create_operation()
+    {
+        # code...
+        $model = array(
+            'product_name' => $this->input->post('pname'),
+            'product_code' => $this->input->post('pcode'),
+            'unit_price' => $this->input->post('price'),
+            'product_brand' => $this->input->post('pbrand'),
+            'product_model' => $this->input->post('pmodel'),
+            'product_cat_id' => $this->input->post('pcat_id'),
+            'product_uom' => $this->input->post('uom'),
+
+            'product_vehicule_id' => $this->input->post('pv_id'),
+            'product_status' => 1
+            
+        );
+        $this->product_model->add_product($model);
+        
+        redirect('product/list','refresh');
+    }
+       
     public function edit(Type $var = null)
     {
         # code...
@@ -106,18 +115,22 @@ class Product extends MX_Controller {
     {
         $model = array(
             'cat_name' => $this->input->post('cat_name'),
-            'cat_description' => $this->input->post('cat_description'),
-            
-            
+            'cat_description' => $this->input->post('cat_description')
         );
         $this->product_model->add_category($model);
+    
+        redirect('product/create','refresh');
+    
     }
     public function create_vehicule(Type $var = null)
     {
-        # code...
-        $this->load->view('templates/header');
-        $this->load->view('create_category');
-        $this->load->view('templates/footer');
+        $model = array(
+            'vehicule_brand' => $this->input->post('vehicule_brand'),
+            'vehicule_model' => $this->input->post('vehicule_model')
+        );
+        $this->product_model->add_vehicule($model);
+    
+        redirect('product/create','refresh');
     }
     
 }

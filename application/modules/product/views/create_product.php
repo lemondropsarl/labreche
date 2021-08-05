@@ -14,56 +14,64 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="card-body">
-						<?php echo form_open('product/create'); ?>
+						<?php echo form_open('product/create_operation'); ?>
 						<form class="form">
 							<div class="form-row">
 								<div class="col-md-5">
 									<div class="form-group">
 										<label for="prCode">Code article:</label>
-										<input type="text" class="form-control" id="prCode" placeholder="Code article" name="prCode" required>
+										<input type="text" class="form-control" id="prCode" placeholder="Code article" name="pcode" required>
 										<div class="valid-feedback">Valid.</div>
 										<div class="invalid-feedback">Please fill out this field.</div>
 									</div>
 									<div class="form-group">
-										<label for="prCode">Nom artcile:</label>
-										<input type="text" class="form-control" id="nomArticle" placeholder="Nom article" name="nomArticle" required>
+										<label for="prCode">Nom article:</label>
+										<input type="text" class="form-control" id="nomArticle" placeholder="Nom article" name="pname" required>
 										<div class="valid-feedback">Valid.</div>
 										<div class="invalid-feedback">Please fill out this field.</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-6">
 											<label for="pr_marque">Marque:</label>
-											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="prMarque" required>
+											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="pbrand" required>
 											<div class="valid-feedback">Valid.</div>
 											<div class="invalid-feedback">Please fill out this field.</div>
 										</div>
 										<div class="form-group col-6">
 											<label for="prModele">Modele</label>
-											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="prModele" required>
+											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="pmodel" required>
 											<div class="valid-feedback">Valid.</div>
 											<div class="invalid-feedback">Please fill out this field.</div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="form-group col-6">
+										<div class="form-group col-4">
 											<label for="prPrix">Prix</label>
-											<input type="text" class="form-control" id="prPrix" placeholder="Prix" name="prPrix" required>
+											<input type="number" class="form-control" id="prPrix" placeholder="Prix" name="price" required>
 											<div class="valid-feedback">Valid.</div>
 											<div class="invalid-feedback">Please fill out this field.</div>
 										</div>
 
-										<div class="form-group col-6">
+										<div class="form-group col-4">
 											<label for="prUnite">Unité</label>
-											<select class="form-control" id="prUnite" placeholder="Unite" name="prUnite">
-												<option value="">Unite</option>
-												<option value="sache">saché</option>
-												<option value="carton">carton</option>
-												<option value="piece">piece</option>
-												<option value="kilo">kilo</option>
-												<option value="metre">metre</option>
-												<option value="bouteille">Bouteille</option>
-												<option value="litre">litre</option>
-												<option value="metre">metre</option>
+											<select class="form-control" id="prUnite" placeholder="Unite" name="uom">
+												<?php foreach ($uoms as $option) {?>
+													# code...
+													<option value="<?php echo $option['uom_name'];?>"><?php echo $option['uom_name'];?></option>
+												<?php }?>
+												
+											</select>
+											<div class="valid-feedback">Valid.</div>
+											<div class="invalid-feedback">Please fill out this field.</div>
+										</div>
+										<div class="form-group col-4">
+											<label for="currency">Devise</label>
+											<select class="form-control" id="prUnite" placeholder="Unite" name="pcurrency">
+												
+													<option value="CDF">CDF</option>
+													<option value="USD">USD</option>
+												
+												
 											</select>
 											<div class="valid-feedback">Valid.</div>
 											<div class="invalid-feedback">Please fill out this field.</div>
@@ -74,8 +82,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 									<div class="form-group">
 										<label for="prCode">Véhicule:</label>
-										<select type="text" class="form-control" id="prCode" placeholder="véhicule" name="veicule">
-											<option value="">Véhicule</option>
+										<select type="text" class="form-control" id="vehicule" placeholder="véhicule" name="pv_id">
+											<?php foreach ($vehicules as $option) {?>
+												# code...
+												<option value="<?php echo $option['vehicule_id'];?>"><?php echo $option['vehicule_brand'];?></option>
+											<?php }?>
 										</select>
 										<div class="valid-feedback">Valid.</div>
 										<div class="invalid-feedback">Please fill out this field.</div>
@@ -85,8 +96,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									</div>
 									<div class="form-group">
 										<label for="categorie">Catégorie:</label>
-										<select type="text" class="form-control" id="prCode" placeholder="Catégorie" name="categorie">
-											<option value="">Catégorie</option>
+										<select type="text" class="form-control" id="category" placeholder="Catégorie" name="pcat_id">
+											<?php foreach ($categories as $option) {?>
+												# code...
+												<option value="<?php echo $option['cat_id'];?>"><?php echo $option['cat_name'];?></option>
+											<?php }?>
 										</select>
 										<div class="valid-feedback">Valid.</div>
 										<div class="invalid-feedback">Please fill out this field.</div>
@@ -97,7 +111,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</div>
 							</div>
 							<div class="form-group row" style="border-top: 1px solid grey;padding-top:2%;">
-								<button class="btn btn-primary form-control col-6 offset-3">Créer</button>
+								<button type="submit" class="btn btn-primary form-control col-6 offset-3">Créer</button>
 							</div>
 						</form>
 						<?php echo form_close(); ?>
@@ -118,29 +132,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('product/create'); ?>
-			<div class="modal-body">
-
-				<form class="form" action="" method="post">
-					<div class="form-group">
-						<label for="nom_vehicule">Nom véhicule</label>
-						<input type="text" class="form-control" name="" id="nom_vehicule" placeholder="Nom véhicule" require>
-					</div>
+			<?php echo form_open('product/create_vehicule'); ?>
+			<div class="modal-body">					
 					<div class="form-group">
 						<label for="marque_vehicule">Marque</label>
-						<input type="text" class="form-control" name="" id="marque_vehicule" placeholder="Marque véhicule" require>
+						<input type="text" class="form-control" name="vehicule_brand" id="vehicule_brand" placeholder="Marque véhicule" require>
 					</div>
 					<div class="form-group">
 						<label for="modele_vehicule">Modele</label>
-						<input type="text" class="form-control" name="" id="modele_vehicule" placeholder="Modele véhicule" require>
+						<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
 					</div>
-				</form>
-
-
+				
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" class="btn btn-success">Enregistrer</button>
+				<button type="submit" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -157,24 +163,24 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('product/create'); ?>
 			<div class="modal-body">
+				<?php echo form_open('product/create_category'); ?>
 
-				<form class="form" action="" method="post">
+				
 					<div class="form-group">
 						<label for="cat_name">Nom catégorie</label>
-						<input type="text" class="form-control" name="" id="cat_name" placeholder="Nom catégorie" require>
+						<input type="text" class="form-control" name="cat_name" id="cat_name" placeholder="Nom catégorie" require>
 					</div>
 					<div class="form-group">
 						<label for="cat_description">Description</label>
 						<textarea class="form-control" name="cat_description" id="cat_description" cols="30" rows="5" placeholder="Déscription catégorie"></textarea>
 					</div>
-				</form>
+				
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" class="btn btn-success">Enregistrer</button>
+				<button type="submit" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
