@@ -29,7 +29,7 @@ class nav_model extends CI_Model {
               $rows = $query->result_array();
              foreach ($rows as $module) {
                 if (!in_Array($module['module_name'],$input)) {
-                   array_push($input,$module{'module_name'});
+                   array_push($input,$module['module_name']);
                 }
              }         
         }
