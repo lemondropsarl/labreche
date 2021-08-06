@@ -78,6 +78,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<th>Unité</th>
 										<th>Prix </th>
 										<th>Dévise</th>
+										<th>Action</th>
 									</tr>
 								</thead>
 								<tbody id='contenair_products'>

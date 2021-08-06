@@ -16,6 +16,7 @@ class Product extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
+		
 
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
@@ -92,12 +93,19 @@ class Product extends MX_Controller
 		$this->load->view('templates/footer');
 	}
 
-	public function details(Type $var = null)
+	public function details()
 	{
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Article!Détail';
+		
 		# code...
-		$this->load->view('templates/header');
-		$this->load->view('detail_product');
-		$this->load->view('templates/fotter');
+		$this->load->view('templates/header',$data);
+		$this->load->view('detail_product',$data);
+		$this->load->view('templates/footer');
 	}
 	public function search()
 	{
