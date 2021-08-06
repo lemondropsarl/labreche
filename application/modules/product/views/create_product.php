@@ -138,6 +138,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<div class="erreur cache bg-danger" id="erreur_marque_vehicule">
 					La catégorie est obligatoire
 				</div>
+<<<<<<< refs/remotes/origin/develop
 				<div class="form-group">
 					<label for="modele_vehicule">Modele</label>
 					<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
@@ -145,11 +146,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<div class="erreur cache bg-danger" id="erreur_model_vehicule">
 					La description est obligateoire
 				</div>
+=======
+				
+>>>>>>> ajout page detail du produit
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="submit" id="btn_add_car" class="btn btn-success">Enregistrer</button>
+				<button type="button" id="btn_add_car" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -188,7 +192,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="submit" id="btn_add_categori" class="btn btn-success">Enregistrer</button>
+				<button type="button" id="btn_add_category" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
