@@ -25,12 +25,10 @@ class Migration_initial_product extends CI_Migration {
             ],
             'vehicule_brand' => [
                 'type' => 'VARCHAR',
-                'constraint' => '50'
+                'constraint' => '50',
+                'unique' => TRUE
             ],
-            'vehicule_model' =>[
-                'type' => 'VARCHAR',
-                'constraint' => '50'
-            ],
+            
             'isActive' =>[
                 'type' => 'boolean',
                 'default' => 1
