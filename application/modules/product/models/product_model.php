@@ -28,6 +28,7 @@ class product_model extends CI_Model {
         return $this->db->insert_id();
         
     }
+	
     public function add_vehicule($data)
     {
         $this->db->insert('vehicule', $data);
@@ -36,8 +37,10 @@ class product_model extends CI_Model {
     }
     public function add_product($data)
     {
+
         $this->db->insert('product', $data);
         return $this->db->insert_id();
+
     }
     public function get_product_by_code($code)
     {

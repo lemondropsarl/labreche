@@ -6,43 +6,43 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container-fluid">
 		<!-- your content here -->
 		<div class="row">
-							<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
-						<div class="small-box bg-info">
-							<div class="inner">
-								<h3>1500</h3>
-								<p>categorie</p>
-							</div>
-							<div class="icon">
-								<i class=""></i>
-							</div>
-						</div>
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+				<div class="small-box bg-info">
+					<div class="inner">
+						<h3>1500</h3>
+						<p>categorie</p>
 					</div>
-					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
-
-						<div class="small-box bg-purple">
-							<div class="inner">
-								<h3>1500</h3>
-								<p>Accessoire</p>
-							</div>
-							<div class="icon">
-								<i class="fas fa-car"></i>
-							</div>
-						</div>
+					<div class="icon">
+						<i class=""></i>
 					</div>
-					<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
-						<div class="small-box bg-primary">
-							<div class="inner">
-								<h3>1500</h3>
-								<p>moteur</p>
-							</div>
-							<div class="icon">
-								<i class=""></i>
-							</div>
-						</div>
+				<div class="small-box bg-purple">
+					<div class="inner">
+						<h3>1500</h3>
+						<p>Accessoire</p>
 					</div>
+					<div class="icon">
+						<i class="fas fa-car"></i>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
-            <div class="col-md-12">
+				<div class="small-box bg-primary">
+					<div class="inner">
+						<h3>1500</h3>
+						<p>moteur</p>
+					</div>
+					<div class="icon">
+						<i class=""></i>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-12">
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
 						<h4 class="card-title">Liste des articles</h4>
@@ -61,30 +61,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<a class="dropdown-item" href="#">catégorie 3</a>
 							</div>
 						</div>
-						<div class="col-md-5 col-sm-10 col-xs-10 form-group" >
+						<div class="col-md-5 col-sm-10 col-xs-10 form-group">
 							<input type="search" name="" id="" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
-							<table class="table table-bordered">
-								<thead>
+							<table class="table table-bordered table-striped">
+								<thead class="bg-dark text-center">
 									<tr>
 										<th>Code article</th>
 										<th>Nom article</th>
 										<th>Marque</th>
 										<th>Modèle</th>
+										<th>Unité</th>
 										<th>Prix </th>
-										<th>Action</th>
+										<th>Dévise</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php foreach ($products as $item) { ?>
-
 										<tr>
-											<th><?php echo $item['product_code']; ?></th>
-											<th><?php echo $item['product_name']; ?></th>
-											<th><?php echo $item['unit_price']; ?></th>
+											<td><?php echo $item['product_code']; ?></td>
+											<td><?php echo $item['product_name']; ?></td>
+											<td><?php echo $item['product_brand']; ?></td>
+											<td><?php echo $item['product_model']; ?></td>
+											<td><?php echo $item['product_uom']; ?></td>
+											<td><?php echo $item['unit_price']; ?></td>
+											<td><?php echo $item['product_currency']; ?></td>
+
 										</tr>
 									<?php } ?>
 								</tbody>

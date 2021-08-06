@@ -6,6 +6,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<!-- your content here -->
 		<div class="row">
 			<div class="col-md-12">
+				<div>
+					<h1 id='message_server'></h1>
+				</div>
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
 						<h4 class="card-title">Nouveau article</h4>
@@ -21,89 +24,83 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<div class="form-group">
 										<label for="prCode">Code article:</label>
 										<input type="text" class="form-control" id="prCode" placeholder="Code article" name="pcode" required>
-										<div class="valid-feedback">Valid.</div>
-										<div class="invalid-feedback">Please fill out this field.</div>
+										<div class="erreur cache" id="prCode_erreur">Vérifier le code article</div>
+
 									</div>
 									<div class="form-group">
-										<label for="prCode">Nom article:</label>
+										<label for="nomArticle">Nom article:</label>
 										<input type="text" class="form-control" id="nomArticle" placeholder="Nom article" name="pname" required>
-										<div class="valid-feedback">Valid.</div>
-										<div class="invalid-feedback">Please fill out this field.</div>
+										<div class="erreur cache" id='erreur_nom'>Vérifier le nom article</div>
+
 									</div>
 									<div class="row">
 										<div class="form-group col-6">
-											<label for="pr_marque">Marque:</label>
+											<label for="prMarque">Marque:</label>
 											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="pbrand" required>
-											<div class="valid-feedback">Valid.</div>
-											<div class="invalid-feedback">Please fill out this field.</div>
+											<div class="erreur cache" id='erreur_marque'>Vérifier la marque de l'article</div>
+
 										</div>
 										<div class="form-group col-6">
 											<label for="prModele">Modele</label>
 											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="pmodel" required>
-											<div class="valid-feedback">Valid.</div>
-											<div class="invalid-feedback">Please fill out this field.</div>
+											<div class="erreur cache" id='erreur_modele'>Vérifier le modele</div>
+
 										</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-4">
 											<label for="prPrix">Prix</label>
 											<input type="number" class="form-control" id="prPrix" placeholder="Prix" name="price" required>
-											<div class="valid-feedback">Valid.</div>
-											<div class="invalid-feedback">Please fill out this field.</div>
+											<div class="erreur cache" id='erreur_prix'>Vérifier le prix</div>
+
 										</div>
 
 										<div class="form-group col-4">
 											<label for="prUnite">Unité</label>
-											<select class="form-control" id="prUnite" placeholder="Unite" name="uom">
-												<?php foreach ($uoms as $option) {?>
+											<select class="form-control" id="prUnite" placeholder="Unite" name="prUnite">
+												<?php foreach ($uoms as $option) { ?>
 													# code...
-													<option value="<?php echo $option['uom_name'];?>"><?php echo $option['uom_name'];?></option>
-												<?php }?>
-												
+													<option value="<?php echo $option['uom_name']; ?>"><?php echo $option['uom_name']; ?></option>
+												<?php } ?>
+
 											</select>
-											<div class="valid-feedback">Valid.</div>
-											<div class="invalid-feedback">Please fill out this field.</div>
+											<div class="erreur cache" id='erreur_unite'>Vérifier l'unité de l'article</div>
+
 										</div>
 										<div class="form-group col-4">
 											<label for="currency">Devise</label>
-											<select class="form-control" id="prUnite" placeholder="Unite" name="pcurrency">
-												
-													<option value="CDF">CDF</option>
-													<option value="USD">USD</option>
-												
-												
+											<select class="form-control" id="pcurrency" placeholder="Unite" name="pcurrency">
+												<option value="CDF">CDF</option>
+												<option value="USD">USD</option>
 											</select>
-											<div class="valid-feedback">Valid.</div>
-											<div class="invalid-feedback">Please fill out this field.</div>
+
 										</div>
 									</div>
 								</div>
 								<div class="col-md-5 offset-md-1">
 
 									<div class="form-group">
-										<label for="prCode">Véhicule:</label>
-										<select type="text" class="form-control" id="vehicule" placeholder="véhicule" name="pv_id">
-											<?php foreach ($vehicules as $option) {?>
+										<label for="vehicule">Véhicule:</label>
+										<select type="text" class="form-control" id="pv_id" name="pv_id">
+											<?php foreach ($vehicules as $option) { ?>
 												# code...
-												<option value="<?php echo $option['vehicule_id'];?>"><?php echo $option['vehicule_brand'];?></option>
-											<?php }?>
+												<option value="<?php echo $option['vehicule_id']; ?>"><?php echo $option['vehicule_brand']; ?></option>
+											<?php } ?>
 										</select>
-										<div class="valid-feedback">Valid.</div>
-										<div class="invalid-feedback">Please fill out this field.</div>
+
 									</div>
 									<div class="form-group">
 										<a href="#" data-toggle="modal" data-target="#modalVehicule"><i class="fas fa-plus-square"></i> Ajouter type véhicule</a>
 									</div>
 									<div class="form-group">
-										<label for="categorie">Catégorie:</label>
-										<select type="text" class="form-control" id="category" placeholder="Catégorie" name="pcat_id">
-											<?php foreach ($categories as $option) {?>
+										<label for="pcat_id">Catégorie:</label>
+										<select type="text" class="form-control" id="pcat_id" placeholder="Catégorie" name="pcat_id">
+											<?php foreach ($categories as $option) { ?>
 												# code...
-												<option value="<?php echo $option['cat_id'];?>"><?php echo $option['cat_name'];?></option>
-											<?php }?>
+												<option value="<?php echo $option['cat_id']; ?>"><?php echo $option['cat_name']; ?></option>
+											<?php } ?>
 										</select>
-										<div class="valid-feedback">Valid.</div>
-										<div class="invalid-feedback">Please fill out this field.</div>
+
 									</div>
 									<div class="form-group">
 										<a href="#" data-toggle="modal" data-target="#modalCategory"><i class="fas fa-plus-square"></i> Ajouter catégorie</a>
@@ -111,7 +108,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</div>
 							</div>
 							<div class="form-group row" style="border-top: 1px solid grey;padding-top:2%;">
-								<button type="submit" class="btn btn-primary form-control col-6 offset-3">Créer</button>
+								<button type="button" id='bt_create_produit' class="btn btn-primary form-control col-6 offset-3">Créer</button>
 							</div>
 						</form>
 						<?php echo form_close(); ?>
@@ -133,20 +130,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</button>
 			</div>
 			<?php echo form_open('product/create_vehicule'); ?>
-			<div class="modal-body">					
-					<div class="form-group">
-						<label for="marque_vehicule">Marque</label>
-						<input type="text" class="form-control" name="vehicule_brand" id="vehicule_brand" placeholder="Marque véhicule" require>
-					</div>
-					<div class="form-group">
-						<label for="modele_vehicule">Modele</label>
-						<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
-					</div>
-				
+			<div class="modal-body">
+				<div class="form-group">
+					<label for="marque_vehicule">Marque</label>
+					<input type="text" class="form-control" name="vehicule_brand" id="vehicule_brand" placeholder="Marque véhicule" require>
+				</div>
+				<div class="erreur cache" id="erreur_marque_vehicule">
+					La catégorie est obligatoire
+				</div>
+				<div class="form-group">
+					<label for="modele_vehicule">Modele</label>
+					<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
+				</div>
+				<div class="erreur cache" id="erreur_model_vehicule">
+					La description est obligateoire
+				</div>
+
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="submit" class="btn btn-success">Enregistrer</button>
+				<button type="submit" id="btn_add_car" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -166,21 +169,26 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="modal-body">
 				<?php echo form_open('product/create_category'); ?>
 
-				
-					<div class="form-group">
-						<label for="cat_name">Nom catégorie</label>
-						<input type="text" class="form-control" name="cat_name" id="cat_name" placeholder="Nom catégorie" require>
-					</div>
-					<div class="form-group">
-						<label for="cat_description">Description</label>
-						<textarea class="form-control" name="cat_description" id="cat_description" cols="30" rows="5" placeholder="Déscription catégorie"></textarea>
-					</div>
-				
+
+				<div class="form-group">
+					<label for="cat_name">Nom catégorie</label>
+					<input type="text" class="form-control" name="cat_name" id="cat_name" placeholder="Nom catégorie" require>
+				</div>
+				<div class="erreur cache" id="erreur_cat_vehicule">
+					La catégorie est obligatoire
+				</div>
+				<div class="form-group">
+					<label for="cat_description">Description</label>
+					<textarea class="form-control" name="cat_description" id="cat_description" cols="30" rows="5" placeholder="Déscription catégorie"></textarea>
+				</div>
+				<div class="erreur cache" id="erreur_description_vehicule">
+					La description est obligatoire
+				</div>
 
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="submit" class="btn btn-success">Enregistrer</button>
+				<button type="submit" id="btn_add_categori" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
