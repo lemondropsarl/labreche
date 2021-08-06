@@ -4,9 +4,10 @@
 	justify-content: center;
 	align-items: center;
 	color: white;
-	background: crimson;
 	border-radius: 3px;
 	margin-top: 1%;
+	text-transform: uppercase;
+	font-size: 10pt;
 }
 .cache{
 	display: none;
@@ -17,4 +18,8 @@ th{
 }
 td{
 	text-transform: capitalize;
+}
+label{
+	text-transform: uppercase;
+	font-weight:none;
 }

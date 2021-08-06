@@ -22,41 +22,41 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<div class="form-row">
 								<div class="col-md-5">
 									<div class="form-group">
-										<label for="prCode">Code article:</label>
+										<label for="prCode" class="label text-secondary">Code article</label>
 										<input type="text" class="form-control" id="prCode" placeholder="Code article" name="pcode" required>
-										<div class="erreur cache" id="prCode_erreur">Vérifier le code article</div>
+										<div class="erreur cache bg-danger" id="prCode_erreur">Vérifier le code article</div>
 
 									</div>
 									<div class="form-group">
-										<label for="nomArticle">Nom article:</label>
+										<label for="nomArticle"  class="label text-secondary">Nom article</label>
 										<input type="text" class="form-control" id="nomArticle" placeholder="Nom article" name="pname" required>
-										<div class="erreur cache" id='erreur_nom'>Vérifier le nom article</div>
+										<div class="erreur cache bg-danger" id='erreur_nom'>Vérifier le nom</div>
 
 									</div>
 									<div class="row">
 										<div class="form-group col-6">
-											<label for="prMarque">Marque:</label>
+											<label for="prMarque"  class="label text-secondary">Marque</label>
 											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="pbrand" required>
-											<div class="erreur cache" id='erreur_marque'>Vérifier la marque de l'article</div>
+											<div class="erreur cache bg-danger" id='erreur_marque'>Vérifier la marque</div>
 
 										</div>
 										<div class="form-group col-6">
-											<label for="prModele">Modele</label>
+											<label for="prModele"  class="label text-secondary">Modele</label>
 											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="pmodel" required>
-											<div class="erreur cache" id='erreur_modele'>Vérifier le modele</div>
+											<div class="erreur cache bg-danger" id='erreur_modele'>Vérifier le modele</div>
 
 										</div>
 									</div>
 									<div class="row">
 										<div class="form-group col-4">
-											<label for="prPrix">Prix</label>
+											<label for="prPrix"  class="label text-secondary">Prix</label>
 											<input type="number" class="form-control" id="prPrix" placeholder="Prix" name="price" required>
-											<div class="erreur cache" id='erreur_prix'>Vérifier le prix</div>
+											<div class="erreur cache bg-danger" id='erreur_prix'>Vérifier le prix</div>
 
 										</div>
 
 										<div class="form-group col-4">
-											<label for="prUnite">Unité</label>
+											<label for="prUnite"  class="label text-secondary">Unité</label>
 											<select class="form-control" id="prUnite" placeholder="Unite" name="prUnite">
 												<?php foreach ($uoms as $option) { ?>
 													# code...
@@ -64,11 +64,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 												<?php } ?>
 
 											</select>
-											<div class="erreur cache" id='erreur_unite'>Vérifier l'unité de l'article</div>
+											<div class="erreur cache bg-danger" id='erreur_unite'>Vérifier l'unité</div>
 
 										</div>
 										<div class="form-group col-4">
-											<label for="currency">Devise</label>
+											<label for="currency"  class="label text-secondary">Devise</label>
 											<select class="form-control" id="pcurrency" placeholder="Unite" name="pcurrency">
 												<option value="CDF">CDF</option>
 												<option value="USD">USD</option>
@@ -80,7 +80,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<div class="col-md-5 offset-md-1">
 
 									<div class="form-group">
-										<label for="vehicule">Véhicule:</label>
+										<label for="vehicule"  class="label text-secondary">Véhicule</label>
 										<select type="text" class="form-control" id="pv_id" name="pv_id">
 											<?php foreach ($vehicules as $option) { ?>
 												# code...
@@ -93,7 +93,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<a href="#" data-toggle="modal" data-target="#modalVehicule"><i class="fas fa-plus-square"></i> Ajouter type véhicule</a>
 									</div>
 									<div class="form-group">
-										<label for="pcat_id">Catégorie:</label>
+										<label for="pcat_id"  class="label text-secondary">Catégorie</label>
 										<select type="text" class="form-control" id="pcat_id" placeholder="Catégorie" name="pcat_id">
 											<?php foreach ($categories as $option) { ?>
 												# code...
@@ -108,7 +108,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</div>
 							</div>
 							<div class="form-group row" style="border-top: 1px solid grey;padding-top:2%;">
-								<button type="button" id='bt_create_produit' class="btn btn-primary form-control col-6 offset-3">Créer</button>
+								<button type="button" id='bt_create_produit' class="btn btn-success form-control col-5 offset-4">Créer</button>
 							</div>
 						</form>
 						<?php echo form_close(); ?>
