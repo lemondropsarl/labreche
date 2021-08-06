@@ -31,9 +31,9 @@ $active = '';
 	<link rel="stylesheet"
 		href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.css')?>">
-	<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js')?>"></script>
 	<link rel="stylesheet" href="<?php echo base_url('assets/dist/css/main.css')?>">
-	
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
 
 </head>
 <!--

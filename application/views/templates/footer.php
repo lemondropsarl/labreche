@@ -52,10 +52,28 @@ $this->app = $this->config->item('application', 'app');
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
 
 <!-- Toastr -->
 <script type="text/javascript">
 	$(function() {
+		toastr.options = {
+  "closeButton": true,
+  "debug": false,
+  "newestOnTop": false,
+  "progressBar": false,
+  "positionClass": "toast-top-full-width",
+  "preventDuplicates": true,
+  "onclick": null,
+  "showDuration": "300",
+  "hideDuration": "1000",
+  "timeOut": "5000",
+  "extendedTimeOut": "1000",
+  "showEasing": "swing",
+  "hideEasing": "linear",
+  "showMethod": "fadeIn",
+  "hideMethod": "fadeOut"
+}
 		<?php if ($this->session->flashdata('success')) { ?>
 			toastr.success("<?php $this->session->flashdata('success'); ?>");
 		<?php } else if ($this->session->flashdata('error')) { ?>
@@ -140,7 +158,6 @@ $this->app = $this->config->item('application', 'app');
 					vehicule: vehicule,
 					pcat_id: pcat_id
 				}, function(data) {
-
 					message.text("Piece ajoutée");
 
 				});
@@ -168,16 +185,16 @@ $this->app = $this->config->item('application', 'app');
 			if (erreur.length === 0) {
 				$.get('<?php echo base_url("product/create_vehicule") ?>', {
 					vehicule_brand: brand,
-					vehicule_model: model,
+					vehicule_model: model
 				}, function(data) {
 
-					alert(data);
+					
 				});
 			}
 
 		});
 		//add categorie
-		$("#btn_add_categori").on("click", function(e) {
+		$("#btn_add_category").on("click", function(e) {
 			e.preventDefault();
 			const cat_name = $("#cat_name").val();
 			const cat_description = $("#cat_description").val();
@@ -196,7 +213,7 @@ $this->app = $this->config->item('application', 'app');
 					cat_name: cat_name,
 					cat_description: cat_description,
 				}, function(data) {
-					alert(data);
+					
 				});
 			}
 
