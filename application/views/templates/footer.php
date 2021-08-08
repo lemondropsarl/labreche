@@ -33,7 +33,7 @@ $this->app = $this->config->item('application', 'app');
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script>
-<script src="<?php echo base_url('assets/dist/js/demo.js') ?>"></script>
+<script src="<?php echo base_url('assets/dist/js/warehouse.js') ?>"></script>
 <script src="<?php echo base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
 <!-- jQuery -->
 <!-- Bootstrap 4 -->

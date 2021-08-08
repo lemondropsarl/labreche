@@ -87,6 +87,9 @@ $user_id = $this->session->flashdata('user_id');
 							<div class="card-title">
 								<h4>Entree stock</h4>
 							</div>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+							</div>
 						</div>
 						<div class="card-body">
                             <?php echo form_open('warehouse/entry_in')?>
@@ -126,6 +129,10 @@ $user_id = $this->session->flashdata('user_id');
 													<option value="<?php echo $item['shelf_id'];?>"><?php echo $item['shelf_name'];?></option>
 												<?php }?>
 											</select>
+										</div>
+										<div class="form-group col-6">
+											<label>Description localisation</label>
+											<textarea name="prod_loc_description" id="" cols="30" rows="3"></textarea>
 										</div>
 									</div>
 
