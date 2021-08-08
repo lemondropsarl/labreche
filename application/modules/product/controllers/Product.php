@@ -73,7 +73,7 @@ class Product extends MX_Controller
 			'product_model' => $this->input->get('pmodel'),
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
-			'product_min_qty'	=> $this->input->get_post('min_qty'),
+			'min_qty'	=> $this->input->get('pmin_qty'),
 			
 			'product_currency' => $this->input->get('pcurrency'),
 			'product_status' => 1,
@@ -174,17 +174,17 @@ class Product extends MX_Controller
 		);
 		$this->product_model->add_category($model);
 
-		redirect('product/create', 'refresh');
+		//redirect('product/create', 'refresh');
 	}
 	public function create_vehicule()
 	{
 		$model = array(
-			'vehicule_brand' => $this->input->get('vehicule_brand'),
-			'vehicule_model' => $this->input->get('vehicule_model')
+			'vehicule_brand' => $this->input->get('vehicule_brand')
+			
 		);
 		$this->product_model->add_vehicule($model);
 
-		redirect('product/create', 'refresh');
+		//redirect('product/create', 'refresh');
 	}
 	public function update_product()
 	{

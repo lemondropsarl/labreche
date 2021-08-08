@@ -47,9 +47,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 										</div>
 										<div class="form-group col-4">
-											<label for="min_qty">Min. Qté</label>
-											<input type="number" class="form-control" id="min_qty" placeholder="Qté minimum" name="min_qty" required>
-											<div class="erreur cache" id='erreur_modele'>Vérifier le mininum</div>
+											<label for="pmin_qty">Min. Qté</label>
+											<input type="number" class="form-control" id="pmin_qty" placeholder="Qté minimum" name="pmin_qty" required>
+											<div class="erreur cache" id='erreur_min_qty'>Vérifier le mininum</div>
 
 										</div>
 									</div>
@@ -159,7 +159,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_car" class="btn btn-success">Enregistrer</button>
+				<button type="button" id="btn_add_car" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -198,7 +198,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_category" class="btn btn-success">Enregistrer</button>
+				<button type="button" id="btn_add_category" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>

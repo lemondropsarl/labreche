@@ -74,15 +74,7 @@ $this->app = $this->config->item('application', 'app');
   "showMethod": "fadeIn",
   "hideMethod": "fadeOut"
 }
-		<?php if ($this->session->flashdata('success')) { ?>
-			toastr.success("<?php $this->session->flashdata('success'); ?>");
-		<?php } else if ($this->session->flashdata('error')) { ?>
-			toastr.error("<?php $this->session->flashdata('error'); ?>");
-		<?php } else if ($this->session->flashdata('warning')) { ?>
-			toastr.warning("<?php $this->session->flashdata('warning'); ?>");
-		<?php } else if ($this->session->flashdata('info')) { ?>
-			toastr.info("<?php $this->session->flashdata('info'); ?>");
-		<?php } ?>
+		
 	});
 </script>
 <script>
@@ -100,7 +92,7 @@ $this->app = $this->config->item('application', 'app');
 			const pcurrency = $("#pcurrency").val();
 			const vehicule = $("#pv_id").val();
 			const pcat_id = $("#pcat_id").val();
-			const min_qty = $('#min_qty').val();
+			const pmin_qty = $('#pmin_qty').val();
 			var erreur = new Array();
 			$(".erreur").hide();
 			var message = $("#message_server");
@@ -147,6 +139,10 @@ $this->app = $this->config->item('application', 'app');
 				erreur.push("");
 				$("#erreur_currency").css("display", "flex");
 			}
+			if (pmin_qty === 0) {
+				erreur.push("");
+				$("#erreur_min_qty").css("display", "flex");
+			}
 			if (erreur.length === 0) {
 				$.get('<?php echo base_url("product/create_operation") ?>', {
 					pname: pname,
@@ -158,10 +154,9 @@ $this->app = $this->config->item('application', 'app');
 					pcurrency: pcurrency,
 					vehicule: vehicule,
 					pcat_id: pcat_id,
-					min_qty: min_qty
+					pmin_qty: pmin_qty
 				}, function(data) {
-					message.text("Piece ajoutée");
-
+					toastr.success('Pièce ajoutée');					
 				});
 			} else {
 
@@ -173,24 +168,19 @@ $this->app = $this->config->item('application', 'app');
 		$("#btn_add_car").on("click", function(e) {
 			e.preventDefault();
 			const brand = $("#vehicule_brand").val();
-			const model = $("#vehicule_model").val();
+			
 			var erreur = new Array();
 			$(".erreur").hide();
 			if (brand === "") {
 				erreur.push("");
 				$("#erreur_marque_vehicule").css("display", "flex");
 			}
-			if (model === "") {
-				erreur.push("");
-				$("#erreur_model_vehicule").css("display", "flex");
-			}
+			
 			if (erreur.length === 0) {
 				$.get('<?php echo base_url("product/create_vehicule") ?>', {
-					vehicule_brand: brand,
-					vehicule_model: model
+					vehicule_brand: brand
 				}, function(data) {
-
-					
+					toastr.success('Véhicule ajouté');				
 				});
 			}
 
@@ -215,7 +205,11 @@ $this->app = $this->config->item('application', 'app');
 					cat_name: cat_name,
 					cat_description: cat_description,
 				}, function(data) {
+					$('#modalCategory').on('hidden.bs.modal', function () {
+     					location.reload();
+					});
 					
+					toastr.success('Catégorie ajoutée');
 				});
 			}
 
