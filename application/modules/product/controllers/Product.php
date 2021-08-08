@@ -215,6 +215,35 @@ class Product extends MX_Controller
 				break;
 		}
 	}
+	public function update_product()
+	{
+		$type = $this->input->get('type');
+		$valeur = $this->input->get('valeur');
+		$id = $this->input->get('product_id');
+		switch ($type) {
+			case 'code':
+				$this->product_model->update_product($id, array('product_code' => $valeur));
+				break;
+			case 'name':
+				$this->product_model->update_product($id, array('product_name' => $valeur));
+				break;
+			case 'brand':
+				$this->product_model->update_product($id, array('product_brand' => $valeur));
+				break;
+			case 'model':
+				$this->product_model->update_product($id, array('product_model' => $valeur));
+				break;
+			case 'uom':
+				$this->product_model->update_product($id, array('product_uom' => $valeur));
+				break;
+			case 'price':
+				$this->product_model->update_product($id, array('unit_price' => $valeur));
+				break;
+			case 'currency':
+				$this->product_model->update_product($id, array('product_currency' => $valeur));
+				break;
+		}
+	}
 }
 
 /* End of file filename.php */

@@ -10,6 +10,12 @@ class product_model extends CI_Model
 		$this->load->database();
 	}
 
+	public function get_all_products()
+	{
+		# code...
+		$query = $this->db->get('product');
+		return $query->result_array();
+	}
     
     public function __construct()
     {
