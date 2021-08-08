@@ -51,19 +51,20 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="row" style="margin-top:1%;">
-						<div class="dropdown col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
-							<button type="button" class="btn btn-primary dropdown-toggle form-control col-sm-10 col-xs-10 " data-toggle="dropdown">
-								Catégorie
-							</button>
-							<div class="dropdown-menu">
-								<a class="dropdown-item" href="#">catégorie 1</a>
-								<a class="dropdown-item" href="#">catégorie 2</a>
-								<a class="dropdown-item" href="#">catégorie 3</a>
-							</div>
+						<div class="col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
+							<select class="form-control" id='id_categorie_drop_down'>
+								<option value="">catégorie</option>
+								<?php foreach ($categories as $item) { ?>
+									<option value="<?php echo $item['cat_id']; ?>"><?php echo $item['cat_name']; ?></option>
+								<?php } ?>
+							</select>
 						</div>
 						<div class="col-md-5 col-sm-10 col-xs-10 form-group">
-							<input type="search" name="" id="" class="form-control col-sm-10 col-xs-10" placeholder="Search">
+							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
+					</div>
+					<div class="modification">
+						<h2 id='modification_message'></h2>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive">
@@ -79,17 +80,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<th>Dévise</th>
 									</tr>
 								</thead>
-								<tbody>
+								<tbody id='contenair_products'>
 									<?php foreach ($products as $item) { ?>
-										<tr>
-											<td><?php echo $item['product_code']; ?></td>
-											<td><?php echo $item['product_name']; ?></td>
-											<td><?php echo $item['product_brand']; ?></td>
-											<td><?php echo $item['product_model']; ?></td>
-											<td><?php echo $item['product_uom']; ?></td>
-											<td><?php echo $item['unit_price']; ?></td>
-											<td><?php echo $item['product_currency']; ?></td>
-
+										<tr data-product_id="<?php echo $item['product_id']; ?>">
+											<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
+											<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
+											<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
+											<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
+											<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
+											<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
+											<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
 										</tr>
 									<?php } ?>
 								</tbody>

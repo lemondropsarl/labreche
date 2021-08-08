@@ -135,14 +135,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<label for="marque_vehicule">Marque</label>
 					<input type="text" class="form-control" name="vehicule_brand" id="vehicule_brand" placeholder="Marque véhicule" require>
 				</div>
-				<div class="erreur cache" id="erreur_marque_vehicule">
+				<div class="erreur cache bg-danger" id="erreur_marque_vehicule">
 					La catégorie est obligatoire
 				</div>
 				<div class="form-group">
 					<label for="modele_vehicule">Modele</label>
 					<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
 				</div>
-				<div class="erreur cache" id="erreur_model_vehicule">
+				<div class="erreur cache bg-danger" id="erreur_model_vehicule">
 					La description est obligateoire
 				</div>
 
@@ -174,14 +174,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<label for="cat_name">Nom catégorie</label>
 					<input type="text" class="form-control" name="cat_name" id="cat_name" placeholder="Nom catégorie" require>
 				</div>
-				<div class="erreur cache" id="erreur_cat_vehicule">
+				<div class="erreur cache bg-danger" id="erreur_cat_vehicule">
 					La catégorie est obligatoire
 				</div>
 				<div class="form-group">
 					<label for="cat_description">Description</label>
 					<textarea class="form-control" name="cat_description" id="cat_description" cols="30" rows="5" placeholder="Déscription catégorie"></textarea>
 				</div>
-				<div class="erreur cache" id="erreur_description_vehicule">
+				<div class="erreur cache bg-danger" id="erreur_description_vehicule">
 					La description est obligatoire
 				</div>
 

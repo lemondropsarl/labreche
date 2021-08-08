@@ -23,3 +23,13 @@ label{
 	text-transform: uppercase;
 	font-weight:none;
 }
+.modification{
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+.modification h2{
+	font-size: 16pt;
+	text-transform: uppercase;
+}

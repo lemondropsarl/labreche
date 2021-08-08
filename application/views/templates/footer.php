@@ -202,6 +202,203 @@ $this->app = $this->config->item('application', 'app');
 
 
 		});
+		//modification product cell
+		function update_product(id, type, valeur) {
+			$.get('<?php echo base_url("product/update_product") ?>', {
+				product_id: id,
+				type: type,
+				valeur: valeur
+			}, function(data) {
+
+			});
+		}
+		$("body").on("dblclick", ".cel-product", function() {
+			$(this).attr("contenteditable", "true"); //add the content editable attribute
+		});
+		//avec focus
+		$("body").on("focusout", ".cel-product", function() {
+			const product_id = $(this).parent().data("product_id"); //the id parent
+			const type_cel = $(this).data("type_cel"); //type of cell
+			const valeur = $(this).text(); //valeur de la cellule
+			const old_value = $(this).data("valeur");
+			$(this).attr("contenteditable", "false"); //delete the content editable attribute
+
+			switch (type_cel) {
+				case 'code':
+					if (valeur !== "") {
+
+						if (confirm(`Vouez-vous modifier le Code de l'article?`)) {
+							update_product(product_id, type_cel, valeur);
+							const message = 'Modification efféctuée';
+							message_update(message);
+						} else {
+							$(this).text(old_value);
+						}
+
+					} else {
+
+						$(this).text(old_value);
+						const message = 'Echec de Modification';
+						message_update(message);
+					}
+					break;
+				case 'name':
+					if (valeur !== "") {
+						if (confirm(`Vouez-vous modifier le nom de l'article?`)) {
+							update_product(product_id, type_cel, valeur);
+							const message = 'Modification efféctuée';
+							message_update(message);
+						} else {
+							$(this).text(old_value);
+						}
+					} else {
+						const message = 'Echec de Modification';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+				case 'brand':
+					if (valeur !== "") {
+						if (confirm(`Vouez-vous modifier la marque de l'article?`)) {
+							update_product(product_id, type_cel, valeur);
+							const message = 'Modification efféctuée';
+							message_update(message);
+						} else {
+							$(this).text(old_value);
+						}
+					} else {
+
+						const message = 'Echec de Modification';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+				case 'model':
+					if (valeur !== "") {
+						if (confirm(`Vouez-vous modifier le modele de l'article?`)) {
+							update_product(product_id, type_cel, valeur);
+							const message = 'Modification efféctuée';
+							message_update(message);
+						} else {
+							$(this).text(old_value);
+						}
+					} else {
+						const message = 'Echec de Modification';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+				case 'uom':
+					if (valeur !== "") {
+						if (confirm(`Vouez-vous modifier l'unité de l'article?`)) {
+							update_product(product_id, type_cel, valeur);
+							const message = 'Modification efféctuée';
+							message_update(message);
+						} else {
+							$(this).text(old_value);
+						}
+					} else {
+						const message = 'Echec de Modification';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+				case 'price':
+					if (valeur !== "") {
+						if (!isNaN(valeur)) {
+							if (confirm(`Vouez-vous modifier le prix de l'article?`)) {
+								update_product(product_id, type_cel, valeur);
+								const message = 'Modification efféctuée';
+								message_update(message);
+								$(this).data("valeur", valeur);
+							} else {
+								$(this).text(old_value);
+							}
+						} else {
+							$(this).text(old_value);
+							alert("Cette valeur n'est pas un nombre");
+						}
+
+					} else {
+						const message = 'Echec de Modification';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+				case 'currency':
+					if (valeur !== "") {
+						if ((valeur === "CDF") || (valeur === "USD")) {
+							if (confirm(`Vouez-vous modifier le Code de l'article?`)) {
+								update_product(product_id, type_cel, valeur);
+								const message = 'Modification efféctuée';
+								message_update(message);
+							} else {
+								$(this).text(old_value);
+							}
+						} else {
+
+							$(this).text(old_value);
+							const message = 'Unité non acceptée, Utilisez le USD & CDF';
+							message_update(message);
+						}
+					} else {
+						const message = 'Unité non acceptée, Utilisez le USD & CDF';
+						message_update(message);
+						$(this).text(old_value);
+					}
+					break;
+			}
+		});
+
+		function message_update(message) {
+			$(".modification #modification_message").text(message);
+		}
+
+		//function seach product by code
+		function search_product_code(id) {
+			$.get('<?php echo base_url("product/search") ?>', {
+				id: id,
+			}, function(data) {
+				$("#contenair_products").html(data);
+			});
+		}
+		//function search product by categori
+		function search_product_cat(id) {
+			$.get('<?php echo base_url("product/search_by_cat") ?>', {
+				id: id,
+			}, function(data) {
+
+				$("#contenair_products").html(data);
+			});
+		}
+		//function list product if de search box is empty
+		function list_product() {
+			$.get('<?php echo base_url("product/list_product") ?>', function(data) {
+
+				$("#contenair_products").html(data);
+			});
+		}
+		//search by code 
+		$("#search_product").on("keyup", function() {
+			const id = $(this).val();
+			if (id === "") {
+				list_product();
+			} else {
+				search_product_code(id);
+			}
+
+		});
+		//search combo box
+		$("body").on("change", "#id_categorie_drop_down", function() {
+			const categorie = $(this).val();
+			if (categorie === "") {
+				list_product();
+			} else {
+
+				search_product_cat(categorie);
+			}
+
+		});
 
 	})();
 </script>
