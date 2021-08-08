@@ -4,11 +4,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Migration_initial_warehouse extends CI_Migration {
 
     private $tables;
+    private $views;
     public function __construct()
     {
         $this->load->dbforge();
         $this->load->config('warehouse/warehouse',TRUE);
         $this->tables = $this->config->item('tables','warehouse');
+        $this->views = $this->config->item('views','warehouse');
     }
 
     public function up() {
@@ -86,16 +88,18 @@ class Migration_initial_warehouse extends CI_Migration {
                 'constraint' => '4',
                
             ],
-            'lus_min_quantity' => [
-                'type' => 'int',
-                'constraint' => '4'
-            ],
+            'lus_prod_loc_description' =>[
+                'type' => 'VARCHAR',
+                'constraint' => '150'
+            ]
+            ,
             'lus_updated_date' => [
                 'type' => 'date'
                 
             ]
             
         ]);
+        $this->dbforge->add_key('lus_product_id',TRUE);
         $this->dbforge->create_table($this->tables['last_update_stock'],TRUE);
 
         $this->dbforge->drop_table($this->tables['warehouses'],TRUE);
@@ -284,6 +288,74 @@ class Migration_initial_warehouse extends CI_Migration {
 
 		];
 		$this->db->insert('modules', $module);
+
+        //creating views
+        $listStockView = 'CREATE VIEW'.' '. $this->views['list_of_stock'].' '.'AS SELECT'.' '.' 
+        `product`.`product_id` AS `pid`,
+        `product`.`product_code` AS `pcode`,
+        `product`.`product_name` AS `pname`,
+        `product`.`product_uom` AS `uom`,
+        `last_update_stock`.`lus_quantity` AS `qty`
+        
+        FROM 
+        (
+            `product` join `last_update_stock`
+        )
+        
+        WHERE 
+        (
+            `product`.`product_id` = `last_update_stock`.`lus_product_id`
+        )';
+        $this->db->query($listStockView);
+
+        //adding wones
+        $zones = [
+
+            [
+            'zone_name' => 'ZONE A'
+            ],
+            [
+                'zone_name' => 'ZONE B'
+            ],
+             [
+            'zone_name' => 'ZONE C'
+            ],
+            [
+                'zone_name' => 'ZONE D'
+            ],
+            [
+             'zone_name' => 'ZONE E'
+            ],
+            [
+                'zone_name' => 'ZONE F'
+                ]
+        ];
+        $this->db->insert_batch('zone_location', $zones);
+
+        //etagere
+        $shelfs = [
+
+            [
+            'shelf_name' => 'ETAGERE 1'
+            ],
+            [
+                'shelf_name' => 'ETAGERE 2'
+            ],
+             [
+            'shelf_name' => 'ETAGERE`3 '
+            ],
+            [
+                'shelf_name' => 'ETAGERE 4'
+            ],
+            [
+             'shelf_name' => 'ETAGERE 5'
+            ],
+            [
+                'shelf_name' => 'ETAGERE 6'
+            ]
+        ];
+        $this->db->insert_batch('shelf_location', $shelfs);
+
     }
 
     public function down() {

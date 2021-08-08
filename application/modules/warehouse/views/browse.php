@@ -1,5 +1,9 @@
 <?php 
-defined('BASEPATH') OR exit('No direct script access allowed');?>
+defined('BASEPATH') OR exit('No direct script access allowed');
+
+$user_id = $this->session->flashdata('user_id');
+
+?>
 
 <div class="content">
 	<div class="container-fluid">
@@ -86,26 +90,54 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 						</div>
 						<div class="card-body">
                             <?php echo form_open('warehouse/entry_in')?>
-                                <div class="form-row">
-                                    <div class="col-md-4">
+                                <input type="hidden" name="pid">
+								<div class="form-row">
+									<div class="col-md-12">
 
-                                        <div class="form-group">
-                                            <label for="pname">Nom article:</label>										
-                                        </div>
-                                    </div>
-                                    <div class="col-md-4">
+										<div class="form-group">
+											<label for="pname">Nom article:</label>		
+											<input type="number" class="form-control" id="si_pname" placeholder="Nom article" name="pname" disabled="true" />
+								
+										</div>
+										<div class="form-group col-6">
+											<label for="si_qty">Quantité</label>
+											<input type="number" class="form-control" id="si_qty" placeholder="quantité" name="si_qty" required>
+											<div class="erreur cache" id="si_qty_erreur">Vérifier la quantite</div>
+		
+										</div>
+										<div class="form-group col-6">
+											<label>Date d'entree</label>
+											<input type="date" name="si_date" id="">
+										</div>
+										<div class="form-group col-6">
+											<label>Zone</label>
+											<select class="form-control" name="prod_zone_id" id="">
+												<?php foreach ($zones as $item) {?>
+													# code...
+													<option value="<?php echo $item['zone_id'];?>"><?php echo $item['zone_name'];?></option>
+												<?php }?>
+											</select>
+										</div>
+										<div class="form-group col-6">
+											<label>Etagère</label>
+											<select class="form-control" name="prod_shelf_id" id="">
+												<?php foreach ($shelfs as $item) {?>
+													# code...
+													<option value="<?php echo $item['shelf_id'];?>"><?php echo $item['shelf_name'];?></option>
+												<?php }?>
+											</select>
+										</div>
+									</div>
 
-                                        <div class="form-group">
-                                            <label for="prCode">Quantite</label>
-                                            <input type="number" class="form-control" id="si_qty" placeholder="quantité" name="si_qty" required>
-                                            <div class="erreur cache" id="si_qty_erreur">Vérifier la quantite</div>
-    
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php echo form_close();?>
-                            
-                        </div>
+								</div>                         
+								
+							</div>
+							<div class="card-footer">
+								<div class="form-group btn-group">
+									<button type="button" class="btn btn-success">Terminé</button>
+								</div>
+							</div>
+							<?php echo form_close();?>
 					</div>
 					<div class="card card-warning">
 						<div class="card-header">
@@ -132,7 +164,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 											<th>Code article</th>
 											<th>Nom article</th>
 											<th>Unité</th>
-											<th>quantité</th>
+											<th>Min. qté</th>
+											<th>Act. Qté</th>
 										</tr>
 									</thead>
 									<tbody>
