@@ -88,6 +88,12 @@ class Migration_initial_product extends CI_Migration {
             'unit_price' => [
                 'type' => 'double'             
             ],
+            
+            'min_qty' =>[
+                'type'  => 'INT',
+                'constaint' =>'5'
+            ]
+            ,
             'product_brand' => [
                 'type' => 'varchar',
                 'constraint' => '20',

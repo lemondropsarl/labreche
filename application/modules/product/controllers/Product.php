@@ -73,6 +73,8 @@ class Product extends MX_Controller
 			'product_model' => $this->input->get('pmodel'),
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
+			'product_min_qty'	=> $this->input->get_post('min_qty'),
+			
 			'product_currency' => $this->input->get('pcurrency'),
 			'product_status' => 1,
 			'product_cat_id' => $this->input->get('pcat_id'), // $this->input->get('pcat_id'),

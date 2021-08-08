@@ -100,6 +100,7 @@ $this->app = $this->config->item('application', 'app');
 			const pcurrency = $("#pcurrency").val();
 			const vehicule = $("#pv_id").val();
 			const pcat_id = $("#pcat_id").val();
+			const min_qty = $('#min_qty').val();
 			var erreur = new Array();
 			$(".erreur").hide();
 			var message = $("#message_server");
@@ -156,7 +157,8 @@ $this->app = $this->config->item('application', 'app');
 					prUnite: prUnite,
 					pcurrency: pcurrency,
 					vehicule: vehicule,
-					pcat_id: pcat_id
+					pcat_id: pcat_id,
+					min_qty: min_qty
 				}, function(data) {
 					message.text("Piece ajoutée");
 

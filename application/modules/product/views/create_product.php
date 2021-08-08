@@ -34,16 +34,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 									</div>
 									<div class="row">
-										<div class="form-group col-6">
-											<label for="prMarque"  class="label text-secondary">Marque</label>
+										<div class="form-group col-4">
+											<label for="prMarque">Marque:</label>
 											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="pbrand" required>
 											<div class="erreur cache bg-danger" id='erreur_marque'>Vérifier la marque</div>
 
 										</div>
-										<div class="form-group col-6">
-											<label for="prModele"  class="label text-secondary">Modele</label>
+										<div class="form-group col-4">
+											<label for="prModele">Modele</label>
 											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="pmodel" required>
 											<div class="erreur cache bg-danger" id='erreur_modele'>Vérifier le modele</div>
+
+										</div>
+										<div class="form-group col-4">
+											<label for="min_qty">Min. Qté</label>
+											<input type="number" class="form-control" id="min_qty" placeholder="Qté minimum" name="min_qty" required>
+											<div class="erreur cache" id='erreur_modele'>Vérifier le mininum</div>
 
 										</div>
 									</div>
