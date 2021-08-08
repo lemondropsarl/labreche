@@ -180,6 +180,8 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("product/create_vehicule") ?>', {
 					vehicule_brand: brand
 				}, function(data) {
+					$('#modalVehicule').hide();
+					location.reload();
 					toastr.success('Véhicule ajouté');				
 				});
 			}
@@ -205,10 +207,8 @@ $this->app = $this->config->item('application', 'app');
 					cat_name: cat_name,
 					cat_description: cat_description,
 				}, function(data) {
-					$('#modalCategory').on('hidden.bs.modal', function () {
-     					location.reload();
-					});
-					
+					$('#modalCategory').hide();
+     				location.reload();					
 					toastr.success('Catégorie ajoutée');
 				});
 			}
