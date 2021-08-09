@@ -104,7 +104,7 @@ class Warehouse extends MX_Controller
 				'lus_product_id' => $prod_loc_id,
 				'lus_quantity' => $si_qty,
 				'lus_prod_loc_id' => $product_id,
-				'lus_prod_loc_description' => $this->input->post('prod_loc_description')
+				'lus_prod_loc_description' => $this->input->get('prod_loc_description')
 			);
 			$this->warehouse_model->add_lus($lus_model);
 		}

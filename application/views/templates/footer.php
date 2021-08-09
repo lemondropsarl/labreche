@@ -425,8 +425,9 @@ $this->app = $this->config->item('application', 'app');
 			const date_entree = $("#date_entree").val(); //la date d"entrée du produit
 			const zone = $("#zone_entree").val();
 			const etagere = $("#etagere_produit").val();
+			const decription = $("#description_zone").val();
 			var erreur = new Array();
-			
+
 			if (pid === "") {
 				toastr.warning('Le nom est vide');
 				erreur.push("nom");
@@ -444,13 +445,15 @@ $this->app = $this->config->item('application', 'app');
 				toastr.warning("L'etagere est vide");
 				erreur.push("etagere");
 			}
+
 			if (erreur.length === 0) {
 				$.get('<?php echo base_url("warehouse/create_entry_in") ?>', {
 					pid: pid,
 					si_qty: quantite_entree,
 					si_date: date_entree,
 					prod_zone_id: zone,
-					prod_shelf_id: etagere
+					prod_shelf_id: etagere,
+					prod_loc_description: description
 				}, function(data) {
 					toastr.success('Quantité ajoutée');
 				});

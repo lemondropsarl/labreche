@@ -11,7 +11,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<label for="label">
 							NOM ARTICLE
 						</label>
-					
+
 						<select id="products" class="form-control">
 							<?php
 							foreach ($products as $items) {
@@ -62,8 +62,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</select>
 					</div>
 				</div>
-				<div class="row">
-					<div class="form-group col-md">
+				<div class="row" style="margin-bottom: 2%;">
+					<div class="description_entree" class="form-group">
+						<label for="description_zone">DESCRIPTION</label>
+						<textarea class="form-control" id='description_zone' cols="30" rows="5" placeholder="Description de localisation de l'article ou du produit">
+                        </textarea>
+					</div>
+					<div class="form-group col-md-4">
 						<button class="btn btn-success" id="valider_entree">Valider</button>
 					</div>
 				</div>
