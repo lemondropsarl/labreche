@@ -91,6 +91,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 											<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
 											<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
 											<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
+											<td>
+												<a href="<?php echo site_url('product/details/'.$item['product_id']);?>" ><i class="fa fa-arrow-right"></i></a>
+											</td>
 										</tr>
 									<?php } ?>
 								</tbody>

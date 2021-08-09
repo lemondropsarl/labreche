@@ -69,9 +69,9 @@ class Product extends MX_Controller
 		# code...
 		$model = array(
 			'product_code' => $this->input->get('pcode'), // $this->input->post('pcode'),
-			'product_name' => $this->input->get('pname'),
-			'product_brand' => $this->input->get('pbrand'),
-			'product_model' => $this->input->get('pmodel'),
+			'product_name' => strtoupper($this->input->get('pname')),
+			'product_brand' => strtoupper($this->input->get('pbrand')),
+			'product_model' => strtoupper($this->input->get('pmodel')),
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
 			'min_qty'	=> $this->input->get('pmin_qty'),
@@ -167,7 +167,7 @@ class Product extends MX_Controller
 	public function create_category()
 	{
 		$model = array(
-			'cat_name' => $this->input->get('cat_name'),
+			'cat_name' => strtoupper($this->input->get('cat_name')),
 			'cat_description' => $this->input->get('cat_description')
 		);
 		$this->product_model->add_category($model);
@@ -177,7 +177,7 @@ class Product extends MX_Controller
 	public function create_vehicule()
 	{
 		$model = array(
-			'vehicule_brand' => $this->input->get('vehicule_brand')
+			'vehicule_brand' => strtoupper($this->input->get('vehicule_brand'))
 			
 		);
 		$this->product_model->add_vehicule($model);
