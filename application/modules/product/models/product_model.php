@@ -72,12 +72,11 @@ class product_model extends CI_Model
         return $query->result_array();
         
     }
-    public function get_product_like($data)
+    public function get_product_like($code)
     {
-        $this->db->like('product_code', $data);
-        $this->db->or_like('product_name',$data);
-        $query = $this->db->get('product');
-        return $$query->result_array();
+        $query = "SELECT * FROM product where product_code LIKE"." "."'".$code."%'"." "
+        ."OR product_name LIKE"." "."'".$code."%'";
+        return $this->db->query($query)->result_array();
 
     }
     public function get_product_by_cat($cat_id)
