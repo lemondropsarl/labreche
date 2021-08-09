@@ -299,7 +299,7 @@ class Migration_initial_warehouse extends CI_Migration {
         
         FROM 
         (
-            `product` join `last_update_stock`
+            `product` , `last_update_stock`
         )
         
         WHERE 
@@ -308,6 +308,16 @@ class Migration_initial_warehouse extends CI_Migration {
         )';
         $this->db->query($listStockView);
 
+        $so_entries_view = 'CREATE VIEW'.' '. $this->views['so_entries_view'].' '.'AS select'.' '.'
+            `product`.`product_name` as `name`,
+            `stock_entries_out`.`so_entry_date` AS `entry_date`,
+            `stock_entries_out`.`so_quantity` AS `quantity`,
+            `warehouses`.`warehouse_name` AS `warehouse_name`'.' '.'
+        from (
+            `product`, `stock_entries_out` , `warehouses`
+        )
+        where (`product`.`product_id` = `stock_entries_out`.`so_product_id`) and (`stock_entries_out`.`so_dest_ware_id` = `warehouses`.`warehouse_id`)';
+        $this->db->query($so_entries_view);
         //adding wones
         $zones = [
 

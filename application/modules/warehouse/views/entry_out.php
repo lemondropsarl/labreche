@@ -85,6 +85,36 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
 					<?php echo form_close();?>
 				</div>
+                <div class="card card-outline card-success">
+                    <div class="card-header">
+						<h4 class="card-title">Sortie depot recents</h4>						
+					</div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th>Date operation</th>
+                                        <th>Nom article</th>
+                                        <th>Destination</th>
+                                        <th>Quantité</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <?php foreach ($ws_products as $item) {?>
+                                    <tr>
+                                            
+                                            <td><?php echo $item['entry_date'];?></td>
+                                            <td><?php echo $item['name'];?></td>
+                                            <td><?php echo $item['warehouse_name'];?></td>
+                                            <td><?php echo $item['quantity'];?></td>                                           
+                                        </tr>
+                                        <?php }?>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 			</div>
 		</div>
 	</div>

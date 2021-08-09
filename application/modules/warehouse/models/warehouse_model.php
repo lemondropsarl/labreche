@@ -118,5 +118,10 @@ class warehouse_model extends CI_Model
 		$this->db->update('warehouse_stock');
 		
 	}
+	public function get_entries_out()
+	{
+		$query = $this->db->get('so_entries_view');
+		return $query->result_array();	
+	}
 
 }

@@ -51,6 +51,7 @@ class Warehouse extends MX_Controller
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['products']		       =   $this->warehouse_model->get_products();
 		$data['warehouses']				   = $this->warehouse_model->get_warehouses();
+		$data['ws_products']			= $this->warehouse_model->get_entries_out();
 		
 		$data['title']				   =  'Sortie';
 		$this->load->view('templates/header', $data);
