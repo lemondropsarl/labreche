@@ -1,7 +1,6 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-
 class product_model extends CI_Model
 {
 	public function __construct()
@@ -10,8 +9,6 @@ class product_model extends CI_Model
 		$this->load->database();
 	}
 
-
-    
     public function get_all_products()
     {
         # code...
@@ -23,14 +20,11 @@ class product_model extends CI_Model
     public function update_product($id, $data)
     {
         $this->db->update('product', $data, array('product_id'=>$id));
-        
-
     }
     public function add_category($data)
     {
         $this->db->insert('categories', $data);
         return $this->db->insert_id();
-        
     }
 	
     public function add_vehicule($data)
