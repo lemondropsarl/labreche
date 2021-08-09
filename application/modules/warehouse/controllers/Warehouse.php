@@ -44,6 +44,29 @@ class Warehouse extends MX_Controller
 		$this->load->view('entry_in', $data);
 		$this->load->view('templates/footer');
 	}
+	public function entry_out()
+	{
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['products']		       =   $this->warehouse_model->get_products();
+		$data['warehouses']				   = $this->warehouse_model->get_warehouses();
+		
+		$data['title']				   =  'Sortie';
+		$this->load->view('templates/header', $data);
+		$this->load->view('entry_out', $data);
+		$this->load->view('templates/footer');
+	}
+	public function create_warehouse()
+	{
+		$model = array(
+			'warehouse_name' => $this->input->post('ws_name'),
+			 'warehouse_address' => $this->input->post('ws_address')		 
+		);
+		$this->warehouse_model->add_warehouse($model);
+		
+		redirect('warehouse/entry_out','refresh');		
+	}
 
 	public function check()
 	{
@@ -117,5 +140,41 @@ class Warehouse extends MX_Controller
 	}
 	public function create_entry_out()
 	{
+		//make sure the product has stock and are in stock before any action refer to view
+		//get inputs
+		$product_id 	= 	$this->input->post('ws_product');
+		$qty 			= $this->input->post('o_qty');
+		$destination	= $this->input->post('so_dest');
+		$date 		= $this->input->post('o_date');
+		$user_id 	= $this->session->userdata('user_id');
+		$model = array(
+			'so_product_id' => $product_id,
+			'so_quantity' => $qty,
+			'so_entry_date' => $date,
+			'so_dest_ware_id' => $destination,
+			'so_user_id' =>$user_id
+			 );
+		$this->warehouse_model->add_entry_out($model);
+
+		//check if record  exist for specific warehouse
+		if ($this->warehouse_model->is_ws_stock_exist($product_id,$destination)){
+			# code...
+			//the record exist update stock for specific warehouse
+			$ws = $this->warehouse_model->get_ws_byID($product_id,$destination);
+			$final_qty = $ws['ws_quantity'] + $qty;
+			$ws_id = $ws['ws_id'];
+			
+			$this->warehouse_model->update_ws($ws_id,$final_qty);
+
+		}else{
+			// does not exist then create stock for specific warehouse
+			$model = array(
+				'ws_product_id' => $product_id,
+				'warehouse_id' => $destination,
+				'ws_quantity' => $qty,
+				'updated_date' => $date
+			 );
+			 $this->warehouse_model->add_warehouse_stock($model);
+		}	
 	}
 }

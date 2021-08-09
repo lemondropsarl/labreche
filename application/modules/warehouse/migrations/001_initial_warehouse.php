@@ -266,7 +266,7 @@ class Migration_initial_warehouse extends CI_Migration {
             ],
             [
                 'name'	=> 'entry_out',
-                'url'	=> 'warehouse/entry_in',
+                'url'	=> 'warehouse/entry_out',
                 'icon'  => 'material-icons',
 				'icon-name'	=> '',
 				'text'	=> 'Sortie stock',
