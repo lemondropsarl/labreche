@@ -6,7 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 	<div class="container-fluid">
 		<!-- your content here -->
 		<div class="row">
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+			<!--div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-info">
 					<div class="inner">
 						<h3>1500</h3>
@@ -16,8 +16,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<i class=""></i>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+			</div-->
+			<!--div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
 				<div class="small-box bg-purple">
 					<div class="inner">
@@ -28,8 +28,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<i class="fas fa-car"></i>
 					</div>
 				</div>
-			</div>
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+			</div-->
+			<!--div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 
 				<div class="small-box bg-primary">
 					<div class="inner">
@@ -40,7 +40,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						<i class=""></i>
 					</div>
 				</div>
-			</div>
+			</div-->
 
 			<div class="col-md-12">
 				<div class="card card-outline card-secondary">

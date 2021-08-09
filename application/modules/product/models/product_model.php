@@ -84,6 +84,12 @@ class product_model extends CI_Model
         $query = $this->db->get_where('product', array('product_cat_id'=>$cat_id));
         return $query->result_array();   
     }
+    public function count_by_engine($cat_id)
+    {
+       $this->db->where('product_cat_id', $cat_id);
+       $this->db->from('product');
+       return $this->db->count_all_results();    
+    }
 }
 
 /* End of file filename.php */

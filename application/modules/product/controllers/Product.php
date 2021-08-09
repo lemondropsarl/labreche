@@ -39,6 +39,7 @@ class Product extends MX_Controller
 		$data['title']					=  'Articles';
 		$data['products']               = $this->product_model->get_all_products();
 		$data['categories']               = $this->product_model->get_categories();
+		//$data['count_p_moteur']			= $this->product_model->count_by_engine();
 		# code...
 		$this->load->view('templates/header', $data);
 		$this->load->view('list_product', $data);
