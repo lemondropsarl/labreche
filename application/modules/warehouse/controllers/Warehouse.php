@@ -107,15 +107,10 @@ class Warehouse extends MX_Controller
 			$lus_model = array(
 				'lus_product_id' => $product_id,
 				'lus_quantity' => $si_qty,
-<<<<<<< refs/remotes/origin/develop
-				'lus_prod_loc_id' => $product_id,
-				'lus_prod_loc_description' => $this->input->get('prod_loc_description')
-=======
 				'lus_prod_loc_id' => $prod_loc_id,
 				'lus_prod_loc_description' => $this->input->get('prod_loc_description')
 				,
 				'lus_updated_date' => $si_date
->>>>>>> fix: creating entry
 			);
 			$this->warehouse_model->add_lus($lus_model);
 		}
