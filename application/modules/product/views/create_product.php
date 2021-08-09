@@ -144,17 +144,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<div class="erreur cache bg-danger" id="erreur_marque_vehicule">
 					La catégorie est obligatoire
 				</div>
-<<<<<<< refs/remotes/origin/develop
-				<div class="form-group">
-					<label for="modele_vehicule">Modele</label>
-					<input type="text" class="form-control" name="vehicule_model" id="vehicule_model" placeholder="Modele véhicule" require>
-				</div>
-				<div class="erreur cache bg-danger" id="erreur_model_vehicule">
-					La description est obligateoire
-				</div>
-=======
 				
->>>>>>> ajout page detail du produit
 
 			</div>
 			<div class="modal-footer">
