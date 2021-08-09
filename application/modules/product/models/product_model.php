@@ -80,6 +80,11 @@ class product_model extends CI_Model
         return $$query->result_array();
 
     }
+    public function get_product_by_cat($cat_id)
+    {
+        $query = $this->db->get_where('product', array('product_cat_id'=>$cat_id));
+        return $query->result_array();   
+    }
 }
 
 /* End of file filename.php */

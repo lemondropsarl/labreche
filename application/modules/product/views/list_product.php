@@ -53,7 +53,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<div class="row" style="margin-top:1%;">
 						<div class="col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
 							<select class="form-control" id='id_categorie_drop_down'>
-								<option value="">catégorie</option>
+																
 								<?php foreach ($categories as $item) { ?>
 									<option value="<?php echo $item['cat_id']; ?>"><?php echo $item['cat_name']; ?></option>
 								<?php } ?>
