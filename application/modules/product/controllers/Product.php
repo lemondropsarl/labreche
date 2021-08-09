@@ -87,14 +87,7 @@ class Product extends MX_Controller
 		//redirect('product/list', 'refresh');
 	}
 
-	public function edit(Type $var = null)
-	{
-		# code...
-		$this->load->view('templates/header');
-		$this->load->view('create_product');
-		$this->load->view('templates/footer');
-	}
-
+	
 	public function details()
 	{
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
