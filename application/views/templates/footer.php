@@ -58,23 +58,23 @@ $this->app = $this->config->item('application', 'app');
 <script type="text/javascript">
 	$(function() {
 		toastr.options = {
-  "closeButton": true,
-  "debug": false,
-  "newestOnTop": false,
-  "progressBar": false,
-  "positionClass": "toast-top-full-width",
-  "preventDuplicates": true,
-  "onclick": null,
-  "showDuration": "300",
-  "hideDuration": "1000",
-  "timeOut": "5000",
-  "extendedTimeOut": "1000",
-  "showEasing": "swing",
-  "hideEasing": "linear",
-  "showMethod": "fadeIn",
-  "hideMethod": "fadeOut"
-}
-		
+			"closeButton": true,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": false,
+			"positionClass": "toast-top-full-width",
+			"preventDuplicates": true,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		}
+
 	});
 </script>
 <script>
@@ -156,7 +156,7 @@ $this->app = $this->config->item('application', 'app');
 					pcat_id: pcat_id,
 					pmin_qty: pmin_qty
 				}, function(data) {
-					toastr.success('Pièce ajoutée');					
+					toastr.success('Pièce ajoutée');
 				});
 			} else {
 
@@ -168,21 +168,21 @@ $this->app = $this->config->item('application', 'app');
 		$("#btn_add_car").on("click", function(e) {
 			e.preventDefault();
 			const brand = $("#vehicule_brand").val();
-			
+
 			var erreur = new Array();
 			$(".erreur").hide();
 			if (brand === "") {
 				erreur.push("");
 				$("#erreur_marque_vehicule").css("display", "flex");
 			}
-			
+
 			if (erreur.length === 0) {
 				$.get('<?php echo base_url("product/create_vehicule") ?>', {
 					vehicule_brand: brand
 				}, function(data) {
 					$('#modalVehicule').hide();
 					location.reload();
-					toastr.success('Véhicule ajouté');				
+					toastr.success('Véhicule ajouté');
 				});
 			}
 
@@ -208,7 +208,7 @@ $this->app = $this->config->item('application', 'app');
 					cat_description: cat_description,
 				}, function(data) {
 					$('#modalCategory').hide();
-     				location.reload();					
+					location.reload();
 					toastr.success('Catégorie ajoutée');
 				});
 			}
@@ -409,6 +409,51 @@ $this->app = $this->config->item('application', 'app');
 			} else {
 
 				search_product_cat(categorie);
+			}
+
+		});
+		//opeartion entree stock
+		$("body").on("change", "#nom_article_entree", function() {
+			$("#entree_quantite").val("");
+			$("#date_entree").val("");
+		});
+
+		$("body").on("click", "#valider_entree", function(e) {
+			e.preventDefault();
+			const pid = $("#products").val(); //nom du produit
+			const quantite_entree = $("#entree_quantite").val(); //la quantité du produit
+			const date_entree = $("#date_entree").val(); //la date d"entrée du produit
+			const zone = $("#zone_entree").val();
+			const etagere = $("#etagere_produit").val();
+			var erreur = new Array();
+			
+			if (pid === "") {
+				toastr.warning('Le nom est vide');
+				erreur.push("nom");
+			}
+			if (quantite_entree == 0) {
+				toastr.warning('La quantité est vide');
+				erreur.push("quantite");
+
+			}
+			if (zone === "") {
+				toastr.warning('La zone est vide');
+				erreur.push("zone");
+			}
+			if (etagere === "") {
+				toastr.warning("L'etagere est vide");
+				erreur.push("etagere");
+			}
+			if (erreur.length === 0) {
+				$.get('<?php echo base_url("warehouse/create_entry_in") ?>', {
+					pid: pid,
+					si_qty: quantite_entree,
+					si_date: date_entree,
+					prod_zone_id: zone,
+					prod_shelf_id: etagere
+				}, function(data) {
+					toastr.success('Quantité ajoutée');
+				});
 			}
 
 		});
