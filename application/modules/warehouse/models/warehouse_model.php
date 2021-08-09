@@ -43,15 +43,14 @@ class warehouse_model extends CI_Model
 	//check if this product has a record in LUS table
 	public function is_lus_exist($pid)
 	{
-		$query = $this->db->get('last_update_stock')
-			->where('lus_product_id', $pid)
-			->select('lus_prodct_id', 'lus_quatity');
-
-		if (count($query->row()) > 0) {
+       
+        $this->db->where('lus_product_id',$pid);
+        $query = $this->db->get('last_update_stock');       
+		if ($query->num_rows()> 0) {
 			return true;
 		} else {
 			return false;
-		};
+		}
 	}
 	public function get_qty_by_prodID($pid)
 	{

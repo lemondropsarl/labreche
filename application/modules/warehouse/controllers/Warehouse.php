@@ -66,45 +66,56 @@ class Warehouse extends MX_Controller
 	}
 	public function create_entry_in()
 	{
-		//get inpusts\s
+		//get inputs
 		$product_id = $this->input->get('pid');
 		$si_qty = $this->input->get('si_qty');
 		$si_date = $this->input->get('si_date');
 		$si_user_id = $this->session->userdata('user_id');
 
-		//add the location
-		$model = array(
-			'prod_loc_prod_id' => $product_id,
-			'prod_loc_zone_id' => $this->input->get('prod_zone_id'),
-			'prod_loc_shelf_id' => $this->input->get('prod_shelf_id')
-		);
-		$prod_loc_id = $this->warehouse_model->add_product_location($model);
-
-		// adding the entry
-		$entry_model = array(
-			'si_product_id' => $product_id,
-			'si_quantity' => $si_qty,
-			'si_entry_date' => $si_date,
-			'si_user_id'    => $si_user_id
-		);
-		$this->warehouse_model->add_entry_in($entry_model);
-		//update table stock
-		if ($this->warehouse_model->is_lus_exist()) {
+		if ($this->warehouse_model->is_lus_exist($product_id)) {
+			# code...
+			
 			//then update the record
+			echo "step passed";
 			$_qty = $this->warehouse_model->get_qty_by_prodID($product_id);
 			$final_qty = $_qty + $si_qty;
 			$lus_model = array(
-
+	
 				'lus_quantity' => $final_qty
 			);
 			$this->warehouse_model->update_lus($lus_model);
-		} else {
+			
+
+		}else{
+			//add the location
+			$model = array(
+				'prod_loc_prod_id' => $product_id,
+				'prod_loc_zone_id' => $this->input->get('prod_zone_id'),
+				'prod_loc_shelf_id' => $this->input->get('prod_shelf_id')
+			);
+			$prod_loc_id = $this->warehouse_model->add_product_location($model);
+
+			// adding the entry
+			$entry_model = array(
+				'si_product_id' => $product_id,
+				'si_quantity' => $si_qty,
+				'si_entry_date' => $si_date,
+				'si_user_id'    => $si_user_id
+			);
+			$this->warehouse_model->add_entry_in($entry_model);
 			//add the record for the first time
 			$lus_model = array(
-				'lus_product_id' => $prod_loc_id,
+				'lus_product_id' => $product_id,
 				'lus_quantity' => $si_qty,
+<<<<<<< refs/remotes/origin/develop
 				'lus_prod_loc_id' => $product_id,
 				'lus_prod_loc_description' => $this->input->get('prod_loc_description')
+=======
+				'lus_prod_loc_id' => $prod_loc_id,
+				'lus_prod_loc_description' => $this->input->get('prod_loc_description')
+				,
+				'lus_updated_date' => $si_date
+>>>>>>> fix: creating entry
 			);
 			$this->warehouse_model->add_lus($lus_model);
 		}
