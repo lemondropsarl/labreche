@@ -198,7 +198,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+<<<<<<< Updated upstream
 				<button type="button" id="btn_add_category" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
+=======
+>>>>>>> Stashed changes
 			</div>
 			<?php echo form_close(); ?>
 		</div>
