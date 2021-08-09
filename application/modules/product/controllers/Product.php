@@ -39,6 +39,7 @@ class Product extends MX_Controller
 		$data['title']					=  'Articles';
 		$data['products']               = $this->product_model->get_all_products();
 		$data['categories']               = $this->product_model->get_categories();
+		//$data['count_p_moteur']			= $this->product_model->count_by_engine();
 		# code...
 		$this->load->view('templates/header', $data);
 		$this->load->view('list_product', $data);
@@ -68,9 +69,9 @@ class Product extends MX_Controller
 		# code...
 		$model = array(
 			'product_code' => $this->input->get('pcode'), // $this->input->post('pcode'),
-			'product_name' => $this->input->get('pname'),
-			'product_brand' => $this->input->get('pbrand'),
-			'product_model' => $this->input->get('pmodel'),
+			'product_name' => strtoupper($this->input->get('pname')),
+			'product_brand' => strtoupper($this->input->get('pbrand')),
+			'product_model' => strtoupper($this->input->get('pmodel')),
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
 			'min_qty'	=> $this->input->get('pmin_qty'),
@@ -106,20 +107,24 @@ class Product extends MX_Controller
 	{
 		# code...
 		$code = $this->input->get('id');
-		$item = $this->product_model->get_product_by_code($code);
-		if (isset($item)) {
-?>
-			<tr data-product_id="<?php echo $item['product_id']; ?>">
-				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
-				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
-				<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
-				<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
-				<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
-				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
-				<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
-			</tr>
-		<?php
-		}
+		$products = $this->product_model->get_product_like($code);
+		
+			foreach ($products as $item) {
+				# code...
+				?>
+
+				<tr data-product_id="<?php echo $item['product_id']; ?>">
+					<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
+					<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
+					<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
+					<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
+					<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
+					<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
+					<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
+				</tr>
+			<?php	
+			}
+		
 	}
 	public function search_by_cat()
 	{
@@ -162,7 +167,7 @@ class Product extends MX_Controller
 	public function create_category()
 	{
 		$model = array(
-			'cat_name' => $this->input->get('cat_name'),
+			'cat_name' => strtoupper($this->input->get('cat_name')),
 			'cat_description' => $this->input->get('cat_description')
 		);
 		$this->product_model->add_category($model);
@@ -172,7 +177,7 @@ class Product extends MX_Controller
 	public function create_vehicule()
 	{
 		$model = array(
-			'vehicule_brand' => $this->input->get('vehicule_brand')
+			'vehicule_brand' => strtoupper($this->input->get('vehicule_brand'))
 			
 		);
 		$this->product_model->add_vehicule($model);

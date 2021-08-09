@@ -72,13 +72,23 @@ class product_model extends CI_Model
         return $query->result_array();
         
     }
-    public function get_product_like($data)
+    public function get_product_like($code)
     {
-        $this->db->like('product_code', $data);
-        $this->db->or_like('product_name',$data);
-        $query = $this->db->get('product');
-        return $$query->result_array();
+        $query = "SELECT * FROM product where product_code LIKE"." "."'".$code."%'"." "
+        ."OR product_name LIKE"." "."'".$code."%'";
+        return $this->db->query($query)->result_array();
 
+    }
+    public function get_product_by_cat($cat_id)
+    {
+        $query = $this->db->get_where('product', array('product_cat_id'=>$cat_id));
+        return $query->result_array();   
+    }
+    public function count_by_engine($cat_id)
+    {
+       $this->db->where('product_cat_id', $cat_id);
+       $this->db->from('product');
+       return $this->db->count_all_results();    
     }
 }
 

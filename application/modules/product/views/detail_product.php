@@ -18,16 +18,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 							</button>
 						</div>
 					</div>
-					<div class="card-body"></div>
+					<div class="card-body">
+						en cours de veloppement
+					</div>
 				</div>
 			</div>
 			<div class="col-md-4">
-				<div class="card card-info">
-					<div class="card-header">
-						<h4 class="card-title">Localisation au depot</h4>
-					</div>
-					<div class="card-body"></div>
-				</div>
+				
 			</div>
 		</div>
 	</div>
