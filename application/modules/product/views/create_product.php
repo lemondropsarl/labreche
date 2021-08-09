@@ -159,7 +159,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_car" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
+				<button type="button" id="btn_add_car" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
@@ -198,10 +198,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-<<<<<<< Updated upstream
-				<button type="button" id="btn_add_category" class="btn btn-success" data-dismiss="modal">Enregistrer</button>
-=======
->>>>>>> Stashed changes
+				<button type="button" id="btn_add_category" class="btn btn-success">Enregistrer</button>
 			</div>
 			<?php echo form_close(); ?>
 		</div>
