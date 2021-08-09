@@ -10,18 +10,7 @@ class product_model extends CI_Model
 		$this->load->database();
 	}
 
-	public function get_all_products()
-	{
-		# code...
-		$query = $this->db->get('product');
-		return $query->result_array();
-	}
-    
-    public function __construct()
-    {
-        parent::__construct();
-        $this->load->database();
-    }
+
     
     public function get_all_products()
     {
@@ -30,10 +19,12 @@ class product_model extends CI_Model
         $query = $this->db->get('product');       
         return $query->result_array();      
     }
+
     public function update_product($id, $data)
     {
         $this->db->update('product', $data, array('product_id'=>$id));
         
+
     }
     public function add_category($data)
     {
@@ -46,25 +37,13 @@ class product_model extends CI_Model
     {
         $this->db->insert('vehicule', $data);
         return $this->db->insert_id();
+    }
 
-	public function update_product($id, $data)
-	{
-		$this->db->update('product', $data, array('product_id' => $id));
-	}
-	public function add_category($data)
-	{
-		$this->db->insert('categories', $data);
-		return $this->db->insert_id();
-	}
-
-	public function add_vehicule($data)
-	{
-		$this->db->insert('vehicule', $data);
-		return $this->db->insert_id();
-	}
+	
 	public function add_product($data)
 	{
-
+        $this->db->insert('product', $data);
+        
     }
     public function get_product_by_code($code)
     {
