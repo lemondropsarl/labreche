@@ -134,12 +134,24 @@ class Warehouse extends MX_Controller
 		$pid = $this->input->get('pid');
 		$query = $this->warehouse_model->get_qty_prodID($pid);
 		$old_qty = 0;
-		$new_qty = (float)$this->input->get('qty');
+		$si_user_id = $this->session->userdata('user_id');
+		$new_qty = (int)$this->input->get('qty');
+		$date_entry=$this->input->get('date_entry');
 		foreach ($query as $row) {
 			$old_qty = $row->lus_quantity;
 		}
 		$somme = $new_qty + $old_qty;
 		$model = array("lus_quantity" => $somme);
 		$this->warehouse_model->update_lus($pid, $model);
+		$entry_model = array(
+			'si_product_id' => $pid,
+			'si_quantity' => $new_qty,
+			'si_entry_date' => $date_entry,
+			'si_user_id'    => $si_user_id
+		);
+		$this->warehouse_model->add_entry_in($entry_model);
+	}
+	function create_entry_out()
+	{
 	}
 }

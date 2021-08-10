@@ -478,8 +478,10 @@ $this->app = $this->config->item('application', 'app');
 			$("#btn_update_quantity").data('pid', pid);
 		});
 		$("body").on("click", "#btn_update_quantity", function() {
+
 			const qty = $("#ajout_quantite").val();
 			const pid = $(this).data("pid");
+			const dateUpdate= $("#dateUpdate").val();
 
 			let erreur = new Array();
 			if (qty <= 0) {
@@ -490,11 +492,16 @@ $this->app = $this->config->item('application', 'app');
 				toastr.warning("La quantité ne doit pas être vide");
 				erreur.push('vide');
 			}
+			if (dateUpdate=== "") {
+				toastr.warning("La date ne doit pas être vide");
+				erreur.push('vide');
+			}
 			if (erreur.length === 0) {
 
 				$.get('<?php echo base_url("warehouse/update_quantity") ?>', {
 					pid: pid,
-					qty: qty
+					qty: qty,
+					date_entry:dateUpdate
 				}, function(data) {
 					liste_actualiser_entree(0);
 					toastr.success("Quantité ajoutée");

@@ -116,6 +116,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<label for="cat_name">AJOUT QUANTITE</label>
 					<input type="number" class="form-control" name="ajout_quantite" id="ajout_quantite" placeholder="Quantité" required>
 				</div>
+				<div class="form-group">
+					<label for="cat_name">Date</label>
+					<input type="date" class="form-control" name="dateUpdate" id="dateUpdate" placeholder="date" required>
+				</div>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
