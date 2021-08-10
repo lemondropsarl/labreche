@@ -425,7 +425,7 @@ $this->app = $this->config->item('application', 'app');
 			const date_entree = $("#date_entree").val(); //la date d"entrée du produit
 			const zone = $("#zone_entree").val();
 			const etagere = $("#etagere_produit").val();
-			const decription = $("#description_zone").val();
+			const description = $("#description_zone").val();
 			var erreur = new Array();
 
 			if (pid === "") {
@@ -457,6 +457,60 @@ $this->app = $this->config->item('application', 'app');
 				}, function(data) {
 					toastr.success('Quantité ajoutée');
 				});
+			}
+
+		});
+		//ligne entrée
+		function liste_actualiser_entree(pcode) {
+
+			$.get('<?php echo base_url("warehouse/get_liste_entry") ?>', {
+				id: pcode
+			}, function(data) {
+				$("#liste_entre_body").html(data);
+			});
+
+		}
+		liste_actualiser_entree(0); //cette methode sert à chargé la liste des entrées et sert aussi à actualiser
+		//
+		$("body").on("click", ".ligne_entree", function() {
+			//cette fait apparaitre le modal qui donne la possibilité d'ajouter la quantité d'un produit   
+			const pid = $(this).data("pid");
+			$("#btn_update_quantity").data('pid', pid);
+		});
+		$("body").on("click", "#btn_update_quantity", function() {
+			const qty = $("#ajout_quantite").val();
+			const pid = $(this).data("pid");
+
+			let erreur = new Array();
+			if (qty <= 0) {
+				toastr.warning("La valeur doit être supperieur à 0");
+				erreur.push('zero');
+			}
+			if (qty === "") {
+				toastr.warning("La quantité ne doit pas être vide");
+				erreur.push('vide');
+			}
+			if (erreur.length === 0) {
+
+				$.get('<?php echo base_url("warehouse/update_quantity") ?>', {
+					pid: pid,
+					qty: qty
+				}, function(data) {
+					liste_actualiser_entree(0);
+					toastr.success("Quantité ajoutée");
+				});
+
+			}
+
+		});
+		//filtre entre
+		$("#entree_filtre").on("keyup change", function() {
+
+			const pcode = $(this).val();
+			if (pcode === "") {
+				liste_actualiser_entree(0);
+			} else {
+				liste_actualiser_entree(pcode);
 			}
 
 		});

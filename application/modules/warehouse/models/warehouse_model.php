@@ -43,10 +43,10 @@ class warehouse_model extends CI_Model
 	//check if this product has a record in LUS table
 	public function is_lus_exist($pid)
 	{
-       
-        $this->db->where('lus_product_id',$pid);
-        $query = $this->db->get('last_update_stock');       
-		if ($query->num_rows()> 0) {
+
+		$this->db->where('lus_product_id', $pid);
+		$query = $this->db->get('last_update_stock');
+		if ($query->num_rows() > 0) {
 			return true;
 		} else {
 			return false;
@@ -57,9 +57,19 @@ class warehouse_model extends CI_Model
 		$query = $this->db->get('last_update_stock')
 			->where('lus_product_id', $pid)
 			->select('lus_quantity');
-
 		return $query->row();
 	}
+	/////////
+	public function get_qty_prodID($pid)
+	{
+		$query = $this->db->select('lus_quantity');
+		$query = $this->db->from('last_update_stock');
+		$query = $this->db->where('lus_product_id', $pid);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	//////////
+
 	public function update_lus($id, $model)
 	{
 		$this->db->update('last_update_stock', $model, array("lus_product_id" => $id));
@@ -67,8 +77,25 @@ class warehouse_model extends CI_Model
 	//get categories list
 	public function get_products()
 	{
-
 		$query = $this->db->get('product');
 		return $query->result_array();
+	}
+	//get liste entry stock
+
+	public function get_list_entry($id)
+	{
+		$query = null;
+		if ($id == 0 or $id == null) {
+			$query = $this->db->select('*');
+			$query = $this->db->from('stock_entries_in');
+			$query = $this->db->join('product', 'stock_entries_in.si_product_id=product.product_id');
+			$query = $this->db->get();
+			return $query->result_array();
+		} else {
+
+			$query = "SELECT * FROM product INNER JOIN stock_entries_in ON stock_entries_in.si_product_id=product.product_id where product_code LIKE" . " " . "'" . $id . "%'" . " "
+				. "OR product_name LIKE" . " " . "'" . $id . "%'";
+			return $this->db->query($query)->result_array();
+		}
 	}
 }

@@ -62,17 +62,66 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</select>
 					</div>
 				</div>
-				<div class="row" style="margin-bottom: 2%;">
-					<div class="description_entree" class="form-group">
+				<div style="margin-bottom: 2%;">
+					<div class="description_entree" class="form-group" style="margin-bottom: 2%;">
 						<label for="description_zone">DESCRIPTION</label>
-						<textarea class="form-control" id='description_zone' cols="30" rows="5" placeholder="Description de localisation de l'article ou du produit">
+						<textarea class="form-control" id='description_zone' cols="10" rows="2" placeholder="Description de localisation de l'article ou du produit">
                         </textarea>
 					</div>
-					<div class="form-group col-md-4">
-						<button class="btn btn-success" id="valider_entree">Valider</button>
+					<div class="row">
+						<div class="form-group col-md-4">
+							<button class="btn btn-success form-control" id="valider_entree">Valider</button>
+						</div>
+						<div class="form-group col-md-4 form-inline">
+							<label for="entre_filtre" class="label">RECHERCHE</label>
+							<input type="search" class="form-control" id="entree_filtre" name="entree_filtre" placeholder="Code article">
+						</div>
 					</div>
 				</div>
 			</form>
+		</div>
+	</div>
+</div>
+<div class="container">
+	<div class="table-responsive">
+		<table class="table table-bordered table-striped">
+			<thead class="thead-dark">
+				<tr>
+					<th class="center">NOM ARTICLE</th>
+					<th class="center">QUANTITE</th>
+					<th class="center">DATE ENTREE</th>
+				</tr>
+			</thead>
+			<tbody id="liste_entre_body">
+
+
+			</tbody>
+		</table>
+
+	</div>
+</div>
+<!-- Modal entree -->
+<div class="modal fade" id="modalEntree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">Ajouter quantité</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<?php echo form_open('product/create_category'); ?>
+				<div class="form-group">
+					<label for="cat_name">AJOUT QUANTITE</label>
+					<input type="number" class="form-control" name="ajout_quantite" id="ajout_quantite" placeholder="Quantité" required>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+				<button type="button" id="btn_update_quantity" data-pid='' class="btn btn-success">Ajouter</button>
+			</div>
+			<?php echo form_close(); ?>
 		</div>
 	</div>
 </div>
