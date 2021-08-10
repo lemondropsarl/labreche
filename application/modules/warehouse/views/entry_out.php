@@ -33,9 +33,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									# code...
 									<option
 										class="option"
-										value="<?php echo $item['product_id'];?>"
+										value="<?php echo $item['pid'];?>"
 									>
-										<?php echo $item['product_name'];?>
+										<?php echo $item['pname'];?>
 									</option>
 									<?php }?>
 								</select>

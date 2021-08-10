@@ -50,7 +50,7 @@ class Warehouse extends MX_Controller
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
-		$data['products']		       =   $this->warehouse_model->get_products();
+		$data['products']		       =   $this->warehouse_model->get_list_of_stock();
 		$data['warehouses']				   = $this->warehouse_model->get_warehouses();
 		$data['ws_products']			= $this->warehouse_model->get_entries_out();
 		
@@ -157,13 +157,11 @@ class Warehouse extends MX_Controller
 	{
 		$pid = $this->input->get('pid');
 		$query = $this->warehouse_model->get_qty_prodID($pid);
-		$old_qty = 0;
+		$old_qty = $query['lus_quantity'];
 		$si_user_id = $this->session->userdata('user_id');
 		$new_qty = (int)$this->input->get('qty');
 		$date_entry=$this->input->get('date_entry');
-		foreach ($query as $row) {
-			$old_qty = $row->lus_quantity;
-		}
+		
 		$somme = $new_qty + $old_qty;
 		$model = array("lus_quantity" => $somme);
 		$this->warehouse_model->update_lus($pid, $model);
@@ -202,6 +200,10 @@ class Warehouse extends MX_Controller
 			$ws_id = $ws['ws_id'];
 			
 			$this->warehouse_model->update_ws($ws_id,$final_qty);
+			$current_qty = $this->warehouse_model->get_qty_prodID($product_id);
+			$new_qty = $current_qty['lus_quantity'] - $qty;
+			$lus_model = array('lus_quantity' => $new_qty );
+			$this->warehouse_model->update_lus($product_id,$lus_model);
 
 		}else{
 			// does not exist then create stock for specific warehouse
@@ -212,6 +214,15 @@ class Warehouse extends MX_Controller
 				'updated_date' => $date
 			 );
 			 $this->warehouse_model->add_warehouse_stock($model);
-		}	
+
+			 //decrease quantity in the last_update record to sync with the information
+			 $current_qty = $this->warehouse_model->get_qty_prodID($product_id);
+			 $new_qty = $current_qty['lus_quantity'] - $qty;
+			 $lus_model = array('lus_quantity' => $new_qty );
+			 $this->warehouse_model->update_lus($product_id,$lus_model);
+			}
+		}
+		
 	}
+?>
 }

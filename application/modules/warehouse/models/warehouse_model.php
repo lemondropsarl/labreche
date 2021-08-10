@@ -52,13 +52,7 @@ class warehouse_model extends CI_Model
 			return false;
 		}
 	}
-	public function get_qty_by_prodID($pid)
-	{
-		$query = $this->db->get('last_update_stock')
-			->where('lus_product_id', $pid)
-			->select('lus_quantity');
-		return $query->row();
-	}
+	
 	/////////
 	public function get_qty_prodID($pid)
 	{
@@ -66,7 +60,7 @@ class warehouse_model extends CI_Model
 		$query = $this->db->from('last_update_stock');
 		$query = $this->db->where('lus_product_id', $pid);
 		$query = $this->db->get();
-		return $query->result();
+		return $query->row_array();
 	}
 	//////////
 
