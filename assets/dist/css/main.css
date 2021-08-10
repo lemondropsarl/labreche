@@ -9,27 +9,43 @@
 	text-transform: uppercase;
 	font-size: 10pt;
 }
-.cache{
+
+.cache {
 	display: none;
 }
-th{
+
+th {
 	text-transform: uppercase;
 
 }
-td{
+
+td {
 	text-transform: capitalize;
 }
-label{
+
+label {
 	text-transform: uppercase;
-	font-weight:none;
+	font-weight: none;
 }
-.modification{
+
+.modification {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 }
-.modification h2{
+
+.modification h2 {
 	font-size: 16pt;
 	text-transform: uppercase;
+}
+
+.center {
+	text-align: center;
+}
+
+.ligne_hover:hover {
+	background-color: grey;
+	cursor: pointer;
+	color: white;
 }
