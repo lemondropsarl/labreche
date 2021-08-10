@@ -80,7 +80,6 @@ class warehouse_model extends CI_Model
 		$query = $this->db->get('product');
 		return $query->result_array();
 	}
-<<<<<<< HEAD
 	public function get_warehouses()
 	{
 		$this->db->order_by('warehouse_name ASC');
@@ -134,7 +133,6 @@ class warehouse_model extends CI_Model
 		return $query->result_array();	
 	}
 
-=======
 	//get liste entry stock
 
 	public function get_list_entry($id)
@@ -153,5 +151,4 @@ class warehouse_model extends CI_Model
 			return $this->db->query($query)->result_array();
 		}
 	}
->>>>>>> develop
 }
