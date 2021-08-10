@@ -295,6 +295,7 @@ class Migration_initial_warehouse extends CI_Migration {
         `product`.`product_code` AS `pcode`,
         `product`.`product_name` AS `pname`,
         `product`.`product_uom` AS `uom`,
+        `product`.`min_qty` as `min_qty`,
         `last_update_stock`.`lus_quantity` AS `qty`
         
         FROM 
