@@ -71,4 +71,57 @@ class warehouse_model extends CI_Model
 		$query = $this->db->get('product');
 		return $query->result_array();
 	}
+	public function get_warehouses()
+	{
+		$this->db->order_by('warehouse_name ASC');
+		$query = $this->db->get('warehouses');
+		return $query->result_array();		
+	}
+	public function add_warehouse($model)
+	{
+		$this->db->insert('warehouses', $model);
+		return $this->db->insert_id();		
+	}
+	public function add_entry_out($model)
+	{
+		$this->db->insert('stock_entries_out', $model);
+		
+	}
+	public function is_ws_stock_exist($pid, $wid)
+	{
+		$this->db->where('ws_product_id', $pid);
+		$this->db->where('warehouse_id', $wid);
+		$query = $this->db->get('warehouse_stock');
+
+		if ($query->num_rows() > 0) {
+			return true;
+		}else{
+			return false;
+		}	
+	}
+	public function get_ws_byID($pid,$wid)
+	{
+		$this->db->where('ws_product_id', $pid);
+		$this->db->where('warehouse_id', $wid);
+		$query = $this->db->get('warehouse_stock');
+		
+		return $query->row_array();	
+	}
+	public function add_warehouse_stock($model)
+	{
+		$this->db->insert('warehouse_stock', $model);		
+	}
+	public function update_ws($id,$model)
+	{
+		$this->db->set('ws_quantity', $model);
+		$this->db->where('ws_id', $id);
+		$this->db->update('warehouse_stock');
+		
+	}
+	public function get_entries_out()
+	{
+		$query = $this->db->get('so_entries_view');
+		return $query->result_array();	
+	}
+
 }

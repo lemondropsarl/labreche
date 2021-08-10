@@ -13,5 +13,6 @@ $config['tables']['stock_entries_out'] = 'stock_entries_out';
 $config['tables']['product_location'] = 'product_location';
 
 $config['views']['list_of_stock'] = 'list_of_stock';
+$config['views']['so_entries_view'] = 'so_entries_out';
 //views
 
