@@ -1,105 +1,136 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 ?>
-<div class="container">
-	<div class="panel panel-primary">
-		<div class="panel-heading">ENTREE STOCK</div>
-		<div class="panel-body">
-			<form class="form" action="" method="post">
-				<div class="row">
-					<div class="form-group col-md">
-						<label for="label">
-							NOM ARTICLE
-						</label>
 
-						<select id="products" class="form-control">
-							<?php
-							foreach ($products as $items) {
-							?>
-								<option class="option" value="<?php echo $items["product_id"]; ?>"><?php echo $items["product_name"]; ?></option>
-							<?php
-							}
 
-							?>
-						</select>
-					</div>
-					<div class="form-group col-md">
-						<label for="entree_quantite">Quantité</label>
-						<input type="number" min="1" class="form-control" name="entree_quantite" id="entree_quantite" placeholder="Quantité">
-					</div>
-					<div class="form-group col-md">
-						<label for="date_entree">Date entrée</label>
-						<input type="date" min="1" class="form-control" name="date_entree" id="date_entree">
-					</div>
-					<div class="form-group col-md">
-						<label for="zone_entree" class="label">ZONE</label>
-						<select name="zone_entree" id="zone_entree" class="form-control">
-							<option value="">ZONE</option>
-							<?php
-							foreach ($zones as $items) {
-							?>
-								<option value="<?php echo $items["zone_id"]; ?>"><?php echo $items["zone_name"]; ?></option>
-							<?php
-							}
+<div class="content">
 
-							?>
-						</select>
-					</div>
-					<div class="form-group col-md">
-						<label for="etagere_produit" class="label">ETAGERE</label>
-						<select name="etagere_produit" id="etagere_produit" class="form-control">
-							<option value="">ETAGERE</option>
-							<?php
-							foreach ($shelfs as $items) {
-							?>
-								<option value="<?php echo $items["shelf_id"]; ?>">
-									<?php echo $items["shelf_name"]; ?>
-								</option>
-							<?php
-							}
+	<div class="container-fluid">
+		<div class="row">
+			<div class="col-md-12">
 
-							?>
-						</select>
+				<div class="card card-outline card-primary">
+					<div class="card-header">
+						<h4>Entrée stock</h4>
+						<div class="card-tools">
+									<button
+										type="button"
+										class="btn btn-tool"
+										data-card-widget="collapse"
+									>
+										<i class="fas fa-minus"></i>
+									</button>
+								</div>
+					</div>
+					<div class="card-body">
+							<form class="form" action="" method="post">
+								<div class="row">
+									<div class="form-group col-md">
+										<label for="label">
+											NOM ARTICLE
+										</label>
+				
+										<select id="products" class="form-control">
+											<?php
+											foreach ($products as $items) {
+											?>
+												<option class="option" value="<?php echo $items["product_id"]; ?>"><?php echo $items["product_name"]; ?></option>
+											<?php
+											}
+				
+											?>
+										</select>
+									</div>
+									<div class="form-group col-md">
+										<label for="entree_quantite">Quantité</label>
+										<input type="number" min="1" class="form-control" name="entree_quantite" id="entree_quantite" placeholder="Quantité">
+									</div>
+									<div class="form-group col-md">
+										<label for="date_entree">Date entrée</label>
+										<input type="date" min="1" class="form-control" name="date_entree" id="date_entree">
+									</div>
+									<div class="form-group col-md">
+										<label for="zone_entree" class="label">ZONE</label>
+										<select name="zone_entree" id="zone_entree" class="form-control">
+											<option value="">ZONE</option>
+											<?php
+											foreach ($zones as $items) {
+											?>
+												<option value="<?php echo $items["zone_id"]; ?>"><?php echo $items["zone_name"]; ?></option>
+											<?php
+											}
+				
+											?>
+										</select>
+									</div>
+									<div class="form-group col-md">
+										<label for="etagere_produit" class="label">ETAGERE</label>
+										<select name="etagere_produit" id="etagere_produit" class="form-control">
+											<option value="">ETAGERE</option>
+											<?php
+											foreach ($shelfs as $items) {
+											?>
+												<option value="<?php echo $items["shelf_id"]; ?>">
+													<?php echo $items["shelf_name"]; ?>
+												</option>
+											<?php
+											}
+				
+											?>
+										</select>
+									</div>
+								</div>
+								<div style="margin-bottom: 2%;">
+									<div class="description_entree" class="form-group" style="margin-bottom: 2%;">
+										<label for="description_zone">DESCRIPTION</label>
+										<textarea class="form-control" id='description_zone' cols="10" rows="2" placeholder="Description de localisation de l'article ou du produit">
+										</textarea>
+									</div>
+									<div class="row">
+										<div class="form-group col-md-4">
+											<button class="btn btn-success form-control" id="valider_entree">Valider</button>
+										</div>
+										
+									</div>
+								</div>
+							</form>
 					</div>
 				</div>
-				<div style="margin-bottom: 2%;">
-					<div class="description_entree" class="form-group" style="margin-bottom: 2%;">
-						<label for="description_zone">DESCRIPTION</label>
-						<textarea class="form-control" id='description_zone' cols="10" rows="2" placeholder="Description de localisation de l'article ou du produit">
-                        </textarea>
+			</div>
+			<div class="col-md-12">
+
+				<div class="card card-outline card-info">
+					<div class="card-header">
+							<div class="form-group col-md-6 form-inline">
+								<label for="entre_filtre" class="label">RECHERCHE</label>
+								<input type="search" class="form-control" id="entree_filtre" name="entree_filtre" placeholder="Code article">
+							</div>
 					</div>
-					<div class="row">
-						<div class="form-group col-md-4">
-							<button class="btn btn-success form-control" id="valider_entree">Valider</button>
-						</div>
-						<div class="form-group col-md-4 form-inline">
-							<label for="entre_filtre" class="label">RECHERCHE</label>
-							<input type="search" class="form-control" id="entree_filtre" name="entree_filtre" placeholder="Code article">
+					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-bordered table-striped">
+								<thead class="thead-dark">
+									<tr>
+										<th class="center">DATE ENTREE</th>
+										<th class="center">NOM ARTICLE</th>
+										<th class="center">QUANTITE</th>
+									</tr>
+								</thead>
+								<tbody id="liste_entre_body">
+	
+	
+								</tbody>
+							</table>
+	
 						</div>
 					</div>
 				</div>
-			</form>
+			</div>
 		</div>
+		
 	</div>
 </div>
-<div class="container">
-	<div class="table-responsive">
-		<table class="table table-bordered table-striped">
-			<thead class="thead-dark">
-				<tr>
-					<th class="center">NOM ARTICLE</th>
-					<th class="center">QUANTITE</th>
-					<th class="center">DATE ENTREE</th>
-				</tr>
-			</thead>
-			<tbody id="liste_entre_body">
 
-
-			</tbody>
-		</table>
-
-	</div>
-</div>
 <!-- Modal entree -->
 <div class="modal fade" id="modalEntree" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
 	<div class="modal-dialog" role="document">

@@ -22,7 +22,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<div class="card-body">
 						<?php echo form_open('warehouse/create_entry_out');?>
 						<div class="row">
-							<div class="form-group col-4">
+							<div class="form-group col-lg-4">
 								<label for="product">Nom article</label>
 								<select
 									name="ws_product"
@@ -40,7 +40,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									<?php }?>
 								</select>
 							</div>
-							<div class="form-group col-2">
+							<div class="form-group col-lg-2">
 								<label for="entree_quantite">Quantité</label>
 								<input
 									type="number"
@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									placeholder="Quantité"
 								/>
 							</div>
-                            <div class="form-group col-2">
+                            <div class="form-group col-lg-2">
 								<label for="entree_quantite">Date</label>
 								<input
 									type="date"
@@ -61,7 +61,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									placeholder="Date de sortie"
 								/>
 							</div>
-							<div class="form-group col-4">
+							<div class="form-group col-lg-4">
 								<label for="product">Destination</label>
 								<select name="so_dest" id="so_dest" class="form-control">
 									<?php foreach ($warehouses as $item) {?>
@@ -91,13 +91,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					</div>
                     <div class="card-body">
                         <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
+                            <table class="table wy-table-bordered-all table-striped">
+                                <thead class="thead-dark">
                                     <tr>
-                                        <th>Date operation</th>
-                                        <th>Nom article</th>
-                                        <th>Destination</th>
-                                        <th>Quantité</th>
+                                        <th class="center">Date operation</th>
+                                        <th class="center">Nom article</th>
+                                        <th class="center">Destination</th>
+                                        <th class="center">Quantité</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,7 +107,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                             <td><?php echo $item['entry_date'];?></td>
                                             <td><?php echo $item['name'];?></td>
                                             <td><?php echo $item['warehouse_name'];?></td>
-                                            <td><?php echo $item['quantity'];?></td>                                           
+                                            <td class="text-bold  align-content-end"><?php echo $item['quantity'];?></td>                                           
                                         </tr>
                                         <?php }?>
                                 </tbody>

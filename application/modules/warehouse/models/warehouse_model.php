@@ -145,4 +145,19 @@ class warehouse_model extends CI_Model
 			return $this->db->query($query)->result_array();
 		}
 	}
+	public function get_critical_stock_list()
+	{
+		return $this->db->get('critical_stock_view')->result_array();
+		
+	}
+	public function count_entries_out_daily($date)
+	{		
+		$this->db->where('so_entry_date', $date);
+		return $query = $this->db->get('stock_entries_out')->num_rows();
+		
+	}
+	public function count_critical_stock(Type $var = null)
+	{
+		return $this->db->count_all('critical_stock_view');
+	}
 }

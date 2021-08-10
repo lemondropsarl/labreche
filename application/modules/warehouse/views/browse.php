@@ -39,13 +39,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-gradient-gray">
 					<div class="inner">
-						<h3>1500</h3>
-						<p>TOTAL SORTIE</p>
+						<h3><?php echo $count_entries_out;?></h3>
+						<p>Total sortie journlière</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-calendar-check"></i>
 					</div>
-					<a href="http://" class="small-box-footer"
+					<a href="<?php echo base_url('warehouse/entry_out');?>" class="small-box-footer"
 						>plus d'infos <i class="fa fa-arrow-alt-circle-right"></i
 					></a>
 				</div>
@@ -53,13 +53,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-red">
 					<div class="inner">
-						<h3>1500</h3>
-						<p>TOTAL STOCK CRITIQUE</p>
+						<h3><?php echo $count_critical_stock;?></h3>
+						<p>Total stock en critique</p>
 					</div>
 					<div class="icon">
 						<i class="ion ion-pie-graph"></i>
 					</div>
-					<a href="http://" class="small-box-footer"
+					<a href="<?php echo base_url('warehouse/critical_stock');?>" class="small-box-footer"
 						>plus d'infos <i class="fa fa-arrow-alt-circle-right"></i
 					></a>
 				</div>

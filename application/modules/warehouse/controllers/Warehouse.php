@@ -82,11 +82,29 @@ class Warehouse extends MX_Controller
 		$data['zones']				= $this->warehouse_model->get_zones();
 		$data['shelfs']				= $this->warehouse_model->get_shelfs();
 
+		$date_today = date('Y-m-d');
+		$data['count_entries_out'] = $this->warehouse_model->count_entries_out_daily($date_today);
+		$data['count_critical_stock'] = $this->warehouse_model->count_critical_stock();
 		//get different data
 
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('browse', $data);
+		$this->load->view('templates/footer');
+	}
+	public function critical_stock()
+	{
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']				   =  'Liste stock critique';
+
+		$data['critical_stock']		= $this->warehouse_model->get_critical_stock_list();
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('critical_stock_list', $data);
 		$this->load->view('templates/footer');
 	}
 	public function create_entry_in()
@@ -142,12 +160,12 @@ class Warehouse extends MX_Controller
 		foreach ($list_entry as $items) {
 ?>
 			<tr class="ligne_entree ligne_hover" data-pid="<?php echo $items["si_product_id"]; ?>" data-quantite="<?php echo $items["si_quantity"]; ?>" data-toggle="modal" data-target="#modalEntree">
+			<td>
+				<?php $old_date = Date_create($items["si_entry_date"]);
+				echo Date_format($old_date, "d/m/Y"); ?>
+			</td>
 				<td><?php echo $items["product_name"]; ?></td>
-				<td><?php echo $items["si_quantity"]; ?></td>
-				<td>
-					<?php $old_date = Date_create($items["si_entry_date"]);
-					echo Date_format($old_date, "d/m/Y"); ?>
-				</td>
+				<td class="text-bold"><?php echo $items["si_quantity"]; ?></td>
 
 			</tr>
 <?php
@@ -173,7 +191,7 @@ class Warehouse extends MX_Controller
 		);
 		$this->warehouse_model->add_entry_in($entry_model);
 	}
-	function create_entry_out()
+	public function create_entry_out()
 	{
 		//make sure the product has stock and are in stock before any action refer to view
 		//get inputs
@@ -224,5 +242,6 @@ class Warehouse extends MX_Controller
 		}
 		
 	}
+	
 ?>
 }

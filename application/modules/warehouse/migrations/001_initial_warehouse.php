@@ -290,7 +290,7 @@ class Migration_initial_warehouse extends CI_Migration {
 		$this->db->insert('modules', $module);
 
         //creating views
-        $listStockView = 'CREATE VIEW'.' '. $this->views['list_of_stock'].' '.'AS SELECT'.' '.' 
+        $listStockView = 'CREATE VIEW'.' '. $this->views['list_of_stock_view'].' '.'AS SELECT'.' '.' 
         `product`.`product_id` AS `pid`,
         `product`.`product_code` AS `pcode`,
         `product`.`product_name` AS `pname`,
@@ -321,6 +321,32 @@ class Migration_initial_warehouse extends CI_Migration {
         where (`product`.`product_id` = `stock_entries_out`.`so_product_id`) and (`stock_entries_out`.`so_dest_ware_id` = `warehouses`.`warehouse_id`)
         order by `stock_entries_out`.`so_entry_date` desc';
         $this->db->query($so_entries_view);
+
+        $critical_stock_view = 'CREATE VIEW'.' '. $this->views[`critical_stock_view`].' '.' AS
+        select
+          `product`.`product_id` AS `pid`,
+          `product`.`product_code` AS `pcode`,
+          `product`.`product_name` AS `pname`,
+          `product`.`product_uom` AS `uom`,
+          `product`.`min_qty` AS `min_qty`,
+          `last_update_stock`.`lus_quantity` AS `actual_quantity`
+        from
+          (
+            `product`
+            join `last_update_stock`
+          )
+        where
+          (
+            (
+              `product`.`product_id` = `last_update_stock`.`lus_product_id`
+            )
+            and (
+              `product`.`min_qty` = `last_update_stock`.`lus_quantity`
+            )
+          )
+        order by
+          `product`.`product_name`';
+          $this->db->query($critical_stock_view);
         //adding wones
         $zones = [
 
