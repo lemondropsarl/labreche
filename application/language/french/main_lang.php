@@ -27,7 +27,7 @@ $lang['step_3']        = 'INSTALLATION TERMINER AVEC SUCCESS';
 $lang['register']      = 'Enregistrer';
 //Dashboard
 $lang['dashboard']      = 'Tableau de bord';
-$lang['welcome_message'] = 'Bienvenue à Webase';
+$lang['welcome_message'] = 'Bienvenue à La Breche Gestion de stock';
 
 //regular
 $lang['new']            = 'Nouveau';
