@@ -25,58 +25,61 @@ $this->app = $this->config->item('application','app');
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css')?>">
 </head>
 <body class="hold-transition login-page">
-<div class="login-logo">
+  <div class="login-logo">
     <a href="#"><b><?php echo $this->app['name']?></a>
   </div>
   <!-- /.login-logo -->
-  <div class="card">
-    <div class="card-body login-card-body">
-      <p class="login-box-msg"><?php echo lang('webase_connect')?></p>
+  <div class="container align-content-center">
 
-      <?php echo form_open('auth/login');?>
-        <div class="input-group mb-3">
-          <input type="text" name="username" class="form-control" placeholder="<?php echo $this->lang->line('login_identity_label');?>">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-user"></span>
+    <div class="card">
+      <div class="card-body login-card-body">
+        <p class="login-box-msg"><?php echo lang('webase_connect')?></p>
+  
+        <?php echo form_open('auth/login');?>
+          <div class="input-group mb-3">
+            <input type="text" name="username" class="form-control" placeholder="<?php echo $this->lang->line('login_identity_label');?>">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-user"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="input-group mb-3">
-          <input type="password" name="password" class="form-control" placeholder="<?php echo $this->lang->line('login_password_label');?>">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
+          <div class="input-group mb-3">
+            <input type="password" name="password" class="form-control" placeholder="<?php echo $this->lang->line('login_password_label');?>">
+            <div class="input-group-append">
+              <div class="input-group-text">
+                <span class="fas fa-lock"></span>
+              </div>
             </div>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
-			  <?php echo $this->lang->line('login_remember_label');?>
-              </label>
+          <div class="row">
+            <div class="col-8">
+              <div class="icheck-primary">
+                <input type="checkbox" id="remember">
+                <label for="remember">
+          <?php echo $this->lang->line('login_remember_label');?>
+                </label>
+              </div>
             </div>
+            <!-- /.col -->
+            <div class="col-8">
+              <button type="submit" class="btn btn-primary btn-block">
+        <?php echo $this->lang->line('login_heading'); ?>
+        </button>
+            </div>
+            <!-- /.col -->
           </div>
-          <!-- /.col -->
-          <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">
-			<?php echo $this->lang->line('login_heading'); ?>
-			</button>
-          </div>
-          <!-- /.col -->
-        </div>
-      <?php echo form_close()?>
-
-      <p class="mb-1">
-        <a href="#">
-		<?php echo $this->lang->line('forgot_password_heading') ;?>
-		</a>
-      </p>
-      
+        <?php echo form_close()?>
+  
+        <p class="mb-1">
+          <a href="#">
+      <?php echo $this->lang->line('forgot_password_heading') ;?>
+      </a>
+        </p>
+        
+      </div>
+      <!-- /.login-card-body -->
     </div>
-    <!-- /.login-card-body -->
   </div>
   <!-- /.login-box -->
 

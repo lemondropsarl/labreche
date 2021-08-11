@@ -20,7 +20,7 @@ class Dashboard extends MX_Controller {
 		}
 		$siteLang = $this->session->userdata('site_lang');
         if ($siteLang) {
-           $this->lang->load('main',$siteLang);
+           $this->lang->load('main','french');
         } else {
            $this->lang->load('main','french');
 		}
