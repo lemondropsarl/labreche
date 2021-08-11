@@ -32,7 +32,8 @@ $active = '';
 		href="<?php echo base_url('assets/plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css')?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.css')?>">
 	<link rel="stylesheet" href="<?php echo base_url('assets/dist/css/main.css')?>">
-	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+	<link rel="stylesheet" type="text/css"
+		href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
 
 
 </head>
@@ -60,11 +61,11 @@ $active = '';
 					<a href="<?php echo base_url('dashboard')?>" class="nav-link">Home</a>
 				</li-->
 			</ul>
-			
+
 			<!-- Right navbar links -->
 			<ul class="navbar-nav ml-auto">
 				<!-- Messages Dropdown Menu -->
-				
+
 				<!-- Notifications Dropdown Menu -->
 				<!--li class="nav-item dropdown">
 					<a class="nav-link" data-toggle="dropdown" href="#">
@@ -82,7 +83,7 @@ $active = '';
 						<a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
 					</div>
 				</li-->
-				
+
 			</ul>
 		</nav>
 		<!-- /.navbar -->
@@ -111,8 +112,8 @@ $active = '';
 
 				<!-- Sidebar Menu -->
 				<nav class="mt-2">
-					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview" role="menu"
-						data-accordion="false">
+					<ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-legacy" data-widget="treeview"
+						role="menu" data-accordion="false">
 
 						<!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
@@ -159,7 +160,7 @@ $active = '';
 						<?php  
             
 				}
-			}
+						 }
           
         ?>
 					</ul>
