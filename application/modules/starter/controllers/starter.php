@@ -86,7 +86,8 @@ class Starter extends MX_Controller {
               $database_file = "application/config/database.php";
               if (!file_exists($database_file)) {
                   # code...
-                  rename($sample_database_file,$database_file);
+                  //rename($sample_database_file,$database_file);
+                  copy($sample_database_file,$database_file);
               }
               $this->updateDatabaseFile($server,$mysql_username,$mysql_password,$dbname,$database_file);
              
