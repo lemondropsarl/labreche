@@ -242,9 +242,6 @@ class Warehouse extends MX_Controller
 		}
 		
 	}
-<<<<<<< refs/remotes/origin/develop
 	
-=======
->>>>>>> optimized entry out operation
 ?>
 }

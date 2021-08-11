@@ -156,7 +156,7 @@ class warehouse_model extends CI_Model
 		return $query = $this->db->get('stock_entries_out')->num_rows();
 		
 	}
-	public function count_critical_stock(Type $var = null)
+	public function count_critical_stock($var = null)
 	{
 		return $this->db->count_all('critical_stock_view');
 	}
