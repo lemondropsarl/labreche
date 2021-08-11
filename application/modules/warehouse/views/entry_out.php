@@ -26,7 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 								<label for="product">Nom article</label>
 								<select
 									name="ws_product"
-									id="ws_prroducts"
+									id="ws_product"
 									class="form-control"
 								>
 									<?php foreach ($products as $item) {?>
@@ -81,7 +81,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="card-footer">
-						<button class="btn btn-success">Valider</button>
+						<button class="btn btn-success" id="btn_add_entry_out">Valider</button>
 					</div>
 					<?php echo form_close();?>
 				</div>
@@ -153,6 +153,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						require
 					/>
 				</div>
+				<div class="erreur cache bg-danger" id="error_ws_name">
+					L'adresse est obligatoire
+				</div>
 				<div class="form-group">
 					<label for="ws_address">Adresse</label>
 					<input
@@ -164,7 +167,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						require
 					/>
 				</div>
-				<div class="erreur cache bg-danger" id="error_warehouse">
+				<div class="erreur cache bg-danger" id="error_ws_address">
 					L'adresse est obligatoire
 				</div>
 			</div>
@@ -172,7 +175,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<button type="button" class="btn btn-secondary" data-dismiss="modal">
 					Fermer
 				</button>
-				<button type="submit" id="btn_add_ws" class="btn btn-success">
+				<button type="buttom" id="btn_add_ws" class="btn btn-success">
 					Enregistrer
 				</button>
 			</div>

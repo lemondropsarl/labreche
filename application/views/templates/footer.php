@@ -522,6 +522,72 @@ $this->app = $this->config->item('application', 'app');
 
 		});
 
+		//ad warehouse 
+		$("#btn_add_ws").on("click", function(e) {
+			e.preventDefault();
+			const ws_name = $("#ws_name").val();
+			const ws_address = $("#ws_address").val();
+			var erreur = new Array();
+			$(".erreur").hide();
+			if (ws_name === "") {
+				erreur.push("");
+				$("#error_ws_name").css("display", "flex");
+			}
+			if (ws_address === "") {
+				erreur.push("");
+				$("#error_ws_address").css("display", "flex");
+			}
+			if (erreur.length === 0) {
+				$.get('<?php echo base_url("warehouse/create_warehouse") ?>', {
+					ws_name: ws_name,
+					ws_address: ws_address
+				}, function(data) {
+					$('#modalWarehouse').hide();
+					location.reload();
+					toastr.success('Dépôt ajouté avec success');
+				});
+			}
+		});
+		//add entry out 
+		$("#btn_add_entry_out").on("click", function(e) {
+			e.preventDefault();
+			const ws_product = $("#ws_product").val();
+			const o_qty = $("#o_qty").val();
+			const o_date = $("#o_date").val();
+			const so_dest = $("#so_dest").val();
+
+
+			var erreur = new Array();
+			$(".erreur").hide();
+			if (ws_product === "") {
+				erreur.push("");
+				$("#error_ws_product").css("display", "flex");
+			}
+			if (o_qty === "") {
+				erreur.push("");
+				$("#error_o_qty").css("display", "flex");
+			}
+			if (o_date === "") {
+				erreur.push("");
+				$("#error_o_date").css("display", "flex");
+			}
+			if (so_dest === "") {
+				erreur.push("");
+				$("#error_o_dest").css("display", "flex");
+			}
+			if (erreur.length === 0) {
+				$.get('<?php echo base_url("warehouse/create_entry_out") ?>', {
+					ws_product: ws_product,
+					o_qty: o_qty,
+					o_date : o_date,
+					so_dest : so_dest
+				}, function(data) {
+					location.reload();
+					toastr.success('Sortie dépot avec success');
+				});
+			}
+		});
+
 	})();
 </script>
 

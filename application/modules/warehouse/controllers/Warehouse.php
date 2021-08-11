@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Warehouse extends MX_Controller
 {
+	private $user_id;
 
 	public function __construct()
 	{
@@ -19,7 +20,7 @@ class Warehouse extends MX_Controller
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
 
-
+		$this->user_id 	= $this->session->userdata('user_id');
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 
@@ -62,12 +63,12 @@ class Warehouse extends MX_Controller
 	public function create_warehouse()
 	{
 		$model = array(
-			'warehouse_name' => $this->input->post('ws_name'),
-			 'warehouse_address' => $this->input->post('ws_address')		 
+			'warehouse_name' => $this->input->get('ws_name'),
+			 'warehouse_address' => $this->input->get('ws_address')		 
 		);
 		$this->warehouse_model->add_warehouse($model);
 		
-		redirect('warehouse/entry_out','refresh');		
+		//redirect('warehouse/entry_out','refresh');		
 	}
 
 	public function check()
@@ -195,17 +196,17 @@ class Warehouse extends MX_Controller
 	{
 		//make sure the product has stock and are in stock before any action refer to view
 		//get inputs
-		$product_id 	= 	$this->input->post('ws_product');
-		$qty 			= $this->input->post('o_qty');
-		$destination	= $this->input->post('so_dest');
-		$date 		= $this->input->post('o_date');
-		$user_id 	= $this->session->userdata('user_id');
+		$product_id 	= 	$this->input->get('ws_product');
+		$qty 			= $this->input->get('o_qty');
+		$destination	= $this->input->get('so_dest');
+		$date 		= $this->input->get('o_date');
+		
 		$model = array(
 			'so_product_id' => $product_id,
 			'so_quantity' => $qty,
 			'so_entry_date' => $date,
 			'so_dest_ware_id' => $destination,
-			'so_user_id' =>$user_id
+			'so_user_id' => $this->user_id
 			 );
 		$this->warehouse_model->add_entry_out($model);
 
