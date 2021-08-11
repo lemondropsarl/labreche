@@ -53,7 +53,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					<div class="row" style="margin-top:1%;">
 						<div class="col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
 							<select class="form-control" id='id_categorie_drop_down'>
-																
+								<option value="">CATEGORIE</option>
 								<?php foreach ($categories as $item) { ?>
 									<option value="<?php echo $item['cat_id']; ?>"><?php echo $item['cat_name']; ?></option>
 								<?php } ?>
@@ -63,7 +63,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
-					
+
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-striped">
@@ -90,7 +90,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 											<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
 											<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
 											<td>
-												<a href="<?php echo site_url('product/details/'.$item['product_id']);?>" ><i class="fa fa-arrow-right"></i></a>
+												<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>"><i class="fa fa-arrow-right"></i></a>
 											</td>
 										</tr>
 									<?php } ?>
