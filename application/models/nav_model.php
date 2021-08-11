@@ -11,7 +11,7 @@ class nav_model extends CI_Model {
         //Do your magic here
     }
     public function get_nav_menus(){
-        
+         $this->db->order_by('order asc');
        return $this->db->get('navigation_menu')->result_array();
     }
     public function get_acl_modules($user_id = FALSE){
@@ -37,6 +37,7 @@ class nav_model extends CI_Model {
        
     }
     public function get_acl_menus(){
+        
         return $this->db->get('acl_menus')->result_array();
 
     }

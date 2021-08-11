@@ -11,7 +11,38 @@ class warehouse_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
+	public function get_stock_value_usd()
+	{
+		$sql = 'select SUM(`Result`) as total
+		FROM(
+		SELECT
+			 SUM(`product`.`unit_price` * `last_update_stock`.`lus_quantity`) as Result
+			from (`product`,`last_update_stock`)
+		WHERE (`product`.`product_id` = `last_update_stock`.`lus_product_id`) and (`product`.`product_currency` = "USD")
+		group By (`product`.`product_id`)
+		) as T';
 
+		$query = $this->db->query($sql);
+		
+		return $query->row_array();
+	}
+
+
+	public function get_stock_value_cdf()
+	{
+		$sql = 'select SUM(`Result`) as total
+		FROM(
+		SELECT
+			 SUM(`product`.`unit_price` * `last_update_stock`.`lus_quantity`) as Result
+			from (`product`,`last_update_stock`)
+		WHERE (`product`.`product_id` = `last_update_stock`.`lus_product_id`) and (`product`.`product_currency` = "CDF")
+		group By (`product`.`product_id`)
+		) as T';
+
+		$query = $this->db->query($sql);
+		
+		return $query->row_array();
+	}
 	public function get_list_of_stock()
 	{
 		$query = $this->db->get('list_of_Stock_view');

@@ -86,6 +86,9 @@ class Warehouse extends MX_Controller
 		$date_today = date('Y-m-d');
 		$data['count_entries_out'] = $this->warehouse_model->count_entries_out_daily($date_today);
 		$data['count_critical_stock'] = $this->warehouse_model->count_critical_stock();
+		$data['value_cdf'] = $this->warehouse_model->get_stock_value_cdf();
+		$data['value_usd'] = $this->warehouse_model->get_stock_value_usd();
+
 		//get different data
 
 
@@ -196,6 +199,7 @@ class Warehouse extends MX_Controller
 	{
 		//make sure the product has stock and are in stock before any action refer to view
 		//get inputs
+		$typeTransaction = "incoming";
 		$product_id 	= 	$this->input->get('ws_product');
 		$qty 			= $this->input->get('o_qty');
 		$destination	= $this->input->get('so_dest');
@@ -217,7 +221,6 @@ class Warehouse extends MX_Controller
 			$ws = $this->warehouse_model->get_ws_byID($product_id,$destination);
 			$final_qty = $ws['ws_quantity'] + $qty;
 			$ws_id = $ws['ws_id'];
-			
 			$this->warehouse_model->update_ws($ws_id,$final_qty);
 			$current_qty = $this->warehouse_model->get_qty_prodID($product_id);
 			$new_qty = $current_qty['lus_quantity'] - $qty;
@@ -230,6 +233,7 @@ class Warehouse extends MX_Controller
 				'ws_product_id' => $product_id,
 				'warehouse_id' => $destination,
 				'ws_quantity' => $qty,
+				'typeTransaction' => $typeTransaction,
 				'updated_date' => $date
 			 );
 			 $this->warehouse_model->add_warehouse_stock($model);

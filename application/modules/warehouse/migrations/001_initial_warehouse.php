@@ -143,6 +143,10 @@ class Migration_initial_warehouse extends CI_Migration {
                 'type' => 'int',
                 'constraint' => '4'
             ],
+            'typeTransaction' =>[
+                'type'  => 'VARCHAR',
+                'constraint' => '20'
+            ],
             'updated_date' => [
                 'type' => 'date',               
             ]

@@ -35,7 +35,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										class="option"
 										value="<?php echo $item['pid'];?>"
 									>
-										<?php echo $item['pname'];?>
+										<?php echo $item['pcode'].' -    '. $item['pname'];?>
 									</option>
 									<?php }?>
 								</select>

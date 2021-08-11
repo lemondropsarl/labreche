@@ -6,35 +6,37 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <div class="content">
 	<div class="container-fluid">
 		<div class="row">
-			<!--div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
-				<div class="small-box bg-primary">
+			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+				<div class="small-box  bg-gradient-navy">
 					<div class="inner">
-						<h3>1500</h3>
+						<h3><?php echo number_format($value_cdf['total'],2,',',' ');?></h3>
 						<p>Valeur du stock CDF</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-dollar-sign"></i>
 					</div>
-					<a href="http://" class="small-box-footer"
-						>plus d'infos <i class="fa fa-arrow-alt-circle-right"></i
-					></a>
+					<a href="#" class="small-box-footer"></a>
+						
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-primary">
 					<div class="inner">
-						<h3>1500</h3>
+						<h3><?php if ($value_usd['total']) {
+						 echo number_format($value_usd['total'],2,',', ' '); }else {?>
+							 0
+						 <?php }?>
+						
+						</h3>							
 						<p>Valeur du stock USD</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-dollar-sign"></i>
 					</div>
-					<a href="http://" class="small-box-footer"
-						>plus d'infos <i class="fa fa-arrow-alt-circle-right"></i
-					></a>
+					<a href="#" class="small-box-footer"></a>
 				</div>
-			</div-->
-			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
+			</div>
+			<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
 				<div class="small-box bg-gradient-gray">
 					<div class="inner">
 						<h3><?php echo $count_entries_out;?></h3>
@@ -64,8 +66,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 		</div>
 
+		<div class="row">	
 		<div class="col-md-12">
-			<div class="row">	
 					<div class="card card-outline card-info">
 						<div class="card-header">
 							<div class="card-title">
