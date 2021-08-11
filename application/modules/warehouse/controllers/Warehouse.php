@@ -41,7 +41,7 @@ class Warehouse extends MX_Controller
 		$data['zones'] = $this->warehouse_model->get_zones();
 		$data['shelfs'] = $this->warehouse_model->get_shelfs();
 
-		$data['title'] =  'Entree';
+		$data['title'] =  'Entrée stock';
 		$this->load->view('templates/header', $data);
 		$this->load->view('entry_in', $data);
 		$this->load->view('templates/footer');
@@ -55,7 +55,7 @@ class Warehouse extends MX_Controller
 		$data['warehouses']				   = $this->warehouse_model->get_warehouses();
 		$data['ws_products']			= $this->warehouse_model->get_entries_out();
 		
-		$data['title']				   =  'Sortie';
+		$data['title']				   =  'Sortie stock';
 		$this->load->view('templates/header', $data);
 		$this->load->view('entry_out', $data);
 		$this->load->view('templates/footer');

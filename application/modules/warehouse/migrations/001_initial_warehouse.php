@@ -322,8 +322,7 @@ class Migration_initial_warehouse extends CI_Migration {
         order by `stock_entries_out`.`so_entry_date` desc';
         $this->db->query($so_entries_view);
 
-        $critical_stock_view = 'CREATE VIEW'.' '. $this->views[`critical_stock_view`].' '.' AS
-        select
+        $critical_stock_view = 'CREATE VIEW'.' '. $this->views['critical_stock_view'].' '.'AS select
           `product`.`product_id` AS `pid`,
           `product`.`product_code` AS `pcode`,
           `product`.`product_name` AS `pname`,

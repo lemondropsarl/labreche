@@ -12,7 +12,7 @@ $config['tables']['stock_entries_in'] = 'stock_entries_in';
 $config['tables']['stock_entries_out'] = 'stock_entries_out';
 $config['tables']['product_location'] = 'product_location';
 
-$config['views']['list_of_stock'] = 'list_of_stock_view';
+$config['views']['list_of_stock_view'] = 'list_of_stock_view';
 $config['views']['so_entries_view'] = 'so_entries_out_view';
 $config['views']['critical_stock_view'] = 'critical_stock_view';
 

@@ -14,7 +14,7 @@ class warehouse_model extends CI_Model
 
 	public function get_list_of_stock()
 	{
-		$query = $this->db->get('list_of_Stock');
+		$query = $this->db->get('list_of_Stock_view');
 		return $query->result_array();
 	}
 	public function add_lus($model)
@@ -123,7 +123,7 @@ class warehouse_model extends CI_Model
 	}
 	public function get_entries_out()
 	{
-		$query = $this->db->get('so_entries_view');
+		$query = $this->db->get('so_entries_out_view');
 		return $query->result_array();	
 	}
 

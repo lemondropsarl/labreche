@@ -29,6 +29,16 @@ class Product extends MX_Controller
 			$this->lang->load('ion_auth', 'french');
 		}
 	}
+	public function check_product()
+	{
+		$pcode = $this->input->get('pcode');
+		if ($this->product_model->is_pcode_exist($pcode)) {
+			echo "true";
+		}else{
+			echo "false";
+		}
+			# code...
+	}
 	public function list()
 	{
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();

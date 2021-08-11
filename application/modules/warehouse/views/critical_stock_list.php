@@ -33,7 +33,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                                 <td><?php echo $item['pname'];?></td>
                                                 <td><?php echo $item['uom'];?></td>
                                                 <td><?php echo $item['min_qty'];?></td>
-                                                <td><?php echo $item['actual_qty'];?></td>
+                                                <td class="text-bold"><?php echo $item['actual_quantity'];?></td>
                                             </tr>
 
                                 </tbody>

@@ -9,6 +9,16 @@ class product_model extends CI_Model
 		$this->load->database();
 	}
 
+    public function is_pcode_exist($pcode)
+    {
+        $this->db->where('product_code', $pcode);
+        $query = $this->db->get('product')->num_rows();
+        if ($query > 0) {
+            return true;
+        }else{
+            return false;
+        }
+    }
     public function get_all_products()
     {
         # code...

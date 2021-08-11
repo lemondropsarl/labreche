@@ -81,8 +81,23 @@ $this->app = $this->config->item('application', 'app');
 	(function() {
 
 		//function creattion de produit ou article
+		$("#prCode").on("keyup",function () { 
+			const pcode = $(this).val();
+			$.get("product/check_product", {pcode:pcode},
+				function (data) {
+					
+					if (data === "true") {
+						toastr.warning("Ce code existe déjà");
+						$("#prCode").data("verification", pcode);
+					}else{
+						$("#prCode").data("verification","0");
+					}
+				}			
+			);
+		});
 		$("#bt_create_produit").on("click", function(e) {
 			e.preventDefault();
+			const verification = $("#prCode").data("verification");
 			const pcode = $("#prCode").val();
 			const pname = $("#nomArticle").val();
 			const pbrand = $("#prMarque").val();
@@ -97,6 +112,13 @@ $this->app = $this->config->item('application', 'app');
 			$(".erreur").hide();
 			var message = $("#message_server");
 			message.text("");
+			
+			if (verification === pcode) {
+				toastr.warning("Ce code existe déjà");
+				erreur.push("code");
+				$("#prCode_erreur").text("Ce code existe déjà");
+				$("#prCode_erreur").css("display", "flex");
+			}
 			if (pcode === "") {
 				erreur.push("code");
 				$("#prCode_erreur").css("display", "flex");
@@ -240,10 +262,10 @@ $this->app = $this->config->item('application', 'app');
 				case 'code':
 					if (valeur !== "") {
 
-						if (confirm(`Vouez-vous modifier le Code de l'article?`)) {
+						if (confirm(`Voulez-vous modifier le Code de l'article?`)) {
 							update_product(product_id, type_cel, valeur);
 							const message = 'Modification efféctuée';
-							message_update(message);
+							toastr.success(message);
 						} else {
 							$(this).text(old_value);
 						}
@@ -252,7 +274,7 @@ $this->app = $this->config->item('application', 'app');
 
 						$(this).text(old_value);
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 					}
 					break;
 				case 'name':
@@ -260,13 +282,13 @@ $this->app = $this->config->item('application', 'app');
 						if (confirm(`Vouez-vous modifier le nom de l'article?`)) {
 							update_product(product_id, type_cel, valeur);
 							const message = 'Modification efféctuée';
-							message_update(message);
+							toastr.success(message);
 						} else {
 							$(this).text(old_value);
 						}
 					} else {
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 						$(this).text(old_value);
 					}
 					break;
@@ -275,14 +297,14 @@ $this->app = $this->config->item('application', 'app');
 						if (confirm(`Vouez-vous modifier la marque de l'article?`)) {
 							update_product(product_id, type_cel, valeur);
 							const message = 'Modification efféctuée';
-							message_update(message);
+							toastr.success(message);
 						} else {
 							$(this).text(old_value);
 						}
 					} else {
 
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 						$(this).text(old_value);
 					}
 					break;
@@ -291,13 +313,13 @@ $this->app = $this->config->item('application', 'app');
 						if (confirm(`Vouez-vous modifier le modele de l'article?`)) {
 							update_product(product_id, type_cel, valeur);
 							const message = 'Modification efféctuée';
-							message_update(message);
+							toastr.success(message);
 						} else {
 							$(this).text(old_value);
 						}
 					} else {
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 						$(this).text(old_value);
 					}
 					break;
@@ -306,13 +328,13 @@ $this->app = $this->config->item('application', 'app');
 						if (confirm(`Vouez-vous modifier l'unité de l'article?`)) {
 							update_product(product_id, type_cel, valeur);
 							const message = 'Modification efféctuée';
-							message_update(message);
+							toastr.success(message);
 						} else {
 							$(this).text(old_value);
 						}
 					} else {
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 						$(this).text(old_value);
 					}
 					break;
@@ -322,7 +344,7 @@ $this->app = $this->config->item('application', 'app');
 							if (confirm(`Vouez-vous modifier le prix de l'article?`)) {
 								update_product(product_id, type_cel, valeur);
 								const message = 'Modification efféctuée';
-								message_update(message);
+								toastr.success(message);
 								$(this).data("valeur", valeur);
 							} else {
 								$(this).text(old_value);
@@ -334,7 +356,7 @@ $this->app = $this->config->item('application', 'app');
 
 					} else {
 						const message = 'Echec de Modification';
-						message_update(message);
+						toastr.danger(message);
 						$(this).text(old_value);
 					}
 					break;
@@ -344,7 +366,7 @@ $this->app = $this->config->item('application', 'app');
 							if (confirm(`Vouez-vous modifier le Code de l'article?`)) {
 								update_product(product_id, type_cel, valeur);
 								const message = 'Modification efféctuée';
-								message_update(message);
+								toastr.success(message);
 							} else {
 								$(this).text(old_value);
 							}
@@ -352,21 +374,16 @@ $this->app = $this->config->item('application', 'app');
 
 							$(this).text(old_value);
 							const message = 'Unité non acceptée, Utilisez le USD & CDF';
-							message_update(message);
+							toastr.warning(message);
 						}
 					} else {
 						const message = 'Unité non acceptée, Utilisez le USD & CDF';
-						message_update(message);
+						toastr.warning(message);
 						$(this).text(old_value);
 					}
 					break;
 			}
 		});
-
-		function message_update(message) {
-			$(".modification #modification_message").text(message);
-		}
-
 		//function seach product by code
 		function search_product_code(id) {
 			$.get('<?php echo base_url("product/search") ?>', {

@@ -63,9 +63,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
-					<div class="modification">
-						<h2 id='modification_message'></h2>
-					</div>
+					
 					<div class="card-body">
 						<div class="table-responsive">
 							<table class="table table-bordered table-striped">

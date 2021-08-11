@@ -23,7 +23,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<div class="col-md-5">
 									<div class="form-group">
 										<label for="prCode" class="label text-secondary">Code article</label>
-										<input type="text" class="form-control" id="prCode" placeholder="Code article" name="pcode" required>
+										<input type="text" class="form-control" data-verification="0" id="prCode" placeholder="Code article" name="pcode" required>
 										<div class="erreur cache bg-danger" id="prCode_erreur">Vérifier le code article</div>
 
 									</div>
