@@ -36,3 +36,31 @@ label {
 	cursor: pointer;
 	color: white;
 }
+
+.ligne_detail_recherche {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-around;
+	align-items: center;
+	padding: 2%;
+}
+
+.ligne_detail_recherche div {
+	    flex-grow: 0;
+		flex-shrink: 0;
+		flex-basis: 23%;
+}
+
+.ligne_detail_recherche div span {
+	display: block;
+	text-align: center;
+	text-transform: uppercase;
+	
+}
+.ligne_detail_recherche div span.label_search {
+	font-size: 1.1em;
+	font-weight: bolder;
+	text-transform: uppercase;
+	font-weight: bolder;
+	
+}

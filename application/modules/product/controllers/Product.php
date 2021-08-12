@@ -16,7 +16,7 @@ class Product extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-		
+
 
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
@@ -34,10 +34,10 @@ class Product extends MX_Controller
 		$pcode = $this->input->get('pcode');
 		if ($this->product_model->is_pcode_exist($pcode)) {
 			echo "true";
-		}else{
+		} else {
 			echo "false";
 		}
-			# code...
+		# code...
 	}
 	public function list()
 	{
@@ -85,7 +85,7 @@ class Product extends MX_Controller
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
 			'min_qty'	=> $this->input->get('pmin_qty'),
-			
+
 			'product_currency' => $this->input->get('pcurrency'),
 			'product_status' => 1,
 			'product_cat_id' => $this->input->get('pcat_id'), // $this->input->get('pcat_id'),
@@ -98,7 +98,7 @@ class Product extends MX_Controller
 		//redirect('product/list', 'refresh');
 	}
 
-	
+
 	public function details()
 	{
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
@@ -107,10 +107,10 @@ class Product extends MX_Controller
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'Article!Détail';
-		
+
 		# code...
-		$this->load->view('templates/header',$data);
-		$this->load->view('detail_product',$data);
+		$this->load->view('templates/header', $data);
+		$this->load->view('detail_product', $data);
 		$this->load->view('templates/footer');
 	}
 	public function search()
@@ -118,29 +118,36 @@ class Product extends MX_Controller
 		# code...
 		$code = $this->input->get('id');
 		$products = $this->product_model->get_product_like($code);
-		
-			foreach ($products as $item) {
-				# code...
-				?>
 
-				<tr data-product_id="<?php echo $item['product_id']; ?>">
-					<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
-					<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
-					<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
-					<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
-					<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
-					<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
-					<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
-				</tr>
-			<?php	
-			}
-		
+		foreach ($products as $item) {
+			# code...
+?>
+
+			<tr data-product_id="<?php echo $item['product_id']; ?>">
+				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
+				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
+				<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
+				<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
+				<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
+				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
+				<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
+			</tr>
+		<?php
+		}
+	}
+	public function search_by_id_pr_stock()
+	{
+		# code...
+		$code = $this->input->get('id');
+		$products = $this->product_model->get_product_by_code_detail($code);
+		echo json_encode($products);
 	}
 	public function search_by_cat()
 	{
 		# code...
 		$code = $this->input->get('id');
 		$products = $this->product_model->get_product_by_cat($code);
+
 		foreach ($products as $item) {
 		?>
 			<tr data-product_id="<?php echo $item['product_id']; ?>">
@@ -188,7 +195,7 @@ class Product extends MX_Controller
 	{
 		$model = array(
 			'vehicule_brand' => strtoupper($this->input->get('vehicule_brand'))
-			
+
 		);
 		$this->product_model->add_vehicule($model);
 
@@ -223,7 +230,6 @@ class Product extends MX_Controller
 				break;
 		}
 	}
-	
 }
 
 /* End of file filename.php */

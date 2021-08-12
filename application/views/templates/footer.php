@@ -81,18 +81,20 @@ $this->app = $this->config->item('application', 'app');
 	(function() {
 
 		//function creattion de produit ou article
-		$("#prCode").on("keyup",function () { 
+		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();
-			$.get("product/check_product", {pcode:pcode},
-				function (data) {
-					
+			$.get("product/check_product", {
+					pcode: pcode
+				},
+				function(data) {
+
 					if (data === "true") {
 						toastr.warning("Ce code existe déjà");
 						$("#prCode").data("verification", pcode);
-					}else{
-						$("#prCode").data("verification","0");
+					} else {
+						$("#prCode").data("verification", "0");
 					}
-				}			
+				}
 			);
 		});
 		$("#bt_create_produit").on("click", function(e) {
@@ -112,7 +114,7 @@ $this->app = $this->config->item('application', 'app');
 			$(".erreur").hide();
 			var message = $("#message_server");
 			message.text("");
-			
+
 			if (verification === pcode) {
 				toastr.warning("Ce code existe déjà");
 				erreur.push("code");
@@ -391,15 +393,29 @@ $this->app = $this->config->item('application', 'app');
 			}, function(data) {
 				$("#contenair_products").html(data);
 			});
+			/////////////
+			$.get('<?php echo base_url("product/search_by_id_pr_stock") ?>', {
+				id: id,
+			}, function(data) {
+				const product = JSON.parse(data);
+				$("#pr_code_search_value").text(product.product_code);
+				$("#pr_name_search_value").text(product.product_name);
+				$("#pr_quantity_value").text(product.lus_quantity + " " + product.product_uom + "(S)");
+				$("#pr_desc_search_value").text(product.lus_prod_loc_description);
+
+
+			});
 		}
 		//function search product by categori
 		function search_product_cat(id) {
+
 			$.get('<?php echo base_url("product/search_by_cat") ?>', {
 				id: id,
 			}, function(data) {
 
 				$("#contenair_products").html(data);
 			});
+
 		}
 		//function list product if de search box is empty
 		function list_product() {
@@ -410,9 +426,19 @@ $this->app = $this->config->item('application', 'app');
 		}
 		//search by code 
 		$("#search_product").on("keyup", function() {
+			$("#pr_code_search_value").text("-");
+			$("#pr_name_search_value").text("-");
+			$("#pr_quantity_value").text("-");
+			$("#pr_desc_search_value").text("-");
+
 			const id = $(this).val();
 			if (id === "") {
 				list_product();
+				$("#pr_code_search_value").text("-");
+				$("#pr_name_search_value").text("-");
+				$("#pr_quantity_value").text("-");
+				$("#pr_desc_search_value").text("-");
+
 			} else {
 				search_product_code(id);
 			}
@@ -433,6 +459,11 @@ $this->app = $this->config->item('application', 'app');
 		$("body").on("change", "#nom_article_entree", function() {
 			$("#entree_quantite").val("");
 			$("#date_entree").val("");
+		});
+
+		$("#zone_entree,#etagere_produit").on("change", function() {
+			//let desc = $("#description_zone").val();
+			//$("#description_zone").text(desc + " " + $(this).val());
 		});
 
 		$("body").on("click", "#valider_entree", function(e) {
@@ -498,7 +529,7 @@ $this->app = $this->config->item('application', 'app');
 
 			const qty = $("#ajout_quantite").val();
 			const pid = $(this).data("pid");
-			const dateUpdate= $("#dateUpdate").val();
+			const dateUpdate = $("#dateUpdate").val();
 
 			let erreur = new Array();
 			if (qty <= 0) {
@@ -509,7 +540,7 @@ $this->app = $this->config->item('application', 'app');
 				toastr.warning("La quantité ne doit pas être vide");
 				erreur.push('vide');
 			}
-			if (dateUpdate=== "") {
+			if (dateUpdate === "") {
 				toastr.warning("La date ne doit pas être vide");
 				erreur.push('vide');
 			}
@@ -518,7 +549,7 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("warehouse/update_quantity") ?>', {
 					pid: pid,
 					qty: qty,
-					date_entry:dateUpdate
+					date_entry: dateUpdate
 				}, function(data) {
 					liste_actualiser_entree(0);
 					toastr.success("Quantité ajoutée");
@@ -596,8 +627,8 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("warehouse/create_entry_out") ?>', {
 					ws_product: ws_product,
 					o_qty: o_qty,
-					o_date : o_date,
-					so_dest : so_dest
+					o_date: o_date,
+					so_dest: so_dest
 				}, function(data) {
 					location.reload();
 					toastr.success('Sortie dépot avec success');
