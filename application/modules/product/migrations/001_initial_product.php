@@ -11,7 +11,7 @@ class Migration_initial_product extends CI_Migration {
         $this->load->dbforge();
         $this->load->database();
         $this->load->config('product/product',TRUE);
-        $this->tables = $this->config->item('tables','product');;
+        $this->tables = $this->config->item('tables','product');
        
     }
 
