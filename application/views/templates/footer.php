@@ -504,6 +504,7 @@ $this->app = $this->config->item('application', 'app');
 					prod_loc_description: description
 				}, function(data) {
 					toastr.success('Quantité ajoutée');
+					liste_actualiser_entree(0);
 				});
 			}
 
