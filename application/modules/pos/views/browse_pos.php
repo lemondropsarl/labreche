@@ -90,8 +90,7 @@ global $pos_ws_id;
                                         <th>Code article</th>
                                         <th>Nom article</th>
                                         <th>Unité</th>
-                                        <th>Min. Qté</th>
-                                        <th>Actual Qté</th>
+                                        <th>Quantité en stock</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -100,7 +99,6 @@ global $pos_ws_id;
                                             <td><?php echo $item['pcode'];?></td>
                                             <td><?php echo $item['pname'];?></td>
                                             <td><?php echo $item['uom'];?></td>
-                                            <td><?php echo $item['min_qty'];?></td>
                                             <td class="text-bold"><?php echo $item['actual_qty'];?></td>
                                         </tr>
                                    <?php } ?>
