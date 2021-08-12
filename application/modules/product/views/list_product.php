@@ -45,7 +45,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			<div class="col-md-12">
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
-						<h4 class="card-title">Liste des articles</h4>
+						<h3 class="card-title">Liste des articles</h3>
 						<div class="card-tools">
 							<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
 						</div>
@@ -63,8 +63,62 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
-
 					<div class="card-body">
+						<div class="container">
+							<div class="row">
+								<div class="col">
+
+									<div class="small-box bg-info">
+										<div class="inner">
+											<h3 id="pr_code_search_value">-</h3>
+											<p class="text-center">CODE ARTICLE</p>
+										</div>
+										<div class="icon">
+											<i class="far fa-clipboard"></i>
+										</div>
+
+									</div>
+								</div>
+								<div class="col">
+									<div class="small-box  bg-gradient-navy">
+										<div class="inner">
+											<h3 id="pr_name_search_value">-</h3>
+											<p class="text-center">NOM ARTICLE</p>
+										</div>
+										<div class="icon">
+
+											<i class="fas fa-tag"></i>
+										</div>
+
+									</div>
+								</div>
+								<div class="col">
+									<div class="small-box bg-danger">
+										<div class="inner">
+											<h3 id="pr_quantity_value">-</h3>
+											<p class="text-center">QUANTITE EN STOCK</p>
+										</div>
+										<div class="icon">
+											<i class="fas fa-warehouse"></i>
+										</div>
+
+									</div>
+								</div>
+								<div class="col">
+									<div class="small-box bg-warning">
+										<div class="inner">
+											<p class="text-center">DESCRIPTION</p>
+											<h5 id="pr_desc_search_value">-</h5>
+
+										</div>
+										<div class="icon">
+											<i class="fas fa-clipboard-list"></i>
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
 						<div class="table-responsive">
 							<table class="table table-bordered table-striped">
 								<thead class="bg-dark text-center">
