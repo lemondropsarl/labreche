@@ -142,7 +142,7 @@ class Migration_initial_pos extends CI_Migration {
                 'url'	=> 'pos/check',
                 'icon'  => 'material-icons',
 				'icon-name'	=> 'apps',
-				'text'	=> 'Voir dépot',
+				'text'	=> 'Voir dépôts',
 				'parent'=> 'pos',
 				'order' => 420,
 				'perm_key'=> 'R'
