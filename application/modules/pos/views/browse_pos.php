@@ -10,12 +10,12 @@ global $pos_ws_id;
         <div class="row">
             <div class="col-md-12 ">
                 <div class="form-group form-inline align-right">
-                    <label>Depot</label>
+                    <label>Point de vente</label>
                     <div class="col-4">
                         <select name="po_ws_id" id="pos_ws_id" class="form-control">
-                            <?php foreach ($warehouses as $item) {?>
+                            <?php foreach ($pos as $item) {?>
                                 # code...
-                                <option value="<?php echo $item['warehouse_id'];?>"><?php echo $item['warehouse_name'];?></option>
+                                <option value="<?php echo $item['pos_ws_id'];?>"><?php echo $item['pos_name'];?></option>
                            <?php }?>
                         </select>
                     </div>
@@ -25,7 +25,7 @@ global $pos_ws_id;
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box  bg-gradient-navy">
 					<div class="inner">
-						<h3>0</h3>
+						<h3><?php echo number_format($value_stock_cdf['total'],2,',',' ');?></h3>
                         <p>Valeur stock CDF</p>
 					</div>
 					<div class="icon">
@@ -38,7 +38,13 @@ global $pos_ws_id;
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-primary">
 					<div class="inner">
-						<h3>0</h3>							
+						<h3><?php
+                        if ($value_stock_usd['total']) {
+                            # code...
+                            echo number_format($value_stock_usd['total'],2,',',' ');							
+                        }else{?>
+                            0</h3>
+                       <?php }?>
 						<p>Valeur du stock USD</p>
 					</div>
 					<div class="icon">
@@ -48,17 +54,14 @@ global $pos_ws_id;
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
-				<div class="small-box bg-gradient-gray">
+				<div class="small-box  bg-success">
 					<div class="inner">
 						<h3>0</h3>
-						<p>Total sortie journlière</p>
+						<p>Total vente journalière</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-calendar-check"></i>
+						<i class="fas fa-dollar-sign"></i>
 					</div>
-					<a href="#" class="small-box-footer"
-						>plus d'infos <i class="fa fa-arrow-alt-circle-right"></i
-					></a>
 				</div>
 			</div>
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">

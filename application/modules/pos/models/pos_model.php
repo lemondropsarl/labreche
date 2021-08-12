@@ -9,6 +9,55 @@ class pos_model extends CI_Model {
         parent::__construct();
         $this->load->database();
     }
+    
+    public function add_prods_in_invoice($model)
+    {
+        # code...
+    }
+    public function add_invoice($model)
+    {
+        # code...
+    }
+    public function get_critical_stock($pos_id)
+    {
+        # code...
+    }
+    public function get_daily_sales($pos_id)
+    {
+        
+    }
+    public function get_value_stock_usd($pos_id)
+    {
+        $sql = "select SUM(`Result`) as total
+		FROM(
+		SELECT
+			 SUM(`product`.`unit_price` * `warehouse_stock`.`ws_quantity`) as Result
+			from (`product`,`warehouse_stock`)
+		WHERE (`product`.`product_id` = `warehouse_stock`.`ws_product_id`) and (`product`.`product_currency` = 'USD')
+      AND (`warehouse_stock`.`warehouse_id` =".$pos_id.")
+		group By (`product`.`product_id`)
+		) as T";
+
+		$query = $this->db->query($sql);
+		
+		return $query->row_array();
+    }
+    public function get_value_stock_cdf($pos_id)
+    {
+        $sql = "select SUM(`Result`) as total
+		FROM(
+		SELECT
+			 SUM(`product`.`unit_price` * `warehouse_stock`.`ws_quantity`) as Result
+			from (`product`,`warehouse_stock`)
+		WHERE (`product`.`product_id` = `warehouse_stock`.`ws_product_id`) and (`product`.`product_currency` = 'CDF')
+      AND (`warehouse_stock`.`warehouse_id` =".$pos_id.")
+		group By (`product`.`product_id`)
+		) as T";
+
+		$query = $this->db->query($sql);
+		
+		return $query->row_array();
+    }
     public function get_list_stock_by_wsID($ws_id)
     {
         $query = "SELECT 
