@@ -135,7 +135,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</thead>
 								<tbody id='contenair_products'>
 									<?php foreach ($products as $item) { ?>
-										<tr data-product_id="<?php echo $item['product_id']; ?>">
+										<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
 											<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
 											<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
 											<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>

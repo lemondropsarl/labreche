@@ -45,22 +45,15 @@ label {
 	padding: 2%;
 }
 
-.ligne_detail_recherche div {
-	    flex-grow: 0;
-		flex-shrink: 0;
-		flex-basis: 23%;
-}
 
-.ligne_detail_recherche div span {
-	display: block;
-	text-align: center;
-	text-transform: uppercase;
+.ligne_product_select
+{
+	background-color: grey;
 	
 }
-.ligne_detail_recherche div span.label_search {
-	font-size: 1.1em;
-	font-weight: bolder;
-	text-transform: uppercase;
-	font-weight: bolder;
+
+.ligne_product:hover
+{
+	background-color: grey;
 	
 }

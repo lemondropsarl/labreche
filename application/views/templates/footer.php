@@ -386,16 +386,20 @@ $this->app = $this->config->item('application', 'app');
 					break;
 			}
 		});
-		//function seach product by code
-		function search_product_code(id) {
-			$.get('<?php echo base_url("product/search") ?>', {
-				id: id,
-			}, function(data) {
-				$("#contenair_products").html(data);
-			});
+		//filtre produit et detail par un click
+		$("body").on("click",".ligne_product", function() {
+			const id = $(this).data("product_id");
+			const pr_code = $(this).data("pr_code");
+			////////
+			$(".ligne_product").removeClass("ligne_product_select");
+			$(this).addClass("ligne_product_select");
 			/////////////
+			$("#pr_code_search_value").text("-");
+			$("#pr_name_search_value").text("-");
+			$("#pr_quantity_value").text("-");
+			$("#pr_desc_search_value").text("-");
 			$.get('<?php echo base_url("product/search_by_id_pr_stock") ?>', {
-				id: id,
+				id: pr_code,
 			}, function(data) {
 				const product = JSON.parse(data);
 				$("#pr_code_search_value").text(product.product_code);
@@ -405,6 +409,19 @@ $this->app = $this->config->item('application', 'app');
 
 
 			});
+		});
+		//function seach product by code
+		function search_product_code(id) {
+			$("#pr_code_search_value").text("-");
+			$("#pr_name_search_value").text("-");
+			$("#pr_quantity_value").text("-");
+			$("#pr_desc_search_value").text("-");
+			$.get('<?php echo base_url("product/search") ?>', {
+				id: id,
+			}, function(data) {
+				$("#contenair_products").html(data);
+			});
+
 		}
 		//function search product by categori
 		function search_product_cat(id) {
@@ -426,18 +443,10 @@ $this->app = $this->config->item('application', 'app');
 		}
 		//search by code 
 		$("#search_product").on("keyup", function() {
-			$("#pr_code_search_value").text("-");
-			$("#pr_name_search_value").text("-");
-			$("#pr_quantity_value").text("-");
-			$("#pr_desc_search_value").text("-");
 
 			const id = $(this).val();
 			if (id === "") {
 				list_product();
-				$("#pr_code_search_value").text("-");
-				$("#pr_name_search_value").text("-");
-				$("#pr_quantity_value").text("-");
-				$("#pr_desc_search_value").text("-");
 
 			} else {
 				search_product_code(id);
