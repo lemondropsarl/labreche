@@ -10,6 +10,8 @@ class Pos extends MX_Controller {
         $this->load->model('nav_model');
 		$this->load->model('product/product_model');
         $this->load->model('warehouse/warehouse_model');
+        $this->load->model('pos_model');
+        
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
@@ -40,6 +42,7 @@ class Pos extends MX_Controller {
     }
     public function check()
     {
+        $warehouse_id = 1;//find a way to get the warehouse_id
         # code...
         $data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
 		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
@@ -47,8 +50,8 @@ class Pos extends MX_Controller {
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'Point de vente';
-		$data['products']               = $this->product_model->get_all_products();
-		$data['categories']               = $this->product_model->get_categories();
+		$data['warehouses']             = $this->warehouse_model->get_warehouses();
+        $data['list_stock']           = $this->pos_model->get_list_stock_by_wsID($warehouse_id); 
 		//$data['count_p_moteur']			= $this->product_model->count_by_engine();
 		# code...
 		$this->load->view('templates/header', $data);
