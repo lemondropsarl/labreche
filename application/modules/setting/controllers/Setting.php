@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Setting extends CI_Controller {
+class Setting extends 	MX_Controller {
     
     public function __construct()
     {
@@ -11,6 +11,8 @@ class Setting extends CI_Controller {
 		$this->load->model('product/product_model');
         $this->load->model('warehouse/warehouse_model');
         $this->load->model('pos/pos_model');  
+		$this->load->model('setting_model');
+		
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
@@ -43,11 +45,28 @@ class Setting extends CI_Controller {
 		$data['title']					=  'Articles';
 		$data['products']               = $this->product_model->get_all_products();
 		$data['categories']               = $this->product_model->get_categories();
-		
+		$data['store']					= $this->setting_model->get_store_infos();
+		$data['warehouses']				= $this->warehouse_model->get_warehouses();
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    
     }
+	public function create_store()
+	{
+		// get inputs
+		$store_name = $this->input->get('store_name');
+		$rccm	= $this->input->get('rccm');
+		$id_nat	= $this->input->get('id_nat');
+		$nif	= $this->input->get('nif');
+
+		$model = array(
+			'store_name' => $store_name,
+			'rccm'	=> $rccm,
+			'id_nat'	=> $id_nat,
+			'nif'	=>  $nif 
+		);
+		$this->setting_model->add_store($model);	
+	}
 
 }
 

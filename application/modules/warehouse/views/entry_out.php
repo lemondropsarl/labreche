@@ -143,7 +143,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<?php echo form_open('warehouse/create_warehouse'); ?>
 			<div class="modal-body">
 				<div class="form-group">
-					<label for="ws_address">Nom du depot</label>
+					<label for="ws_name">Nom du depot</label>
 					<input
 						type="text"
 						class="form-control"

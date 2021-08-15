@@ -124,6 +124,23 @@ class Pos extends MX_Controller
 		}
 		echo '';
 	}
+	public function create_pos()
+	{
+		$pos_id = $this->input->get('pos_id');
+		$pos_name = $this->input->get('pos_name');
+		$pos_address = $this->input->get('pos_address');
+
+		$model = array(
+			'pos_ws_id' => $pos_id ,
+			'pos_name' => $pos_name,
+			'pos_address' => $pos_address
+
+		 );
+		 $this->pos_model->add_pos($model);
+		
+	}
+	
+
 }
 
 /* End of file Pos.php */

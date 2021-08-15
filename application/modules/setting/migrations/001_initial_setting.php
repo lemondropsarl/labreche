@@ -20,7 +20,7 @@ class Migration_initial_setting extends CI_Migration {
                 'constraint' => '4',
                 'auto_increment' => TRUE
             ],
-            'Store_name' => [
+            'store_name' => [
                 'type' => 'VARCHAR',
                 'constraint' => '20',
                 'unique' => TRUE,

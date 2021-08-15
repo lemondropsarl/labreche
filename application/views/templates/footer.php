@@ -833,6 +833,49 @@ $this->app = $this->config->item('application', 'app');
 			}
 		});
 
+		//add store information
+		$("#btn_add_store").on("click", function (e) {
+			e.preventDefault();
+			const store_name = $("#store_name").val();
+			const rccm = $("#rccm").val();
+			const id_nat = $("#id_nat").val();
+			const nif = $("#nif").val();
+			$.get('<?php echo base_url('setting/create_store')?>', {
+					store_name : store_name,
+					rccm : rccm,
+					id_nat :id_nat,
+					nif : nif
+				}, function(data){
+					$("#modalStore").hide();
+					location.reload();
+					toastr.success('Information du magasin ajoutée');
+				}
+			);
+		});
+
+		//add pos 
+		$("#btn_add_pos").on("click", function (e) {
+			e.preventDefault();
+			const pos_name = $("#pos_name").val();
+			const pos_address = $("#pos_address").val();
+			const pos_id = $("#pos_id").val();
+
+			$.get('<?php echo base_url('pos/create_pos')?>'), {
+						pos_id : pos_id,
+						pos_name : pos_name,
+						pos_address : pos_address
+					}, function(data){
+						$("#modalPos").hide();
+						location.reload();
+						toastr.success('Point de vente ajoutée');
+					}
+					
+			);
+			
+
+			
+		});
+
 	})();
 </script>
 
