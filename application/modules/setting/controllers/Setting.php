@@ -35,6 +35,15 @@ class Setting extends CI_Controller {
 
     public function index()
     {
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Articles';
+		$data['products']               = $this->product_model->get_all_products();
+		$data['categories']               = $this->product_model->get_categories();
+		
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    

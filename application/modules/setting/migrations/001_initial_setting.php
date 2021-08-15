@@ -76,14 +76,24 @@ class Migration_initial_setting extends CI_Migration {
             //Module menu
             [
                 'name'	=> 'setting',
-                'url'	=> 'setting',
+                'url'	=> '',
                 'icon'  => 'fa-th-large21`',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Paramètres',
 				'parent'=> '',
 				'order' => 500,
 				'perm_key'=> 'A'
-            ]           
+            ]  ,
+            [
+                'name'	=> 'general_setting',
+                'url'	=> 'setting',
+                'icon'  => 'fa-th-large21`',
+				'icon-name'	=> 'apps',
+				'text'	=> 'General',
+				'parent'=> '',
+				'order' => 510,
+				'perm_key'=> 'A'
+            ]        
             
         ];
         $this->db->insert_batch('navigation_menu', $menu);
