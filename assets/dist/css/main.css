@@ -57,3 +57,7 @@ label {
 	background-color: grey;
 	
 }
+.pointer_hover:hover{
+	cursor: pointer;
+	color: red;
+}

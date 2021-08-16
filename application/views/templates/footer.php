@@ -387,7 +387,7 @@ $this->app = $this->config->item('application', 'app');
 			}
 		});
 		//filtre produit et detail par un click
-		$("body").on("click",".ligne_product", function() {
+		$("body").on("click", ".ligne_product", function() {
 			const id = $(this).data("product_id");
 			const pr_code = $(this).data("pr_code");
 			////////
@@ -643,6 +643,193 @@ $this->app = $this->config->item('application', 'app');
 					location.reload();
 					toastr.success('Sortie dépot avec success');
 				});
+			}
+		});
+		//filtre filtre_pr_stock_fac
+		refresh_liste_product();
+
+		function refresh_liste_product() {
+			$.get('<?php echo base_url("pos/refresh_list_pr_stock") ?>', function(data) {
+				$("#liste_pr_facture").html(data);
+			});
+		}
+		//
+		$("body").on("keyup focusin focusout", "#filtre_pr_stock_fac", function() {
+			const code = $(this).val();
+			if (code === "") {
+				refresh_liste_product();
+			} else {
+				$.get('<?php echo base_url("pos/search_code_name_fac") ?>', {
+					code: code
+				}, function(data) {
+					$("#liste_pr_facture").html(data);
+				});
+			}
+
+		});
+		$("body").on("click", ".ligne_pr_fact_search", function() {
+			let id = $(this).data("pr_id");
+			let code = $(this).data("pr_code");
+			let name = $(this).data("pr_name");
+			let devise = $(this).data("pr_devise");
+			let price = parseFloat($(this).data("pr_price"));
+			let qty = parseInt($(this).data("pr_qty"));
+			///
+			let qty_commander = 1;
+			//add ligne facture
+			let ligne = "<tr class='ligne_facture_pr' data-code='" + code + "' data-id='" + id + "' data-qty='" + qty + "'><td>" + name + "</td><td class='qty_" + id + "'>" + qty_commander + "</td><td class='pu_" + id + "'>" + price + " " + devise + "</td><td class='pt_" + id + " totaux_fact_ligne'>" + (price * parseInt(qty_commander)) + "</td><td class='delete_ligne_article pointer_hover'><i class='fas fa-window-close'></i></td></tr>";
+			//////////////////
+			let v_id = document.getElementsByClassName("ligne_facture_pr");
+			let t_id = [];
+			//liste des id pour la verification avant de add sur la facture
+			for (i = 0; i < v_id.length; i++) {
+				t_id[i] = v_id[i].dataset.id;
+			}
+			//nous testons si l'id du produit existe
+			if (t_id.find(e => e == id)) {
+				//quantite
+				let qt_actuel = parseInt($(".qty_" + id).text());
+				//on test la quantite
+				if (qty > qt_actuel) {
+					qt_actuel++;
+					$(".qty_" + id).text(qt_actuel);
+
+				} else {
+					toastr.warning("Rupture de stock");
+				}
+				//prix unitaire
+				let prix_u = parseInt($(".pu_" + id).text());
+				//prix total
+				let prix_t = parseInt($(".pt_" + id).text());
+				$(".pt_" + id).text((prix_u * qt_actuel));
+				//
+			} else {
+				if (id != '') {
+					$("#facture_corp").append(ligne);
+				}
+			}
+			//totaux de totaux
+			totaux(); //on effectue le calcul pour trouver la somme des articles sur le facture
+		});
+		//reduction de la quantité
+		$("body").on("click", ".ligne_facture_pr", function() {
+			let id = $(this).data('id');
+			let qty = parseInt($(".qty_" + id).text()) - 1;
+			if (qty > 0) {
+				$(".qty_" + id).text(qty);
+				let prix_u = parseInt($(".pu_" + id).text());
+				//prix total
+				$(".pt_" + id).text((prix_u * qty));
+
+			} else {
+				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
+			}
+			//
+			totaux();
+		});
+		//////////////////
+		function count_ligne_facture() {
+			return parseInt(document.getElementsByClassName("ligne_facture_pr").length);
+		}
+		//
+		function totaux() {
+			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
+			let somme = 0;
+			for (i = 0; i < taille; i++) {
+				somme = somme + parseFloat(document.getElementsByClassName("totaux_fact_ligne")[i].textContent);
+			}
+			$("#totaux_facture").text(somme);
+		}
+
+		function get_totaux() {
+			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
+			let somme = 0;
+			for (i = 0; i < taille; i++) {
+				somme = somme + parseFloat(document.getElementsByClassName("totaux_fact_ligne")[i].textContent);
+			}
+			return somme;
+		}
+		/////supprimer un article de la facture
+		$("body").on("click", ".delete_ligne_article", function() {
+			$(this).parent('tr').remove();
+		});
+		/////////
+		$("body").on("click", ".ligne_facture_pr", function() {
+			let code = $(this).data('code');
+			$("#filtre_pr_stock_fac").val(code).focus();
+			totaux(); //on effectue un nouveau calcul
+		});
+		//nouvelle facture
+		$("body").on("click", "#btn_nouvelle_fac", function() {
+			$("#facture_corp").html("");
+			totaux(); //on effectue un nouveau calcul
+			refresh_liste_product();
+			$("#filtre_pr_stock_fac").val("");
+		});
+		//print fature
+		$("body").on("click", "#print-facture", function() {
+			let prCode = "";
+			let prId = "";
+			let prQty = 0;
+			let commandes = [];
+			let commande = {};
+			if (count_ligne_facture() > 0) {
+				for (i = 0; i < count_ligne_facture(); i++) {
+					///////////////////////
+					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
+					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+					prQty = $(".qty_" + (i + 1)).text();
+					commande = {
+						"prId": prId,
+						"prCode": prCode,
+						"prQty": prQty
+					};
+					commandes[i] = commande;
+				}
+				$.get('<?php echo base_url("pos/create_invoice") ?>', {
+					totaux: get_totaux(),
+					commandes: commandes
+				}, function(data) {
+					toastr.success("Facture imprimer");
+					print();
+					refresh_liste_product();
+				});
+			} else {
+				toastr.warning("Rien à imprimer");
+			}
+		});
+		//save facture
+		$("body").on("click", "#save-facture", function() {
+			let prCode = "";
+			let prId = "";
+			let prQty = 0;
+			let commandes = [];
+			let commande = {};
+			if (count_ligne_facture() > 0) {
+
+				for (i = 0; i < count_ligne_facture(); i++) {
+					///////////////////////
+					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
+					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+					prQty = $(".qty_" + (i + 1)).text();
+					commande = {
+						"prId": prId,
+						"prCode": prCode,
+						"prQty": prQty
+					};
+					commandes[i] = commande;
+				}
+				$.get('<?php echo base_url("pos/create_invoice") ?>', {
+					totaux: get_totaux(),
+					commandes: commandes
+				}, function(data) {
+
+					toastr.success("Facture enregistrée");
+					refresh_liste_product();
+				});
+
+			} else {
+				toastr.warning("Rien à enregistrer");
 			}
 		});
 
