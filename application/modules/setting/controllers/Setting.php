@@ -47,26 +47,49 @@ class Setting extends 	MX_Controller {
 		$data['categories']               = $this->product_model->get_categories();
 		$data['store']					= $this->setting_model->get_store_infos();
 		$data['warehouses']				= $this->warehouse_model->get_warehouses();
+		$data['pos']					= $this->pos_model->get_pos();
+		$data['c_rate']					= $this->setting_model->get_rate(1);
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    
     }
 	public function create_store()
 	{
+		
 		// get inputs
 		$store_name = $this->input->get('store_name');
 		$rccm	= $this->input->get('rccm');
 		$id_nat	= $this->input->get('id_nat');
 		$nif	= $this->input->get('nif');
 
-		$model = array(
-			'store_name' => $store_name,
-			'rccm'	=> $rccm,
-			'id_nat'	=> $id_nat,
-			'nif'	=>  $nif 
-		);
-		$this->setting_model->add_store($model);	
+		if ($this->setting_model->is_store_exist()) {
+			$store = $this->setting_model->get_store_infos();
+			$store_id = $store['store_id'];
+
+			$this->setting_model->update_store($store_id,$store_name,$id_nat,$rccm, $nif);
+		}else {
+			# code...
+			$model = array(
+				'Store_name' => $store_name,
+				'rccm'	=> $rccm,
+				'id_nat'	=> $id_nat,
+				'nif'	=>  $nif 
+			);
+			
+			$this->setting_model->add_store($model);	
+		}
+			
 	}
+	public function update_rate()
+	{
+		$rate = $this->input->post('rate');
+		$this->setting_model->update_rate($rate,1);
+		
+		redirect('setting','refresh');
+		
+		
+	}
+	
 
 }
 

@@ -64,8 +64,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                            
                             <div class="col-md-6">
                                 <label>Point de vente</label>
-                               <select name="" id="" class="form-control">
-                                   <option value=""></option>
+                               <select name="pos" id="" class="form-control">
+								   <?php foreach ($pos as $item) {?>
+									   
+									   <option value="<?php echo $item['pos_ws_id']?>"><?php echo $item['pos_name']?></option>
+								<?php   }?>
                                </select>
                                <a href="#" data-toggle="modal"  data-target="#modalPos"><i class="fa fa-plus-square"></i> Nouveau point de vente</a>
 
@@ -74,6 +77,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                     </div>
                 </div>
             </div>
+			<div class="col-md-6">
+				<div class="card card-outline card-info">
+					<div class="card-header">
+						<h4 class="title">Taux d'echange</h4>
+					</div>
+					<div class="card-body">
+						<?php echo 	form_open('setting/update_rate');?>
+								<div class="form-group form-inline form-row">
+									<div class="col-sm-2 align-content-end">
+										<label for="">1$ =</label>
+									</div>
+									<div class="col-sm-6 row">
+										<input type="number" step="any" name="rate" id="rate" value="<?php echo $c_rate['rate']?>" class="form-control">
+										<label for="">CDF</label>
+									</div>
+									<div class="col-sm-4">
+										<button type="submit"  class="btn btn-success">Mise à jour</button>
+									</div>
+								</div>
+						<?php echo 	form_close(); ?>
+						
+						
+					</div>
+				</div>
+			</div>
         </div>
     </div>
 </div>
@@ -89,32 +117,60 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 					<span aria-hidden="true">&times;</span>
 				</button>
 			</div>
-			<?php echo form_open('setting/create_store'); ?>
+			
+			<?php echo form_open('setting/create_store');?>
 			<div class="modal-body">
-				<div class="form-group">
-					<label for="store_name">DESIGNATION</label>
-					<input type="text" class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
-				</div>
+				<?php if ($store != null) {?>
 				
-                <div class="form-group">
-					<label for="rccm">RCCM</label>
-					<input type="text" class="form-control" name="rccm" id="rccm" placeholder="RCCM">
-				</div>
-				<div class="form-group">
-					<label for="id_nat">iD. NAT</label>
-					<input type="text" class="form-control" name="id_nat" id="id_nat" placeholder="Identification National">
-				</div>
-				<div class="form-group">
-					<label for="nif">NUMERO IMPOT</label>
-					<input type="text" class="form-control" name="nif" id="nif" placeholder="Numero Impot">
-				</div>
+					<div class="form-group">
+						<label for="store_name">DESIGNATION</label>
+						<input type="text" value="<?php echo $store['Store_name']?>" class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
+					</div>
+					
+					<div class="form-group">
+						<label for="rccm">RCCM</label>
+						<input type="text"  value="<?php echo $store['rccm']?>" class="form-control" name="rccm" id="rccm" placeholder="RCCM">
+					</div>
+					<div class="form-group">
+						<label for="id_nat">iD. NAT</label>
+						<input type="text"  value="<?php echo $store['id_nat']?>" class="form-control" name="id_nat" id="id_nat" placeholder="Identification National">
+					</div>
+					<div class="form-group">
+						<label for="nif">NUMERO IMPOT</label>
+						<input type="text"  value="<?php echo $store['nif']?>" class="form-control" name="nif" id="nif" placeholder="Numero Impot">
+					</div>
+			
+						
+				<?php }else {?>
+				
+
+					
+					<div class="form-group">
+						<label for="store_name">DESIGNATION</label>
+						<input type="text"  class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
+					</div>
+					
+					<div class="form-group">
+						<label for="rccm">RCCM</label>
+						<input type="text"   class="form-control" name="rccm" id="rccm" placeholder="RCCM">
+					</div>
+					<div class="form-group">
+						<label for="id_nat">iD. NAT</label>
+						<input type="text"  class="form-control" name="id_nat" id="id_nat" placeholder="Identification National">
+					</div>
+					<div class="form-group">
+						<label for="nif">NUMERO IMPOT</label>
+						<input type="text"   class="form-control" name="nif" id="nif" placeholder="Numero Impot">
+					</div>
+				
+				<?php }?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_store" class="btn btn-success">Enregistrer</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+					<button type="button" id="btn_add_store" class="btn btn-success">Enregistrer</button>
 			</div>
-			<?php echo form_close(); ?>
-		</div>
+				
+			<?php echo	form_close(); ?>
 	</div>
 </div>
 
@@ -168,7 +224,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
                 <div class="form-group">
 					<label for="pos_address">ADRESSE</label>
-					<input type="text" class="form-control" name="pos_address" id="pos_address" placeholder="Adresse" reauired>
+					<input type="text" class="form-control" name="pos_address" id="pos_address" placeholder="Adresse">
 				</div>
                 <div class="form-group">
 					<label for="pos_id">CONNECTER AU DEPOT</label>

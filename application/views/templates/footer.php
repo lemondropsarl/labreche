@@ -840,6 +840,7 @@ $this->app = $this->config->item('application', 'app');
 			const rccm = $("#rccm").val();
 			const id_nat = $("#id_nat").val();
 			const nif = $("#nif").val();
+			
 			$.get('<?php echo base_url('setting/create_store')?>', {
 					store_name : store_name,
 					rccm : rccm,
@@ -852,6 +853,7 @@ $this->app = $this->config->item('application', 'app');
 				}
 			);
 		});
+		
 
 		//add pos 
 		$("#btn_add_pos").on("click", function (e) {
@@ -860,7 +862,7 @@ $this->app = $this->config->item('application', 'app');
 			const pos_address = $("#pos_address").val();
 			const pos_id = $("#pos_id").val();
 
-			$.get('<?php echo base_url('pos/create_pos')?>'), {
+			$.get('<?php echo base_url('pos/create_pos')?>', {
 						pos_id : pos_id,
 						pos_name : pos_name,
 						pos_address : pos_address

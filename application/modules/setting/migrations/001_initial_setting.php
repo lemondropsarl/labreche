@@ -47,6 +47,26 @@ class Migration_initial_setting extends CI_Migration {
         ]);
         $this->dbforge->add_key('store_id',TRUE);
         $this->dbforge->create_table($this->tables['store'],TRUE);
+        $this->dbforge->drop_table($this->tables['currency_rate'],TRUE);
+        $this->dbforge->add_field([
+            'rate_id' => [
+                'type' => 'MEDIUMINT',
+                'constraint' => '4'
+            ],
+            'rate' =>[
+                'type' => 'double',
+                'default' => 2000
+            ]
+        ]);
+        $this->dbforge->add_key('rate_id',TRUE);
+        $this->dbforge->create_table($this->tables['currency_rate'],TRUE);
+        $rate = [
+            'rate_id' => 1,
+            'rate' => 2000
+        ];
+        $this->db->insert('currency_rate', $rate);
+        
+
         $acls = [
             [
                 'module_name'   => 'setting',
