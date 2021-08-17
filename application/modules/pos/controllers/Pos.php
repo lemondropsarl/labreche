@@ -3,6 +3,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Pos extends MX_Controller
 {
+	private $posID;
 
 	public function __construct()
 	{
@@ -39,7 +40,10 @@ class Pos extends MX_Controller
 	public function invoicing()
 	{
 
+		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
+		//reference POs_model
 		$data["product_stock"] = $this->pos_model->get_list_pr_stock();
+		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
 	}
