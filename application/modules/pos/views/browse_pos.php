@@ -26,7 +26,7 @@ global $pos_ws_id;
 				<div class="small-box  bg-gradient-navy">
 					<div class="inner">
 						<h3><?php echo number_format($value_stock_cdf['total'],2,',',' ');?></h3>
-                        <p>Valeur stock CDF</p>
+                        <p>Valeur du stock CDF</p>
 					</div>
 					<div class="icon">
 						<i class="fas fa-dollar-sign"></i>
@@ -39,12 +39,8 @@ global $pos_ws_id;
 				<div class="small-box bg-primary">
 					<div class="inner">
 						<h3><?php
-                        if ($value_stock_usd['total']) {
-                            # code...
-                            echo number_format($value_stock_usd['total'],2,',',' ');							
-                        }else{?>
-                            0</h3>
-                       <?php }?>
+                            echo number_format($value_stock_usd['total'],2,',',' ');	?>						
+                        </h3>
 						<p>Valeur du stock USD</p>
 					</div>
 					<div class="icon">

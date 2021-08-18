@@ -55,8 +55,8 @@ class Pos extends MX_Controller
 
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
-		$data["product_stock"] = $this->pos_model->get_list_pr_stock();
-		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID($this->posID);
+		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
+		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID($pos_id);
 		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');

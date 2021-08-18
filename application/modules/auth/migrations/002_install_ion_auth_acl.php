@@ -128,6 +128,46 @@ class Migration_install_ion_auth_acl extends MY_Migration {
                 'group_id'  => '2',
                 'perm_id'   => '4',
                 'value'     => '0'
+            ],
+            [
+                'group_id'  => '3',
+                'perm_id'   => '1',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '3',
+                'perm_id'   => '2',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '3',
+                'perm_id'   => '3',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '3',
+                'perm_id'   => '4',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '4',
+                'perm_id'   => '1',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '4',
+                'perm_id'   => '2',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '4',
+                'perm_id'   => '3',
+                'value'     => '0'
+            ],
+            [
+                'group_id'  => '4',
+                'perm_id'   => '4',
+                'value'     => '0'
             ]
         ];
         $this->db->insert_batch($this->tables['groups_permissions'],$gp);
