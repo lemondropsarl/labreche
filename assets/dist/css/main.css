@@ -46,18 +46,28 @@ label {
 }
 
 
-.ligne_product_select
-{
+.ligne_product_select {
 	background-color: grey;
-	
+
 }
 
-.ligne_product:hover
-{
+.ligne_product:hover {
 	background-color: grey;
-	
+
 }
-.pointer_hover:hover{
+
+.pointer_hover:hover {
 	cursor: pointer;
 	color: red;
+}
+
+@media print {
+	.print{
+        width: 100vw;
+		margin: auto;	
+		color: black;
+	}	
+	.non_print {
+		display: none;
+	}
 }

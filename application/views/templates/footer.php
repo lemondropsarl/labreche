@@ -11,7 +11,7 @@ $this->app = $this->config->item('application', 'app');
 </aside>
 <!-- /.control-sidebar -->
 <!-- Main Footer -->
-<footer class="main-footer">
+<footer class="main-footer non_print">
 	<strong>Copyright &copy; <script>
 			document.write(new Date().getFullYear())
 		</script> <?php echo $this->app['name']; ?> <a href="https://www.lemondropsarl.com">Lemondrop Technology</a>.</strong>
@@ -352,8 +352,9 @@ $this->app = $this->config->item('application', 'app');
 								$(this).text(old_value);
 							}
 						} else {
+							const message = "Cette valeur n'est pas un nombre";
+							toastr.danger(message);
 							$(this).text(old_value);
-							alert("Cette valeur n'est pas un nombre");
 						}
 
 					} else {
@@ -667,6 +668,7 @@ $this->app = $this->config->item('application', 'app');
 			}
 
 		});
+
 		$("body").on("click", ".ligne_pr_fact_search", function() {
 			let id = $(this).data("pr_id");
 			let code = $(this).data("pr_code");
@@ -677,7 +679,7 @@ $this->app = $this->config->item('application', 'app');
 			///
 			let qty_commander = 1;
 			//add ligne facture
-			let ligne = "<tr class='ligne_facture_pr' data-code='" + code + "' data-id='" + id + "' data-qty='" + qty + "'><td>" + name + "</td><td class='qty_" + id + "'>" + qty_commander + "</td><td class='pu_" + id + "'>" + price + " " + devise + "</td><td class='pt_" + id + " totaux_fact_ligne'>" + (price * parseInt(qty_commander)) + "</td><td class='delete_ligne_article pointer_hover'><i class='fas fa-window-close'></i></td></tr>";
+			let ligne = "<tr class='ligne_facture_pr' data-code='" + code + "' data-id='" + id + "' data-qty='" + qty + "' data-devise='" + devise + "'><td>" + name + "</td><td class='qty_" + id + "'>" + qty_commander + "</td><td class='pu_" + id + "'>" + price + " " + devise + "</td><td class='pt_" + id + " totaux_fact_ligne'>" + (price * parseInt(qty_commander)) + " " + devise + "</td><td class='delete_ligne_article pointer_hover non_print'><i class='fas fa-window-close'></i></td></tr>";
 			//////////////////
 			let v_id = document.getElementsByClassName("ligne_facture_pr");
 			let t_id = [];
@@ -701,7 +703,7 @@ $this->app = $this->config->item('application', 'app');
 				let prix_u = parseInt($(".pu_" + id).text());
 				//prix total
 				let prix_t = parseInt($(".pt_" + id).text());
-				$(".pt_" + id).text((prix_u * qt_actuel));
+				$(".pt_" + id).text((prix_u * qt_actuel) + " " + devise);
 				//
 			} else {
 				if (id != '') {
@@ -714,12 +716,15 @@ $this->app = $this->config->item('application', 'app');
 		//reduction de la quantité
 		$("body").on("click", ".ligne_facture_pr", function() {
 			let id = $(this).data('id');
+			let devise = $(this).data('devise');
+
 			let qty = parseInt($(".qty_" + id).text()) - 1;
 			if (qty > 0) {
 				$(".qty_" + id).text(qty);
 				let prix_u = parseInt($(".pu_" + id).text());
 				//prix total
-				$(".pt_" + id).text((prix_u * qty));
+				let prix_total = prix_u * qty;
+				$(".pt_" + id).text(prix_total + " " + devise);
 
 			} else {
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
@@ -734,12 +739,48 @@ $this->app = $this->config->item('application', 'app');
 		//
 		function totaux() {
 			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
-			let somme = 0;
+			let taille_montant;
+			let somme_usd = 0;
+			let somme_cdf = 0;
+			let montant_total_qty_pu = '';
+			let montant_numerique = 0;
+			let monaie = "";
 			for (i = 0; i < taille; i++) {
-				somme = somme + parseFloat(document.getElementsByClassName("totaux_fact_ligne")[i].textContent);
+				taille_str =
+					montant_total_qty_pu = document.getElementsByClassName("totaux_fact_ligne")[i].textContent;
+				taille_montant = montant_total_qty_pu.length;
+				montant_numerique = montant_total_qty_pu.substring(0, (taille_montant - 3));
+				monaie = montant_total_qty_pu.substring((taille_montant - 3), taille_montant);
+
+				if ((monaie === " USD") || (monaie === "USD")) {
+					somme_usd = somme_usd + parseFloat(montant_numerique);
+				}
+				if ((monaie === " CDF") || (monaie === "CDF")) {
+					somme_cdf = somme_cdf + parseFloat(montant_numerique);
+				}
+
 			}
-			$("#totaux_facture").text(somme);
+			$("#totaux_facture_usd").text(somme_usd + " USD");
+			$("#totaux_facture_cdf").text(somme_cdf + " CDF");
+
+			usd_cdf("CDF", 2000); //conversion pardefaut usd to franc
 		}
+
+		function usd_cdf(monaie, taux) {
+			let somme_usd = document.getElementById("totaux_facture_usd").textContent;
+			let somme_cdf = document.getElementById("totaux_facture_cdf").textContent;
+			if (monaie === "CDF") {
+				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3))) * taux) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))));
+				$("#totaux_facture_usd_cdf").text(totaux + " CDF");
+			} else {
+				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3)))) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))) / taux);
+				$("#totaux_facture_usd_cdf").text(totaux + " USD");
+			}
+		}
+		$("input:radio[name='monaie_pay']").on("click", function() {
+			let monaie = $(this).val();
+			usd_cdf(monaie, 2000);
+		});
 
 		function get_totaux() {
 			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
@@ -768,6 +809,7 @@ $this->app = $this->config->item('application', 'app');
 		});
 		//print fature
 		$("body").on("click", "#print-facture", function() {
+	
 			let prCode = "";
 			let prId = "";
 			let prQty = 0;
@@ -786,6 +828,7 @@ $this->app = $this->config->item('application', 'app');
 					};
 					commandes[i] = commande;
 				}
+
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
 					commandes: commandes
@@ -794,9 +837,12 @@ $this->app = $this->config->item('application', 'app');
 					print();
 					refresh_liste_product();
 				});
+
 			} else {
+
 				toastr.warning("Rien à imprimer");
 			}
+
 		});
 		//save facture
 		$("body").on("click", "#save-facture", function() {

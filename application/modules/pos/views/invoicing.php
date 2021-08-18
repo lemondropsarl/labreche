@@ -24,11 +24,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 
 <body class="container-fluid">
-	<header class="header row p-3 my-3 bg-dark text-white">
+	<header class="header row p-3 my-3 bg-dark text-white non_print">
 		<h2>BREACHE</h2>
 	</header>
 	<div class="row">
-		<section class="col-md-6 col-sm-12 col-xs-12">
+		<section class="col-md-6 col-sm-12 col-xs-12 non_print">
 			<div class="card card-outline">
 				<div class="card-header">
 
@@ -65,8 +65,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</div>
 			</div>
 		</section>
-		<section class="col-md-6">
-			<table class="table table-striped table-bordered table-hover">
+		<section class="col-md-6 col-sm-12 col-xs-12">
+			<div class="container-fluid non_print">
+				<div class="row">
+					<div class="form">
+						<div class="form-group">
+							<label for="client">CLIENT</label>
+							<input type="text" name="client" id="client" placeholder="Nom du client" class="form-control" />
+						</div>
+					</div>
+				</div>
+			</div>
+			<table class="table table-striped table-bordered table-hover print">
 				<thead class="text-center">
 					<tr class="bg-secondary">
 						<th>DESIGNATION</th>
@@ -79,17 +89,35 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 				</tbody>
 				<tfoot class="bg-warning">
-					<tr class="font-weight-bold text-center" style="font-size:2em;">
+					<tr class="font-weight-bold text-center" style="font-size:1.2em;">
 						<td>
 							TOTAUX :
 						</td>
-						<td id="totaux_facture" data-totaux='0'>
+						<td id="totaux_facture_usd" data-totaux='0'>
+							0
+						</td>
+						<td id="totaux_facture_cdf" data-totaux='0'>
+							0
+						</td>
+						<td id="totaux_facture_usd_cdf" class="bg-success" data-totaux='0'>
 							0
 						</td>
 					</tr>
+
 				</tfoot>
 			</table>
-			<div class="row" style="margin-bottom: 2%;">
+			<div class="form-inline non_print">
+				<div class="form-group col-4">
+					<span>MONAIE A PAYER AVEC: </span>
+				</div>
+				<div class="form-group col-3">
+					<label for="monaie_cdf"> CDF </label><input type="radio" name="monaie_pay" id='monaie_cdf' value="CDF" class="form-control" checked>
+				</div>
+				<div class="form-group col-3">
+					<label for="monaie_cdf"> USD</label> <input type="radio" name="monaie_pay" id='monaie_usd' value="USD" class="form-control">
+				</div>
+			</div>
+			<div class="row non_print" style="margin-bottom: 2%;">
 				<div class="col-3">
 					<button class="btn btn-danger print text-uppercase" id="btn_nouvelle_fac">Nouvelle <i class="fas fa-file"></i></button>
 				</div>
