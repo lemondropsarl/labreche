@@ -68,6 +68,13 @@ class setting_model extends CI_Model {
         $this->db->insert('user_pos', $model);
         
     }
+    public function update_ser_pos($user_id, $pos_id, $id)
+    {
+        $this->db->set('user_id',$user_id);
+        $this->db->set('pos_id',$pos_id);
+        $this->db->where('id', $id);
+        $this->db->update('user_pos');
+    }
     
 }
 

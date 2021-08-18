@@ -170,6 +170,7 @@ class Pos extends MX_Controller
 	{
 		$pos_id 	=  $this->input->post('pos');
 		$user_id	= $this->input->post('user');
+		//must check if exist update or add
 		$model = array(
 			'user_id' => $user_id, 
 		'pos_id'	=>$pos_id);

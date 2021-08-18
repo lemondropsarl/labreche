@@ -125,7 +125,7 @@ class pos_model extends CI_Model
 		$sql = 'SELECT `users`.`username` as `username`, `pos`.`pos_name` as `pos_name`
 				from (`users`, `pos`, `user_pos`)
 				where(`users`.`id`=`user_pos`.`user_id`) and(`pos`.`pos_ws_id`=`user_pos`.`pos_id`)';
-			return $this->db->query($sql)->result_array();
+		return $this->db->query($sql)->result_array();
 	}
 }
 
