@@ -150,9 +150,9 @@ class Pos extends MX_Controller
 	}
 	public function create_pos()
 	{
-		$pos_id = $this->input->get('pos_id');
-		$pos_name = $this->input->get('pos_name');
-		$pos_address = $this->input->get('pos_address');
+		$pos_id = $this->input->post('pos_id');
+		$pos_name = $this->input->post('pos_name');
+		$pos_address = $this->input->post('pos_address');
 
 		$model = array(
 			'pos_ws_id' => $pos_id ,
@@ -161,6 +161,9 @@ class Pos extends MX_Controller
 
 		 );
 		 $this->pos_model->add_pos($model);
+		 
+		 redirect('setting/index','refresh');
+		 
 		
 	}
 	public function assign_user_pos()

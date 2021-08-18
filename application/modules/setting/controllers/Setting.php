@@ -80,6 +80,17 @@ class Setting extends 	MX_Controller {
 		}
 			
 	}
+	public function create_warehouse()
+	{
+		$model = array(
+			'warehouse_name' => $this->input->post('ws_name'),
+			 'warehouse_address' => $this->input->post('ws_address')		 
+		);
+		$this->warehouse_model->add_warehouse($model);
+		
+		redirect('setting/index','refresh');
+		
+	}
 	public function update_rate()
 	{
 		$rate = $this->input->post('rate');

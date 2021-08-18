@@ -59,9 +59,25 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                        <option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
                                 <?php   }?>
                                </select>
-                               <a href="#" data-toggle="modal" data-target="#modalWare"><i class="fa fa-plus-square"></i> nouveau dépôt</a>
+							   <div class="row">
+							   <?php echo form_open('setting/create_warehouse'); ?>
+									
+										<div class="form-group form-inline">
+											<label for="ws_name">DESIGNATION</label>
+											<input type="text" class="form-control" name="ws_name" id="ws_name" placeholder="Nom du depot">
+										</div>
+										
+										<div class="form-group form-inline">
+											<label for="ws_address">ADRESSE</label>
+											<input type="text" class="form-control" name="ws_address" id="ws_address" placeholder="Adresse">
+										</div>									
+										<button type="submit" id="" class="btn btn-success">Ajouter depot</button>
+									
+									<?php echo form_close(); ?>
+								   
+							   </div>
                            </div>
-                           
+                           <hr class="line divider"/>
                             <div class="col-md-6">
                                 <label>Point de vente</label>
                                <select name="pos" id="" class="form-control">
@@ -70,8 +86,29 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 									   <option value="<?php echo $item['pos_ws_id']?>"><?php echo $item['pos_name']?></option>
 								<?php   }?>
                                </select>
-                               <a href="#" data-toggle="modal"  data-target="#modalPos"><i class="fa fa-plus-square"></i> Nouveau point de vente</a>
-
+							   <?php echo form_open('pos/create_pos');?>
+							   <div class="form-group">
+										<label for="pos_name">DESIGNATION</label>
+										<input type="text" class="form-control" name="pos_name" id="pos_name" placeholder="Nom du point de vente" required>
+								</div>
+									
+								<div class="form-group">
+										<label for="pos_address">ADRESSE</label>
+										<input type="text" class="form-control" name="pos_address" id="pos_address" placeholder="Adresse">
+								</div>
+								<div class="form-group">
+										<label for="pos_id">CONNECTER AU DEPOT</label>
+										<select name="pos_id" id="pos_id" class="form-control">
+											<?php foreach ($warehouses as $item) {?>
+														
+													<option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
+											<?php  }?>
+										</select>
+								</div>
+								
+							<button type="submit" id="" class="btn btn-primary">Ajouter point de vente</button>
+		
+							<?php echo form_close(); ?>
                             </div>
                         </div>
                     </div>
@@ -211,38 +248,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			</div>
 				
 			<?php echo	form_close(); ?>
-	</div>
-</div>
-
-<!-- modal warehouse-->
-
-<div class="modal fade" id="modalWare" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Ajouter Depot</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<?php echo form_open('warehouse/create_warehouse'); ?>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="ws_name">DESIGNATION</label>
-					<input type="text" class="form-control" name="ws_name" id="ws_name" placeholder="Nom du depot">
-				</div>
-				
-                <div class="form-group">
-					<label for="ws_address">ADRESSE</label>
-					<input type="text" class="form-control" name="ws_address" id="ws_address" placeholder="Adresse">
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_ws" class="btn btn-success">Enregistrer</button>
-			</div>
-			<?php echo form_close(); ?>
-		</div>
 	</div>
 </div>
 
