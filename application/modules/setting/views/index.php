@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             <div class="col-md-12">
                             <dl class="row dl-horizontal">
                                 <dt class="col-sm-4">DESIGNATION</dt>
-                                <dd class="col-sm-8"><?php echo $store['Store_name'];?></dd>
+                                <dd class="col-sm-8"><?php echo $store['store_name'];?></dd>
                                 <dt class="col-sm-4">RCCM</dt>
                                 <dd class="col-sm-8"><?php echo $store['rccm'];?></dd>
                                 <dt class="col-sm-4">ID. NAT</dt>
@@ -46,10 +46,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
             <div class="col-md-6">
                 <div class="card card-outline card-primary">
                     <div class="card-header">
-                        <h4>Points de vente et Depots</h4>
+                        <h4 class="title">Points de vente et Depots</h4>
                     </div>
                     <div class="card-body">
-                        <div class="form-group form">
+                        <div class="form-group">
                            <div class="col-md-6">
 
                                <label>Nom depot</label>
@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                        <option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
                                 <?php   }?>
                                </select>
-                               <a href="#" data-toggle="modal" data-target="#modalWare"><i class="fa fa-plus-square"></i> nouveau dépôt</a>
+                               <a href="#modalWare" data-toggle="modal" data-target="#modalWare"><i class="fa fa-plus-square"></i> nouveau dépôt</a>
                            </div>
                            
                             <div class="col-md-6">
@@ -124,7 +124,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				
 					<div class="form-group">
 						<label for="store_name">DESIGNATION</label>
-						<input type="text" value="<?php echo $store['Store_name']?>" class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
+						<input type="text" value="<?php echo $store['store_name']?>" class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
 					</div>
 					
 					<div class="form-group">

@@ -78,6 +78,16 @@ class Migration_initial_setting extends CI_Migration {
                 'group_id'      => 2,
                 'value'         => '1'
             ],
+            [
+                'module_name'   => 'setting',
+                'group_id'      => 3,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'setting',
+                'group_id'      => 4,
+                'value'         => '0'
+            ]
         ];
         $this->db->insert_batch('acl_modules', $acls);
 
@@ -110,7 +120,7 @@ class Migration_initial_setting extends CI_Migration {
                 'icon'  => 'fa-th-large21`',
 				'icon-name'	=> 'apps',
 				'text'	=> 'General',
-				'parent'=> '',
+				'parent'=> 'setting',
 				'order' => 510,
 				'perm_key'=> 'A'
             ]        
@@ -121,6 +131,8 @@ class Migration_initial_setting extends CI_Migration {
 
     public function down() {
         $this->dbforge->drop_table($this->tables['store']);
+        $this->dbforge->drop_table($this->tables['currency_rate']);
+
     }
 
 }

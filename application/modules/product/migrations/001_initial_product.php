@@ -171,6 +171,16 @@ class Migration_initial_product extends CI_Migration {
                 'group_id'      => 2,
                 'value'         => '1'
             ],
+            [
+                'module_name'   => 'product',
+                'group_id'      => 3,
+                'value'         => '1'
+            ],
+            [
+                'module_name'   => 'product',
+                'group_id'      => 4,
+                'value'         => '1'
+            ]
         ];
         $this->db->insert_batch('acl_modules', $acls);
 
@@ -197,7 +207,7 @@ class Migration_initial_product extends CI_Migration {
 				'text'	=> 'Articles',
 				'parent'=> '',
 				'order' => 200,
-				'perm_key'=> 'A'
+				'perm_key'=> 'R'
             ],
             [
                 'name'	=> 'list_product',
@@ -207,7 +217,7 @@ class Migration_initial_product extends CI_Migration {
 				'text'	=> 'Liste des articles',
 				'parent'=> 'product',
 				'order' => 210,
-				'perm_key'=> 'A'
+				'perm_key'=> 'R'
             ],
             [
                 'name'	=> 'create_product',
@@ -217,7 +227,7 @@ class Migration_initial_product extends CI_Migration {
 				'text'	=> 'Ajouter article',
 				'parent'=> 'product',
 				'order' => 220,
-				'perm_key'=> 'A'
+				'perm_key'=> 'W'
             ]
             
         ];

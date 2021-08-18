@@ -99,7 +99,17 @@ class Migration_initial_pos extends CI_Migration {
             [
                 'module_name'   => 'pos',
                 'group_id'      => 2,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'pos',
+                'group_id'      => 3,
                 'value'         => '1'
+            ],
+            [
+                'module_name'   => 'pos',
+                'group_id'      => 4,
+                'value'         => '0'
             ],
         ];
         $this->db->insert_batch('acl_modules', $acls);
@@ -145,7 +155,7 @@ class Migration_initial_pos extends CI_Migration {
 				'text'	=> 'Voir dépôts',
 				'parent'=> 'pos',
 				'order' => 420,
-				'perm_key'=> 'R'
+				'perm_key'=> 'W'
             ]
             
         ];

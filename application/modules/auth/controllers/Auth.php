@@ -518,7 +518,7 @@ class Auth extends MX_Controller
 			];
 			$groups[] = $this->input->post('group_id');
 			
-			if ($password == $password_confirm) {
+			if ($password === $password_confirm) {
 				$this->ion_auth->register($identity, $password, $email, $additional_data,$groups);
 				// check to see if we are creating the user
 				

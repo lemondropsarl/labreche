@@ -42,13 +42,12 @@ class Setting extends 	MX_Controller {
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
-		$data['title']					=  'Articles';
-		$data['products']               = $this->product_model->get_all_products();
-		$data['categories']               = $this->product_model->get_categories();
+		$data['title']					=  'Paramètres';
 		$data['store']					= $this->setting_model->get_store_infos();
 		$data['warehouses']				= $this->warehouse_model->get_warehouses();
 		$data['pos']					= $this->pos_model->get_pos();
 		$data['c_rate']					= $this->setting_model->get_rate(1);
+
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    

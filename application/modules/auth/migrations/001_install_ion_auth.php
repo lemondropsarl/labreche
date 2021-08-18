@@ -44,6 +44,14 @@ class Migration_Install_ion_auth extends MY_Migration {
 			[
 				'name'        => 'Admin',
 				'description' => 'Administrator'
+			],
+			[
+				'name'        => 'Facturier',
+				'description' => 'Facturier'
+			],
+			[
+				'name'        => 'Agent stock',
+				'description' => 'Agent stock'
 			]
 		];
 		$this->db->insert_batch($this->tables['groups'], $data);

@@ -21,8 +21,8 @@ class Badmin extends MX_Controller {
            $this->lang->load('ion_auth',$siteLang);
         } else {
 		  
-           $this->lang->load('main','english');
-           $this->lang->load('ion_auth','english');
+           $this->lang->load('main','french');
+           $this->lang->load('ion_auth','french');
 
         }
         
@@ -281,6 +281,18 @@ class Badmin extends MX_Controller {
         $group_desc = $this->input->post('description');
         $group_id = $this->ion_auth->create_groupe($group_name,$group_desc);
 
+        //add row acl modules value to 0
+        $modules = $this->admin_model->get_modules();
+        foreach ($modules as $v) {
+            $mo = $v['module_name'];
+           $model = array(
+               'module_name' =>$mo,
+               'group_id'   => (float)$group_id,
+               'value'  => '0'
+           ) ;
+            $this->admin_model->add_acl_module($model);
+            
+        }
         //add raw permissions value to 0
         $perm_ids = $this->ion_Auth_acl->permissions();
         foreach ($perm_ids as $v) {
@@ -292,6 +304,25 @@ class Badmin extends MX_Controller {
         redirect('badmin/groups_permissions','refresh');
 
 
+    }
+    public function module_permissions()
+    {
+        $data['groups']                =   $this->ion_auth->get_groups('full');
+        $data['matrix']                =  $this->admin_model->get_modules_permissions();
+        $data['modules']                = $this->nav_model->get_modules();
+        $data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Gestion access au modules';
+        $this->load->view('templates/header', $data);
+        $this->load->view('module_permissions', $data);
+        $this->load->view('templates/footer');  
+    }
+    public function update_mp()
+    {
+        # code...
     }
 
 

@@ -21,6 +21,16 @@ class Migration_initial_admin extends MY_Migration {
                 'group_id'      => 2,
                 'value'         => '1'
             ],
+            [
+                'module_name'   => 'badmin',
+                'group_id'      => 3,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'badmin',
+                'group_id'      => 4,
+                'value'         => '0'
+            ]
         ];
         $this->db->insert_batch('acl_modules', $acls);
         
@@ -34,7 +44,7 @@ class Migration_initial_admin extends MY_Migration {
 				'text'	=> 'administration',
 				'parent'=> '',
 				'order' => 900,
-				'perm_key'=> 'R'
+				'perm_key'=> 'A'
             ],
             //admin sub menus
             [
@@ -45,7 +55,7 @@ class Migration_initial_admin extends MY_Migration {
 				'text'	=> 'Users',
 				'parent'=> 'badmin',
 				'order' => 910,
-				'perm_key'=> 'R'
+				'perm_key'=> 'A'
             ],
             [
                 'name'	=> 'group_permission',
@@ -55,7 +65,17 @@ class Migration_initial_admin extends MY_Migration {
 				'text'	=> 'Groups & Permissions',
 				'parent'=> 'badmin',
 				'order' => 920,
-				'perm_key'=> 'R'
+				'perm_key'=> 'A'
+            ],
+            [
+                'name'	=> 'module_permissions',
+                'url'	=> 'badmin/module_permissions',
+                'icon'  => 'material-icons',
+				'icon-name'	=> '',
+				'text'	=> 'Access Module',
+				'parent'=> 'badmin',
+				'order' => 930,
+				'perm_key'=> 'A'
             ]
         ];
         $this->db->insert_batch('navigation_menu', $menus);

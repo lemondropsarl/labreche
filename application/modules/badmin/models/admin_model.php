@@ -28,6 +28,30 @@ class admin_model extends CI_Model {
     public function ggp(){
 		return $this->db->get('groups_permissions')->result();
 	}
+    public function get_modules_permissions()
+    {
+        $query = $this->db->get('acl_modules');
+        $matrix =array();
+        foreach ($query->result_array() as $v) {
+            $m_names = $v['module_name'];
+            $g_names = $v['group_id'];
+            $value = $v['value'];
+            $matrix[$m_names][$g_names] = $value;
+        }
+        return $matrix;
+    }
+    public function get_modules()
+    {
+
+        $query = $this->db->get('modules');;
+        return $Query->result_array();
+
+    }
+    public function add_acl_module($model)
+    {    
+        $this->db->insert('acl_modules', $model);
+        
+    }
     
 
 }

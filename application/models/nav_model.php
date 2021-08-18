@@ -41,6 +41,14 @@ class nav_model extends CI_Model {
         return $this->db->get('acl_menus')->result_array();
 
     }
+    public function get_modules()
+    {
+       $query = $this->db->get('acl_modules');
+       
+       return $query->result_array();
+       
+       
+    }
     
 
 }

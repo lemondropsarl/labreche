@@ -117,7 +117,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 											<span class="fas fa-lock"></span>
 										</div>
 									</div>
-									<input type="text" class="form-control" name="vonfirm_password"
+									<input type="text" class="form-control" name="password_confirm"
 										placeholder="<?php echo lang('password_confirm_label')?>">
 								</div>
 							</div>

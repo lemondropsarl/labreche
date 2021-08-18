@@ -22,6 +22,16 @@ class Migration_install_module extends CI_Migration {
                 'group_id'      => 2,
                 'value'         => '1'
             ],
+            [
+                'module_name'   => 'module',
+                'group_id'      => 3,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'module',
+                'group_id'      => 4,
+                'value'         => '0'
+            ]
         ];
         $this->db->insert_batch('acl_modules', $acls);
         

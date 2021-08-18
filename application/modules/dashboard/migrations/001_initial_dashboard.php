@@ -24,6 +24,11 @@ class Migration_initial_dashboard extends MY_Migration {
             [
                 'module_name'   => 'dashboard',
                 'group_id'      => 3,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'dashboard',
+                'group_id'      => 4,
                 'value'         => '1'
             ]
         ];

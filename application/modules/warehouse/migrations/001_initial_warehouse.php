@@ -232,6 +232,16 @@ class Migration_initial_warehouse extends CI_Migration {
                 'group_id'      => 2,
                 'value'         => '1'
             ],
+            [
+                'module_name'   => 'warehouse',
+                'group_id'      => 3,
+                'value'         => '0'
+            ],
+            [
+                'module_name'   => 'warehouse',
+                'group_id'      => 4,
+                'value'         => '1'
+            ]
         ];
         $this->db->insert_batch('acl_modules', $acls);
         
@@ -266,7 +276,7 @@ class Migration_initial_warehouse extends CI_Migration {
 				'text'	=> 'Entrée stock',
 				'parent'=> 'warehouse',
 				'order' => 320,
-				'perm_key'=> 'R'
+				'perm_key'=> 'W'
             ],
             [
                 'name'	=> 'entry_out',
@@ -276,7 +286,7 @@ class Migration_initial_warehouse extends CI_Migration {
 				'text'	=> 'Sortie stock',
 				'parent'=> 'warehouse',
 				'order' => 330,
-				'perm_key'=> 'R'
+				'perm_key'=> 'W'
             ]
 
         ];

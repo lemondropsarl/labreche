@@ -2,8 +2,8 @@
 /*!40014 SET FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET SQL_NOTES=0 */;
-CREATE DATABASE /*!32312 IF NOT EXISTS*/ labreche_2 /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE labreche_2;
+CREATE DATABASE /*!32312 IF NOT EXISTS*/ labreche /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE labreche;
 
 DROP TABLE IF EXISTS acl_modules;
 CREATE TABLE `acl_modules` (
@@ -12,7 +12,7 @@ CREATE TABLE `acl_modules` (
   `group_id` mediumint(8) unsigned NOT NULL,
   `value` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS categories;
 CREATE TABLE `categories` (
@@ -21,7 +21,7 @@ CREATE TABLE `categories` (
   `cat_description` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`cat_id`),
   UNIQUE KEY `cat_name` (`cat_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS ci_sessions;
 CREATE TABLE `ci_sessions` (
@@ -32,13 +32,20 @@ CREATE TABLE `ci_sessions` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+DROP TABLE IF EXISTS currency_rate;
+CREATE TABLE `currency_rate` (
+  `rate_id` mediumint(4) NOT NULL,
+  `rate` double NOT NULL DEFAULT '2000',
+  PRIMARY KEY (`rate_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 DROP TABLE IF EXISTS groups;
 CREATE TABLE `groups` (
   `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL,
   `description` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS groups_permissions;
 CREATE TABLE `groups_permissions` (
@@ -48,6 +55,18 @@ CREATE TABLE `groups_permissions` (
   `value` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS invoice;
+CREATE TABLE `invoice` (
+  `invoice_id` mediumint(4) NOT NULL AUTO_INCREMENT,
+  `inv_pos_id` mediumint(4) NOT NULL,
+  `inv_total_amount` decimal(10,0) NOT NULL,
+  `inv_discount_amount` decimal(10,0) NOT NULL,
+  `inv_vat_amount` decimal(10,0) NOT NULL,
+  `user_id` mediumint(4) NOT NULL,
+  `inv_datetime` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`invoice_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS last_update_stock;
 CREATE TABLE `last_update_stock` (
@@ -92,7 +111,7 @@ CREATE TABLE `modules` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `module_name` (`module_name`),
   UNIQUE KEY `license_key` (`license_key`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS navigation_menu;
 CREATE TABLE `navigation_menu` (
@@ -108,7 +127,7 @@ CREATE TABLE `navigation_menu` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `text` (`text`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS permissions;
 CREATE TABLE `permissions` (
@@ -119,6 +138,15 @@ CREATE TABLE `permissions` (
   UNIQUE KEY `perm_key` (`perm_key`),
   UNIQUE KEY `perm_name` (`perm_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS pos;
+CREATE TABLE `pos` (
+  `pos_ws_id` mediumint(4) NOT NULL,
+  `pos_name` varchar(20) NOT NULL,
+  `pos_address` varchar(30) DEFAULT NULL,
+  PRIMARY KEY (`pos_ws_id`),
+  UNIQUE KEY `pos_name` (`pos_name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS product;
 CREATE TABLE `product` (
@@ -140,6 +168,13 @@ CREATE TABLE `product` (
   KEY `fk_cat_id` (`product_cat_id`),
   CONSTRAINT `fk_cat_id` FOREIGN KEY (`product_cat_id`) REFERENCES `categories` (`cat_id`),
   CONSTRAINT `fk_ve_id` FOREIGN KEY (`product_vehicule_id`) REFERENCES `vehicule` (`vehicule_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS product_in_invoice;
+CREATE TABLE `product_in_invoice` (
+  `pi_product_id` mediumint(4) NOT NULL,
+  `pi_invoice_id` mediumint(4) NOT NULL,
+  `pi_quantity` int(4) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS product_location;
@@ -179,6 +214,20 @@ CREATE TABLE `stock_entries_out` (
   `so_dest_ware_id` mediumint(4) NOT NULL,
   `so_user_id` mediumint(4) NOT NULL,
   PRIMARY KEY (`so_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS store_information;
+CREATE TABLE `store_information` (
+  `store_id` mediumint(4) NOT NULL AUTO_INCREMENT,
+  `store_name` varchar(20) DEFAULT NULL,
+  `rccm` varchar(20) DEFAULT NULL,
+  `id_nat` varchar(20) DEFAULT NULL,
+  `nif` varchar(20) DEFAULT NULL,
+  PRIMARY KEY (`store_id`),
+  UNIQUE KEY `store_name` (`store_name`),
+  UNIQUE KEY `rccm` (`rccm`),
+  UNIQUE KEY `id_nat` (`id_nat`),
+  UNIQUE KEY `nif` (`nif`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS uom;
@@ -262,6 +311,7 @@ CREATE TABLE `warehouse_stock` (
   `ws_product_id` mediumint(4) NOT NULL,
   `warehouse_id` mediumint(4) NOT NULL,
   `ws_quantity` int(4) NOT NULL,
+  `typeTransaction` varchar(20) NOT NULL,
   `updated_date` date NOT NULL,
   PRIMARY KEY (`ws_id`),
   KEY `ws_FK_ID` (`warehouse_id`),
@@ -275,27 +325,35 @@ CREATE TABLE `zone_location` (
   PRIMARY KEY (`zone_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
-CREATE OR REPLACE VIEW `list_of_stock` AS select `product`.`product_id` AS `pid`,`product`.`product_code` AS `pcode`,`product`.`product_name` AS `pname`,`product`.`product_uom` AS `uom`,`last_update_stock`.`lus_quantity` AS `qty` from (`product` join `last_update_stock`) where (`product`.`product_id` = `last_update_stock`.`lus_product_id`);
+CREATE OR REPLACE VIEW `critical_stock_view` AS select `product`.`product_id` AS `pid`,`product`.`product_code` AS `pcode`,`product`.`product_name` AS `pname`,`product`.`product_uom` AS `uom`,`product`.`min_qty` AS `min_qty`,`last_update_stock`.`lus_quantity` AS `actual_quantity` from (`product` join `last_update_stock`) where ((`product`.`product_id` = `last_update_stock`.`lus_product_id`) and (`product`.`min_qty` = `last_update_stock`.`lus_quantity`)) order by `product`.`product_name`;
 
-INSERT INTO acl_modules(id,module_name,group_id,value) VALUES(1,'badmin',1,1),(2,'badmin',2,1),(3,'dashboard',1,1),(4,'dashboard',2,1),(5,'dashboard',3,1),(6,'module',1,1),(7,'module',2,1),(8,'product',1,1),(9,'product',2,1),(10,'warehouse',1,1),(11,'warehouse',2,1);
+CREATE OR REPLACE VIEW `list_of_stock_view` AS select `product`.`product_id` AS `pid`,`product`.`product_code` AS `pcode`,`product`.`product_name` AS `pname`,`product`.`product_uom` AS `uom`,`product`.`min_qty` AS `min_qty`,`last_update_stock`.`lus_quantity` AS `qty` from (`product` join `last_update_stock`) where (`product`.`product_id` = `last_update_stock`.`lus_product_id`) order by `product`.`product_name`;
 
-INSERT INTO categories(cat_id,cat_name,cat_description) VALUES(1,'MOTEUR','toutes pieces du moteur');
+CREATE OR REPLACE VIEW `so_entries_out_view` AS select `product`.`product_name` AS `name`,`stock_entries_out`.`so_entry_date` AS `entry_date`,`stock_entries_out`.`so_quantity` AS `quantity`,`warehouses`.`warehouse_name` AS `warehouse_name` from ((`product` join `stock_entries_out`) join `warehouses`) where ((`product`.`product_id` = `stock_entries_out`.`so_product_id`) and (`stock_entries_out`.`so_dest_ware_id` = `warehouses`.`warehouse_id`)) order by `stock_entries_out`.`so_entry_date` desc;
 
-INSERT INTO ci_sessions(id,ip_address,timestamp,data) VALUES('6f5b287f9a352a886a7619dbb92d03650c3778d7','127.0.0.1',16777215,X'5f5f63695f6c6173745f726567656e65726174657c693a313632383434333231333b6964656e746974797c733a353a2261646d696e223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a31353a2261646d696e4061646d696e2e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a32363a22303030302d30302d30302030303a30303a30302e303030303030223b6c6173745f636865636b7c693a313632383434333231333b736974655f6c616e677c733a373a22656e676c697368223b');
+INSERT INTO acl_modules(id,module_name,group_id,value) VALUES(1,'badmin',1,1),(2,'badmin',2,1),(3,'badmin',3,0),(4,'badmin',4,0),(5,'dashboard',1,1),(6,'dashboard',2,1),(7,'dashboard',3,0),(8,'dashboard',4,1),(9,'module',1,1),(10,'module',2,1),(11,'module',3,0),(12,'module',4,0),(13,'pos',1,1),(14,'pos',2,0),(15,'pos',3,1),(16,'pos',4,0),(17,'product',1,1),(18,'product',2,1),(19,'product',3,1),(20,'product',4,1),(21,'setting',1,1),(22,'setting',2,1),(23,'setting',3,0),(24,'setting',4,0),(25,'warehouse',1,1),(26,'warehouse',2,1),(27,'warehouse',3,0),(28,'warehouse',4,1);
 
-INSERT INTO groups(id,name,description) VALUES(1,'Super','Super User'),(2,'Admin','Administrator');
+
+INSERT INTO ci_sessions(id,ip_address,timestamp,data) VALUES('c81d8ab9525d47014e56ce72f93883efcf0b1ab4','127.0.0.1',16777215,X'5f5f63695f6c6173745f726567656e65726174657c693a313632393238333237383b6964656e746974797c733a353a2261646d696e223b757365726e616d657c733a353a2261646d696e223b656d61696c7c733a31353a2261646d696e4061646d696e2e636f6d223b757365725f69647c733a313a2231223b6f6c645f6c6173745f6c6f67696e7c733a32363a22303030302d30302d30302030303a30303a30302e303030303030223b6c6173745f636865636b7c693a313632393238333237383b736974655f6c616e677c733a373a22656e676c697368223b');
+
+INSERT INTO currency_rate(rate_id,rate) VALUES(1,2000);
+
+INSERT INTO groups(id,name,description) VALUES(1,'Super','Super User'),(2,'Admin','Administrator'),(3,'Facturier','Facturier'),(4,'Agent stock','Agent stock');
 
 INSERT INTO groups_permissions(id,group_id,perm_id,value) VALUES(1,1,1,1),(2,1,2,1),(3,1,3,1),(4,1,4,1),(5,2,1,1),(6,2,2,1),(7,2,3,1),(8,2,4,0);
 
 
 
-INSERT INTO migrations(module,version) VALUES('CI_core',1),('auth\\',2),('badmin\\',1),('dashboard\\',1),('module\\',1),('product\\',1),('warehouse\\',1);
 
-INSERT INTO modules(id,module_name,module_display_name,module_description,module_status,module_version,license_key,license_status,required_module,is_preloaded) VALUES(1,'auth','Authorization','Handle your authentification for your app and manage the access control level',1,'1.0.',NULL,NULL,NULL,1),(2,'admin','Administration','This extension handle all your administration operation and management',1,'1.0.',NULL,NULL,NULL,1),(3,'dashboard','Dashboard','connect information for other extension to your dashbord',1,'1.0.',NULL,NULL,NULL,1),(4,'module','Module management','This extension Helps you manage all your extensions',1,'1.0',NULL,NULL,NULL,1),(5,'product','Product management','This extension Helps you manage all your products',1,'1.0',NULL,NULL,NULL,1),(6,'warehouse','Gestion stock','This extension handle all your stock operations and management',1,'1.0.',NULL,NULL,NULL,1);
+INSERT INTO migrations(module,version) VALUES('CI_core',1),('auth\\',2),('badmin\\',1),('dashboard\\',1),('module\\',1),('pos\\',1),('product\\',1),('setting\\',1),('warehouse\\',1);
 
-INSERT INTO navigation_menu(id,name,url,icon,icon-name,text,parent,order,perm_key) VALUES(1,'dashboard','dashboard','fa-tachometer-alt','dashboard','dashboard','dashboard',1,'R'),(2,'badmin','','fa-cog','','administration','',900,'R'),(3,'users','badmin/users','material-icons','','Users','badmin',910,'R'),(4,'group_permission','badmin/groups_permissions','material-icons','','Groups & Permissions','badmin',920,'R'),(5,'module','','fa-th-large21`','apps','Modules','',1000,'A'),(6,'list_module','module','material-icons','apps','Extensions','module',1100,'A'),(7,'product','','fa-th-large21`','apps','Articles','',200,'A'),(8,'list_product','product/list','material-icons','apps','Liste des articles','product',210,'A'),(9,'create_product','product/create','material-icons','apps','Ajouter article','product',220,'A'),(10,'warehouse','','fa-cog','','Gestion stock','',300,'R'),(11,'check_stock','warehouse/check','material-icons','','Voir stock','warehouse',310,'R'),(12,'entry_in','warehouse/entry_in','material-icons','','Entrée stock','warehouse',320,'R'),(13,'entry_out','warehouse/entry_in','material-icons','','Sortie stock','warehouse',330,'R');
+INSERT INTO modules(id,module_name,module_display_name,module_description,module_status,module_version,license_key,license_status,required_module,is_preloaded) VALUES(1,'auth','Authorization','Handle your authentification for your app and manage the access control level',1,'1.0.',NULL,NULL,NULL,1),(2,'admin','Administration','This extension handle all your administration operation and management',1,'1.0.',NULL,NULL,NULL,1),(3,'dashboard','Dashboard','connect information for other extension to your dashbord',1,'1.0.',NULL,NULL,NULL,1),(4,'module','Module management','This extension Helps you manage all your extensions',1,'1.0',NULL,NULL,NULL,1),(5,'pos','Point de vente','La facturation des produits',1,'1.0',NULL,NULL,NULL,1),(6,'product','Product management','This extension Helps you manage all your products',1,'1.0',NULL,NULL,NULL,1),(7,'setting','Paramètres','Paramètre general',1,'1.0',NULL,NULL,NULL,1),(8,'warehouse','Gestion stock','This extension handle all your stock operations and management',1,'1.0.',NULL,NULL,NULL,1);
+
+INSERT INTO navigation_menu(id,name,url,icon,icon-name,text,parent,order,perm_key) VALUES(1,'dashboard','dashboard','fa-tachometer-alt','dashboard','dashboard','dashboard',1,'R'),(2,'badmin','','fa-cog','','administration','',900,'A'),(3,'users','badmin/users','material-icons','','Users','badmin',910,'A'),(4,'group_permission','badmin/groups_permissions','material-icons','','Groups & Permissions','badmin',920,'A'),(5,'module_permissions','badmin/module_permissions','material-icons','','Access Module','badmin',930,'A'),(6,'module','','fa-th-large21`','apps','Modules','',1000,'A'),(7,'list_module','module','material-icons','apps','Extensions','module',1100,'A'),(8,'pos','','fa-th-large21`','apps','Points de vente','',400,'W'),(9,'invocing','pos/invoicing','material-icons','apps','Facturation','pos',410,'W'),(10,'check_pos','pos/check','material-icons','apps','Voir dépôts','pos',420,'W'),(11,'product','','fa-th-large21`','apps','Articles','',200,'R'),(12,'list_product','product/list','material-icons','apps','Liste des articles','product',210,'R'),(13,'create_product','product/create','material-icons','apps','Ajouter article','product',220,'W'),(14,'setting','','fa-th-large21`','apps','Paramètres','',500,'A'),(15,'general_setting','setting','fa-th-large21`','apps','General','setting',510,'A'),(16,'warehouse','','fa-cog','','Gestion stock','',300,'R'),(17,'check_stock','warehouse/check','material-icons','','Voir stock','warehouse',310,'R'),(18,'entry_in','warehouse/entry_in','material-icons','','Entrée stock','warehouse',320,'W'),(19,'entry_out','warehouse/entry_out','material-icons','','Sortie stock','warehouse',330,'W');
 
 INSERT INTO permissions(id,perm_key,perm_name) VALUES(1,'R','Read'),(2,'W','Write'),(3,'A','Admin'),(4,'S','Super');
+
+
 
 
 
@@ -303,9 +361,10 @@ INSERT INTO shelf_location(shelf_id,shelf_name) VALUES(1,'ETAGERE 1'),(2,'ETAGER
 
 
 
+
 INSERT INTO uom(uom_name) VALUES('BOUTEILLE'),('PIECE'),('CARTON'),('LITRE');
 
-INSERT INTO users(id,ip_address,username,password,email,activation_selector,activation_code,forgotten_password_selector,forgotten_password_code,forgotten_password_time,remember_selector,remember_code,created_on,last_login,active,first_name,last_name,company,phone) VALUES(1,'127.0.0.1','admin','$2y$10$s8MwkRzvcDv0G/1tWAVTYOzM5UwooDcq.skZqEL6rd55dLlBa9yr.','admin@admin.com',NULL,'',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00.000000','0000-00-00 00:00:00.000000',1,'cedric','mataso','lemondrop sarl','0975899576');
+INSERT INTO users(id,ip_address,username,password,email,activation_selector,activation_code,forgotten_password_selector,forgotten_password_code,forgotten_password_time,remember_selector,remember_code,created_on,last_login,active,first_name,last_name,company,phone) VALUES(1,'127.0.0.1','admin','$2y$10$Dehken1aHmLnMMb0LxyXxepUrp1hi625WFvQbPKTfL6V5NEAD7iIO','admin@admin.com',NULL,'',NULL,NULL,NULL,NULL,NULL,'0000-00-00 00:00:00.000000','0000-00-00 00:00:00.000000',1,'cedric','mataso','lemondrop sarl','0975899576');
 
 INSERT INTO users_groups(id,user_id,group_id) VALUES(1,1,1);
 
