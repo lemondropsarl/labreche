@@ -22,7 +22,9 @@ class Pos extends MX_Controller
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
 
-
+		$user_id = $this->session->userdata('user_id');
+		$this->posID = $this->setting_model->get_pos_by_userID($user_id);;
+		
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 
@@ -43,7 +45,7 @@ class Pos extends MX_Controller
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
 		$data["product_stock"] = $this->pos_model->get_list_pr_stock();
-		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1);
+		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID($this->posID);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
 	}
@@ -142,6 +144,23 @@ class Pos extends MX_Controller
 		 );
 		 $this->pos_model->add_pos($model);
 		
+	}
+	public function assign_user_pos()
+	{
+		$pos_id 	=  $this->input->post('pos');
+		$user_id	= $this->input->post('user');
+		$model = array(
+			'user_id' => $user_id, 
+		'pos_id'	=>$pos_id);
+		$this->setting_model->add_user_pos($model);
+		
+		redirect('index','refresh');
+		
+		
+	}
+	public function get_posID_session()
+	{
+		# code...
 	}
 	
 

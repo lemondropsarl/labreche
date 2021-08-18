@@ -55,6 +55,27 @@ class setting_model extends CI_Model {
         
         
     }
+    public function get_users_by_group($group_id = 3)
+    {
+        $query = ' SELECT `users_groups`.`user_id` as `user_id`,
+                          `users`.`username` as `username` 
+                          from (`users`, `users_groups`)
+                          where (`users`.`id` = `users_groups`.`user_id`) and (`users_groups`.`group_id` = '.$group_id.')';
+        return $this->db->query($query)->result_array();
+    }
+    public function add_user_pos($model)
+    {
+        $this->db->insert('user_pos', $model);
+        
+    }
+    public function get_pos_by_userID($user_id)
+    {
+        $this->db->where('user_id', $user_id);
+        $query = $this->db->get('user_pos')->row();
+
+        return $query->user_id;
+        
+    }
 }
 
 /* End of file setting_model.php */

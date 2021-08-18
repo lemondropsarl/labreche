@@ -59,7 +59,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                        <option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
                                 <?php   }?>
                                </select>
-                               <a href="#modalWare" data-toggle="modal" data-target="#modalWare"><i class="fa fa-plus-square"></i> nouveau dépôt</a>
+                               <a href="#" data-toggle="modal" data-target="#modalWare"><i class="fa fa-plus-square"></i> nouveau dépôt</a>
                            </div>
                            
                             <div class="col-md-6">
@@ -86,7 +86,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<?php echo 	form_open('setting/update_rate');?>
 								<div class="form-group form-inline form-row">
 									<div class="col-sm-2 align-content-end">
-										<label for="">1$ =</label>
+										<label for="">1$=</label>
 									</div>
 									<div class="col-sm-6 row">
 										<input type="number" step="any" name="rate" id="rate" value="<?php echo $c_rate['rate']?>" class="form-control">
@@ -100,6 +100,46 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						
 						
 					</div>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card card-outline card-info">
+					<div class="card-header">
+						<h4 class="title">Facturier & Point de vente</h4>
+					</div>
+					<div class="card-body">
+						<?php echo form_open('pos/assign_user_pos')?>
+						<div class="form-group">
+							<label for="">Utilisateurs(Facturiers)</label>
+							<div class="col-sm-8">
+
+								<select name="user" id="" class="form-control">
+									<?php foreach ($users as $item) {?>
+										# code...
+										<option value="<?php echo $item['user_id']?>"><?php echo $item['username']?></option>
+								<?php	}?>
+								</select>
+							</div>
+						</div>
+						<i class="fa fa-arrow-down"></i>
+						<div class="form-group">
+							<label for="">Point de vente(Affectation)</label>
+							<div class="col-sm-8">
+
+								<select name="pos" id="" class="form-control">
+									<?php foreach ($pos as $item) {?>
+										
+										<option value="<?php echo $item['pos_ws_id']?>"><?php echo $item['pos_name']?></option>
+									<?php }?>
+								</select>
+							</div>
+						</div>
+
+					</div>
+					<div class="card-footer">
+						<button class="btn btn-success" type="submit">valider affection</button>
+					</div>
+					<?php echo form_close()?>
 				</div>
 			</div>
         </div>

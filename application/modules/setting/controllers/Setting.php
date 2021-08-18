@@ -38,6 +38,7 @@ class Setting extends 	MX_Controller {
     public function index()
     {
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['users']					=  $this->setting_model->get_users_by_group(3);
 		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];

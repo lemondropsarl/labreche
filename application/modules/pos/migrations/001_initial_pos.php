@@ -84,6 +84,24 @@ class Migration_initial_pos extends CI_Migration {
             ]
         ]);
         $this->dbforge->create_table($this->tables['prods_in_inv'],TRUE);
+        $this->dbforge->drop_table($this->tables['user_pos'],TRUE);
+        $this->dbforge->add_field([
+            'id' => [
+                'type'  => 'MEDIUMINT',
+                'constraint'    => '4',
+                'auto_increment'    => TRUE
+            ],
+            'user_id' =>[
+                'type' => 'MEDIUNINT',
+                'constraint'    => '4'
+            ],
+            'pos_id' =>[
+                'type' => 'MEDIUNINT',
+                'constraint'    => '4'
+            ]
+        ]);
+        $this->dbforge->add_key('id',TRUE);
+        $this->dbforge->create_table($this->tables['user_pos'],TRUE);
 
         //add one constraint
         $query = 'ALTER TABLE'.' '.$this->tables['invoice'].'  '.
@@ -167,6 +185,8 @@ class Migration_initial_pos extends CI_Migration {
         $this->dbforge->drop_table($this->tables['pos'],TRUE);
         $this->dbforge->drop_table($this->tables['invoice'],TRUE);
         $this->dbforge->drop_table($this->tables['prods_in_inv'],TRUE);
+        $this->dbforge->drop_table($this->tables['user_pos'],TRUE);
+
     }
 
 }
