@@ -106,6 +106,20 @@ class pos_model extends CI_Model
 	function pourcentage($Nombre, $Total) {
 		return $Nombre * 100 / $Total;
 	}
+	public function get_pos_by_userID($user_id)
+    {
+		
+		$query =$this->db->where('user_id', $user_id);
+        $query = $this->db->get('user_pos');
+        return $query->row_array();    
+    }
+	public function get_pos_byID($pos_id)
+	{
+		$this->db->where('pos_ws_id', $pos_id);
+		$query =$this->db->get('pos');
+		
+		return $query->row_array();	
+	}
 }
 
 /* End of file pos_model.php */

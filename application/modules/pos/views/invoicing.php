@@ -25,7 +25,16 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 <body class="container-fluid">
 	<header class="header row p-3 my-3 bg-dark text-white non_print">
-		<h2>BREACHE</h2>
+		<ul class="inline block">
+			<li>
+				<h2>Breah auto facture</h2>
+			</li>
+			<li>
+				<h2>  Point de vente : <?php echo $pos['pos_name']?></h2>
+				
+			</li>
+		</ul>
+		
 	</header>
 	<div class="row">
 		<section class="col-md-6 col-sm-12 col-xs-12 non_print">

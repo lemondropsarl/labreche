@@ -68,14 +68,7 @@ class setting_model extends CI_Model {
         $this->db->insert('user_pos', $model);
         
     }
-    public function get_pos_by_userID($user_id)
-    {
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get('user_pos')->row();
-
-        return $query->user_id;
-        
-    }
+    
 }
 
 /* End of file setting_model.php */

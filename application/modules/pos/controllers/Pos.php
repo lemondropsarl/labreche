@@ -12,6 +12,8 @@ class Pos extends MX_Controller
 		$this->load->model('nav_model');
 		$this->load->model('product/product_model');
 		$this->load->model('warehouse/warehouse_model');
+		$this->load->model('setting/setting_model');
+		
 		$this->load->model('pos_model');
 
 		$this->load->helper('url');
@@ -22,8 +24,10 @@ class Pos extends MX_Controller
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
 
-		$user_id = $this->session->userdata('user_id');
-		$this->posID = $this->setting_model->get_pos_by_userID($user_id);;
+		$user_id 	= $this->session->userdata('user_id');
+		$query =  $this->pos_model->get_pos_by_userID($user_id);
+		$this->posID = $query['pos_id'];
+		
 		
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
@@ -41,17 +45,31 @@ class Pos extends MX_Controller
 
 	public function invoicing()
 	{
+		$pos_id;
+		if (!$this->posID) {
+			# code...
+			$pos_id = 1;//find a way to get the warehouse_id
+		}else {
+			$pos_id = $this->posID;
+		}
 
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
 		$data["product_stock"] = $this->pos_model->get_list_pr_stock();
 		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID($this->posID);
+		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
 	}
 	public function check()
 	{
-		$pos_id = 1; //find a way to get the warehouse_id
+		$pos_id;
+		if (!$this->posID) {
+			# code...
+			$pos_id = 1;//find a way to get the warehouse_id
+		}else {
+			$pos_id = $this->posID;
+		}
 		# code...
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
 		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
@@ -154,7 +172,7 @@ class Pos extends MX_Controller
 		'pos_id'	=>$pos_id);
 		$this->setting_model->add_user_pos($model);
 		
-		redirect('index','refresh');
+		redirect('setting/index','refresh');
 		
 		
 	}
