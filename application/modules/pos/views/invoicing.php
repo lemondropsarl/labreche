@@ -74,12 +74,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				</div>
 			</div>
 		</section>
-		<section class="col-md-6 col-sm-12 col-xs-12">
+		<section class="col-md-6 col-sm-12 col-xs-12 card card-outline">
+			<h3>FACTURE</h3>
 			<div class="container-fluid non_print">
 				<div class="row">
 					<div class="form">
 						<div class="form-group">
-							<label for="client">CLIENT</label>
+							
 							<input type="text" name="client" id="client" placeholder="Nom du client" class="form-control" />
 						</div>
 					</div>
