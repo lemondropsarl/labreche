@@ -47,6 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card card-outline card-primary">
                     <div class="card-header">
                         <h4 class="title">Points de vente et Depots</h4>
+						<div class="card-tools">
+							<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i></button>
+						</div>
                     </div>
                     <div class="card-body">
                         <div class="form-group">
@@ -145,6 +148,24 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<h4 class="title">Facturier & Point de vente</h4>
 					</div>
 					<div class="card-body">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Identifiant</th>
+										<th>Point de vente</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php foreach ($up as $item) {?>
+										<tr>
+											<td><?php echo $item['username']?></td>
+											<td><?php echo $item['pos_name']?></td>
+										</tr>
+								<?php	}?>
+								</tbody>
+							</table>
+						</div>
 						<?php echo form_open('pos/assign_user_pos')?>
 						<div class="form-group">
 							<label for="">Utilisateurs(Facturiers)</label>
@@ -251,41 +272,3 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</div>
 </div>
 
-<div class="modal fade" id="modalPos" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-	<div class="modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Ajouter Point de vente</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">&times;</span>
-				</button>
-			</div>
-			<?php echo form_open('pos/create_pos'); ?>
-			<div class="modal-body">
-				<div class="form-group">
-					<label for="pos_name">DESIGNATION</label>
-					<input type="text" class="form-control" name="pos_name" id="pos_name" placeholder="Nom du point de vente" required>
-				</div>
-				
-                <div class="form-group">
-					<label for="pos_address">ADRESSE</label>
-					<input type="text" class="form-control" name="pos_address" id="pos_address" placeholder="Adresse">
-				</div>
-                <div class="form-group">
-					<label for="pos_id">CONNECTER AU DEPOT</label>
-					<select name="pos_id" id="pos_id" class="form-control">
-                        <?php foreach ($warehouses as $item) {?>
-                                       
-                                <option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
-                         <?php  }?>
-                    </select>
-				</div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
-				<button type="button" id="btn_add_pos" class="btn btn-success">Enregistrer</button>
-			</div>
-			<?php echo form_close(); ?>
-		</div>
-	</div>
-</div>

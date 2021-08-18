@@ -48,6 +48,7 @@ class Setting extends 	MX_Controller {
 		$data['warehouses']				= $this->warehouse_model->get_warehouses();
 		$data['pos']					= $this->pos_model->get_pos();
 		$data['c_rate']					= $this->setting_model->get_rate(1);
+		$data['up']						= $this->pos_model->get_users_pos();
 
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
