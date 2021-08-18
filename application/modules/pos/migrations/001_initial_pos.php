@@ -92,11 +92,11 @@ class Migration_initial_pos extends CI_Migration {
                 'auto_increment'    => TRUE
             ],
             'user_id' =>[
-                'type' => 'MEDIUNINT',
+                'type' => 'MEDIUMINT',
                 'constraint'    => '4'
             ],
             'pos_id' =>[
-                'type' => 'MEDIUNINT',
+                'type' => 'MEDIUMINT',
                 'constraint'    => '4'
             ]
         ]);
