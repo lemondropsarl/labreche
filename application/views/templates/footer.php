@@ -663,6 +663,7 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("pos/search_code_name_fac") ?>', {
 					code: code
 				}, function(data) {
+					
 					$("#liste_pr_facture").html(data);
 				});
 			}

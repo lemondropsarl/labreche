@@ -11,12 +11,11 @@ class pos_model extends CI_Model
 
 	public function add_prods_in_invoice($model)
 	{
-		$this->db->insert('product_in_invoice',$model);
-      
+		$this->db->insert('product_in_invoice', $model);
 	}
 	public function add_invoice($model)
 	{
-		$this->db->insert('invoice',$model);	
+		$this->db->insert('invoice', $model);
 	}
 	public function get_critical_stock($pos_id)
 	{
@@ -71,21 +70,43 @@ class pos_model extends CI_Model
 
 		return $query->row_array();
 	}
-	public function get_list_stock_by_wsID($ws_id)
+	public function get_list_stock_by_wsID($code, $ws_id)
 	{
-		$query = "SELECT 
+		$query = null;
+		if ($code != 1) {
+			$query = "SELECT 
+			`product`.`product_id` as `pid`,
+			`product`.`product_code` as `pcode`,
+			`product`.`product_name` as `pname`,
+			`product`.`product_uom` as `uom`,
+			`product`.`min_qty` as `min_qty`,
+			`product`.`unit_price` as `price`,
+			`product`.`product_currency` as `currency`,
+			SUM(`warehouse_stock`.`ws_quantity`) as `actual_qty`
+			from(  
+			   `product`, `warehouse_stock`
+			) 
+			WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`) and (product.product_code LIKE '$code%' OR product.product_name LIKE '$code%')
+			 GROUP BY `product`.`product_id`";
+
+
+		} else {
+			$query = "SELECT 
         `product`.`product_id` as `pid`,
         `product`.`product_code` as `pcode`,
         `product`.`product_name` as `pname`,
         `product`.`product_uom` as `uom`,
         `product`.`min_qty` as `min_qty`,
+		`product`.`unit_price` as `price`,
+		`product`.`product_currency` as `currency`,
         SUM(`warehouse_stock`.`ws_quantity`) as `actual_qty`
         from(  
            `product`, `warehouse_stock`
         ) 
-        WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`)
+        WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`) 
          GROUP BY `product`.`product_id`";
 
+		}
 		return $this->db->query($query)->result_array();
 	}
 	public function update_pos($id, $data)
@@ -103,22 +124,23 @@ class pos_model extends CI_Model
 		return $this->db->get('pos')->result_array();
 	}
 	//poucentage calcule
-	function pourcentage($Nombre, $Total) {
+	function pourcentage($Nombre, $Total)
+	{
 		return $Nombre * 100 / $Total;
 	}
 	public function get_pos_by_userID($user_id)
-    {
-		
-		$query =$this->db->where('user_id', $user_id);
-        $query = $this->db->get('user_pos');
-        return $query->row_array();    
-    }
+	{
+
+		$query = $this->db->where('user_id', $user_id);
+		$query = $this->db->get('user_pos');
+		return $query->row_array();
+	}
 	public function get_pos_byID($pos_id)
 	{
 		$this->db->where('pos_ws_id', $pos_id);
-		$query =$this->db->get('pos');
-		
-		return $query->row_array();	
+		$query = $this->db->get('pos');
+
+		return $query->row_array();
 	}
 	public function get_users_pos()
 	{
