@@ -101,10 +101,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							TOTAUX :
 						</td>
 						<td id="totaux_facture_usd" data-totaux='0'>
-							0
+							0 USD
 						</td>
 						<td id="totaux_facture_cdf" data-totaux='0'>
-							0
+							0 CDF
 						</td>
 						<td id="totaux_facture_usd_cdf" class="bg-success" data-totaux='0'>
 							0
@@ -128,11 +128,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<div class="col-3">
 					<button class="btn btn-danger print text-uppercase" id="btn_nouvelle_fac">Nouvelle <i class="fas fa-file"></i></button>
 				</div>
-				<div class="col-3">
-					<button class="btn btn-success text-uppercase" id="print-facture">Imprimer <i class="fas fa-print"></i></button>
+				<div class="col-5">
+					<button class="btn btn-success text-uppercase" id="print-facture">Imprimer & Enregistrer <i class="fas fa-print"></i></button>
 				</div>
-				<div class="col-4">
-					<button class="btn btn-primary print text-uppercase" id="save-facture">Enregistrer <i class="fas fa-save"></i></button>
+				<div class="col-3">
+					<button class="btn btn-primary print text-uppercase" id="save-facture">Enregistrer<i class="fas fa-save"></i></button>
 				</div>
 			</div>
 		</section>
