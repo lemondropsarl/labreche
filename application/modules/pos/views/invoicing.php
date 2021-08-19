@@ -51,10 +51,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<label for="filtre_pr_stock_fac">Code ou nom</label>
 							<input type="search" placeholder="Code ou Nom article" name="filtre_pr_stock_fac" id="filtre_pr_stock_fac" class="form-control" required="required">
 						</div>
-						<div class="group-form col">
-							<label for="qty_change">Quantité</label>
-							<input class="form-control" placeholder="Quantité" type="number" min=1 name="qty_change" id="qty_change">
-						</div>
+					
 					</form>
 				</div>
 				<div class="card-body">

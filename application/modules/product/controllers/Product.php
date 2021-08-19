@@ -16,8 +16,6 @@ class Product extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-
-
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 

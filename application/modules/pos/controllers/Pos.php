@@ -55,8 +55,8 @@ class Pos extends MX_Controller
 
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
-		$data["product_stock"] = $this->pos_model->get_list_pr_stock();
-		//$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID($this->posID);
+		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
+		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1,$this->posID);
 		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
@@ -78,7 +78,7 @@ class Pos extends MX_Controller
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'Point de vente';
 		$data['pos']             		= $this->pos_model->get_pos();
-		//	$data['list_stock']           = $this->pos_model->get_list_stock_by_wsID($pos_id);
+		$data['list_stock']           = $this->pos_model->get_list_stock_by_wsID(1,$pos_id);
 		$data['value_stock_cdf'] 	= $this->pos_model->get_value_stock_cdf($pos_id);
 		$data['value_stock_usd'] 	= $this->pos_model->get_value_stock_usd($pos_id);
 
@@ -93,7 +93,6 @@ class Pos extends MX_Controller
 		$pos_id = $this->posID;
 		$code = strtoupper($this->input->get('code'));
 		$product_stock = $this->pos_model->get_list_stock_by_wsID($code, $pos_id);
-
 		foreach ($product_stock as $items) {
 ?>
 			<tr class="ligne_pr_fact_search pointer_hover" data-pr_id="<?php echo $items['pid']; ?>" data-pr_code="<?php echo $items['pcode']; ?>" data-pr_name="<?php echo $items['pname']; ?>" data-pr_price="<?php echo $items['price']; ?>" data-pr_qty="<?php echo $items['actual_qty'];  ?>" data-pr_devise="<?php echo $items['currency']; ?>">
@@ -123,7 +122,6 @@ class Pos extends MX_Controller
 		}
 	}
 	//pourcentage
-
 	public function create_invoice()
 	{
 		//"prId": prId,
