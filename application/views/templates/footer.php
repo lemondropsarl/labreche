@@ -391,7 +391,7 @@ $this->app = $this->config->item('application', 'app');
 		$("body").on("click", ".ligne_product", function() {
 			const id = $(this).data("product_id");
 			const pr_code = $(this).data("pr_code");
-		
+
 			////////
 			$(".ligne_product").removeClass("ligne_product_select");
 			$(this).addClass("ligne_product_select");
@@ -403,7 +403,7 @@ $this->app = $this->config->item('application', 'app');
 			$.get('<?php echo base_url("product/search_by_id_pr_stock") ?>', {
 				id: id,
 			}, function(data) {
-			
+
 				const product = JSON.parse(data);
 				$("#pr_code_search_value").text(product.product_code);
 				$("#pr_name_search_value").text(product.product_name);
@@ -694,8 +694,10 @@ $this->app = $this->config->item('application', 'app');
 			if (t_id.find(e => e == id)) {
 				//quantite
 				let qt_actuel = parseInt($(".qty_" + id).text());
+
 				//on test la quantite
 				if (qty > qt_actuel) {
+
 					qt_actuel++;
 					$(".qty_" + id).text(qt_actuel);
 
@@ -710,7 +712,11 @@ $this->app = $this->config->item('application', 'app');
 				//
 			} else {
 				if (id != '') {
-					$("#facture_corp").append(ligne);
+					if (qty === 0) {
+						toastr.warning("Il y a rupture de stock");
+					} else {
+						$("#facture_corp").append(ligne);
+					}
 				}
 			}
 			//totaux de totaux
@@ -812,10 +818,10 @@ $this->app = $this->config->item('application', 'app');
 		});
 		//print fature
 		$("body").on("click", "#print-facture", function() {
-
 			let prCode = "";
 			let prId = "";
 			let prQty = 0;
+			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
 			if (count_ligne_facture() > 0) {
@@ -823,11 +829,14 @@ $this->app = $this->config->item('application', 'app');
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
 					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
+
 					prQty = $(".qty_" + (i + 1)).text();
 					commande = {
 						"prId": prId,
 						"prCode": prCode,
-						"prQty": prQty
+						"prQty": prQty,
+						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
 					};
 					commandes[i] = commande;
 				}
@@ -836,6 +845,7 @@ $this->app = $this->config->item('application', 'app');
 					totaux: get_totaux(),
 					commandes: commandes
 				}, function(data) {
+
 					toastr.success("Facture imprimer");
 					print();
 					refresh_liste_product();
@@ -852,32 +862,38 @@ $this->app = $this->config->item('application', 'app');
 			let prCode = "";
 			let prId = "";
 			let prQty = 0;
+			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
 			if (count_ligne_facture() > 0) {
-
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
 					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
+
 					prQty = $(".qty_" + (i + 1)).text();
 					commande = {
 						"prId": prId,
 						"prCode": prCode,
-						"prQty": prQty
+						"prQty": prQty,
+						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
 					};
 					commandes[i] = commande;
 				}
+
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
 					commandes: commandes
 				}, function(data) {
 
-					toastr.success("Facture enregistrée");
+					toastr.success("Facture Enregistrer");
+					
 					refresh_liste_product();
 				});
 
 			} else {
+
 				toastr.warning("Rien à enregistrer");
 			}
 		});

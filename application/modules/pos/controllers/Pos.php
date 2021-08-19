@@ -56,7 +56,7 @@ class Pos extends MX_Controller
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
 		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
-		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1,$this->posID);
+		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1, $this->posID);
 		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
@@ -78,7 +78,7 @@ class Pos extends MX_Controller
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'Point de vente';
 		$data['pos']             		= $this->pos_model->get_pos();
-		$data['list_stock']           = $this->pos_model->get_list_stock_by_wsID(1,$pos_id);
+		$data['list_stock']           = $this->pos_model->get_list_stock_by_wsID(1, $pos_id);
 		$data['value_stock_cdf'] 	= $this->pos_model->get_value_stock_cdf($pos_id);
 		$data['value_stock_usd'] 	= $this->pos_model->get_value_stock_usd($pos_id);
 
@@ -124,18 +124,17 @@ class Pos extends MX_Controller
 	//pourcentage
 	public function create_invoice()
 	{
-		//"prId": prId,
-		//"prCode": prCode,
-		//"prQty": prQty
+
+		$user_id 	= $this->session->userdata('user_id');
+		$pos_id = $this->posID;
 		$commandes = $this->input->get('commandes'); //commandes
 		$totaux = $this->input->get('totaux'); //totaux
-
 		$this->pos_model->add_invoice(array(
-			"inv_pos_id" => 1,
+			"inv_pos_id" => $pos_id,
 			"inv_total_amount" => $totaux,
-			"inv_discount_amount" => 0,
+			"inv_discount_amount" => 1,
 			"inv_vat_amount" => ($totaux) + ($this->pos_model->pourcentage(16, $totaux)),
-			"user_id" => 1
+			"user_id" => $user_id
 
 		));
 		foreach ($commandes as $commande) {
@@ -144,10 +143,12 @@ class Pos extends MX_Controller
 				'pi_product_id' => $commande["prId"],
 				'pi_quantity' => (int)$commande["prQty"]
 			);
-
+			/////////
 			$this->pos_model->add_prods_in_invoice($model);
+			$this->pos_model->update_qty_pos($commande["prId"], $pos_id, array('ws_quantity' => (int)$commande["qty_new"])); //invoice
+
+
 		}
-		echo '';
 	}
 	public function create_pos()
 	{

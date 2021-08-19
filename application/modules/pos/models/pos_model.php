@@ -65,9 +65,7 @@ class pos_model extends CI_Model
       AND (`warehouse_stock`.`warehouse_id` =" . $pos_id . ")
 		group By (`product`.`product_id`)
 		) as T";
-
 		$query = $this->db->query($sql);
-
 		return $query->row_array();
 	}
 	public function get_list_stock_by_wsID($code, $ws_id)
@@ -88,8 +86,6 @@ class pos_model extends CI_Model
 			) 
 			WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`) and (product.product_code LIKE '$code%' OR product.product_name LIKE '$code%')
 			 GROUP BY `product`.`product_id`";
-
-
 		} else {
 			$query = "SELECT 
         `product`.`product_id` as `pid`,
@@ -105,7 +101,6 @@ class pos_model extends CI_Model
         ) 
         WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`) 
          GROUP BY `product`.`product_id`";
-
 		}
 		return $this->db->query($query)->result_array();
 	}
@@ -148,6 +143,11 @@ class pos_model extends CI_Model
 				from (`users`, `pos`, `user_pos`)
 				where(`users`.`id`=`user_pos`.`user_id`) and(`pos`.`pos_ws_id`=`user_pos`.`pos_id`)';
 		return $this->db->query($sql)->result_array();
+	}
+	//QTY POS UPDATE INVOICE
+	public function update_qty_pos($prid, $posid, $data)
+	{
+		$this->db->update('warehouse_stock', $data, array('ws_product_id' => $prid, 'warehouse_id' => $posid));
 	}
 }
 
