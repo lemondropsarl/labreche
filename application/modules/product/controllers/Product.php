@@ -9,6 +9,8 @@ class Product extends MX_Controller
 		parent::__construct();
 		$this->load->model('nav_model');
 		$this->load->model('product_model');
+		$this->load->model('warehouse/warehouse_model');
+		$this->load->model('pos/pos_model');
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
@@ -16,6 +18,11 @@ class Product extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
+
+		$user_id 	= $this->session->userdata('user_id');
+		$query =  $this->pos_model->get_pos_by_userID($user_id);
+		$this->posID = $query['pos_id'];
+
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 
@@ -83,16 +90,13 @@ class Product extends MX_Controller
 			'unit_price' => $this->input->get('price'),
 			'product_uom' => $this->input->get('prUnite'),
 			'min_qty'	=> $this->input->get('pmin_qty'),
-
 			'product_currency' => $this->input->get('pcurrency'),
 			'product_status' => 1,
 			'product_cat_id' => $this->input->get('pcat_id'), // $this->input->get('pcat_id'),
 			'product_vehicule_id' => $this->input->get('vehicule')
 
 		);
-
 		$this->product_model->add_product($model);
-
 		//redirect('product/list', 'refresh');
 	}
 
@@ -121,7 +125,7 @@ class Product extends MX_Controller
 			# code...
 ?>
 
-<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
+			<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
 				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
 				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
 				<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
@@ -136,8 +140,10 @@ class Product extends MX_Controller
 	public function search_by_id_pr_stock()
 	{
 		# code...
-		$code = $this->input->get('id');
-		$products = $this->product_model->get_product_by_code_detail($code);
+		
+		$pos_id = $this->posID;
+		$id = $this->input->get('id');
+		$products = $this->product_model->get_product_by_code_detail($id,$pos_id);
 		echo json_encode($products);
 	}
 	public function search_by_cat()
@@ -148,7 +154,7 @@ class Product extends MX_Controller
 
 		foreach ($products as $item) {
 		?>
-				<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
+			<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
 				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
 				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
 				<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
@@ -167,7 +173,7 @@ class Product extends MX_Controller
 
 		foreach ($products as $item) {
 		?>
-				<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
+			<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
 				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
 				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
 				<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>

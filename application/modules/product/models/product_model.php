@@ -53,9 +53,9 @@ class product_model extends CI_Model
 		return $query->row_array();
 	}
 	//
-	public function get_product_by_code_detail($code)
+	public function get_product_by_code_detail($id,$pos_id)
 	{
-		$sql = "SELECT *FROM product INNER JOIN last_update_stock ON product.product_id=last_update_stock.lus_product_id WHERE product_code=$code";
+		$sql = "SELECT *FROM product INNER JOIN warehouse_stock ON product.product_id=warehouse_stock.ws_product_id WHERE (warehouse_stock.warehouse_id='".$pos_id."') AND (product.product_id=".$id.")";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}

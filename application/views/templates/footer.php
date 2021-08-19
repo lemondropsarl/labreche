@@ -391,6 +391,7 @@ $this->app = $this->config->item('application', 'app');
 		$("body").on("click", ".ligne_product", function() {
 			const id = $(this).data("product_id");
 			const pr_code = $(this).data("pr_code");
+		
 			////////
 			$(".ligne_product").removeClass("ligne_product_select");
 			$(this).addClass("ligne_product_select");
@@ -400,14 +401,13 @@ $this->app = $this->config->item('application', 'app');
 			$("#pr_quantity_value").text("-");
 			$("#pr_desc_search_value").text("-");
 			$.get('<?php echo base_url("product/search_by_id_pr_stock") ?>', {
-				id: pr_code,
+				id: id,
 			}, function(data) {
-				alert(data);
+			
 				const product = JSON.parse(data);
-				
 				$("#pr_code_search_value").text(product.product_code);
 				$("#pr_name_search_value").text(product.product_name);
-				$("#pr_quantity_value").text(product.lus_quantity + " " + product.product_uom + "(S)");
+				$("#pr_quantity_value").text(product.ws_quantity + " " + product.product_uom + "(S)");
 				$("#pr_desc_search_value").text(product.lus_prod_loc_description);
 
 
@@ -665,7 +665,7 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("pos/search_code_name_fac") ?>', {
 					code: code
 				}, function(data) {
-					
+
 					$("#liste_pr_facture").html(data);
 				});
 			}
@@ -812,7 +812,7 @@ $this->app = $this->config->item('application', 'app');
 		});
 		//print fature
 		$("body").on("click", "#print-facture", function() {
-	
+
 			let prCode = "";
 			let prId = "";
 			let prQty = 0;
@@ -883,48 +883,47 @@ $this->app = $this->config->item('application', 'app');
 		});
 
 		//add store information
-		$("#btn_add_store").on("click", function (e) {
+		$("#btn_add_store").on("click", function(e) {
 			e.preventDefault();
 			const store_name = $("#store_name").val();
 			const rccm = $("#rccm").val();
 			const id_nat = $("#id_nat").val();
 			const nif = $("#nif").val();
-			
-			$.get('<?php echo base_url('setting/create_store')?>', {
-					store_name : store_name,
-					rccm : rccm,
-					id_nat :id_nat,
-					nif : nif
-				}, function(data){
-					$("#modalStore").hide();
-					location.reload();
-					toastr.success('Information du magasin ajoutée');
-				}
-			);
+
+			$.get('<?php echo base_url('setting/create_store') ?>', {
+				store_name: store_name,
+				rccm: rccm,
+				id_nat: id_nat,
+				nif: nif
+			}, function(data) {
+				$("#modalStore").hide();
+				location.reload();
+				toastr.success('Information du magasin ajoutée');
+			});
 		});
-		
+
 
 		//add pos 
-		$("#btn_add_pos").on("click", function (e) {
+		$("#btn_add_pos").on("click", function(e) {
 			e.preventDefault();
 			const pos_name = $("#pos_name").val();
 			const pos_address = $("#pos_address").val();
 			const pos_id = $("#pos_id").val();
 
-			$.get('<?php echo base_url('pos/create_pos')?>', {
-						pos_id : pos_id,
-						pos_name : pos_name,
-						pos_address : pos_address
-					}, function(data){
-						$("#modalPos").hide();
-						location.reload();
-						toastr.success('Point de vente ajoutée');
-					}
-					
-			);
-			
+			$.get('<?php echo base_url('pos/create_pos') ?>', {
+					pos_id: pos_id,
+					pos_name: pos_name,
+					pos_address: pos_address
+				}, function(data) {
+					$("#modalPos").hide();
+					location.reload();
+					toastr.success('Point de vente ajoutée');
+				}
 
-			
+			);
+
+
+
 		});
 
 	})();
