@@ -402,7 +402,9 @@ $this->app = $this->config->item('application', 'app');
 			$.get('<?php echo base_url("product/search_by_id_pr_stock") ?>', {
 				id: pr_code,
 			}, function(data) {
+				alert(data);
 				const product = JSON.parse(data);
+				
 				$("#pr_code_search_value").text(product.product_code);
 				$("#pr_name_search_value").text(product.product_name);
 				$("#pr_quantity_value").text(product.lus_quantity + " " + product.product_uom + "(S)");
