@@ -8,19 +8,22 @@ global $pos_ws_id;
 <div class="content">
     <div class="container-fluid">
         <div class="row">
+            <?php if($this->ion_auth_acl->has_permission('A')){?>
             <div class="col-md-12 ">
-                <div class="form-group form-inline align-right">
-                    <label>Point de vente</label>
-                    <div class="col-4">
-                        <select name="po_ws_id" id="pos_ws_id" class="form-control">
-                            <?php foreach ($pos as $item) {?>
-                                # code...
-                                <option value="<?php echo $item['pos_ws_id'];?>"><?php echo $item['pos_name'];?></option>
-                           <?php }?>
-                        </select>
+
+                    <div class="form-group form-inline align-right">
+                        <label>Point de vente</label>
+                        <div class="col-4">
+                            <select name="po_ws_id" id="pos_ws_id" class="form-control">
+                                <?php foreach ($pos as $item) {?>
+                                    # code...
+                                    <option value="<?php echo $item['pos_ws_id'];?>"><?php echo $item['pos_name'];?></option>
+                               <?php }?>
+                            </select>
+                        </div>
                     </div>
                 </div>
-            </div>
+                <?php  }?>
         
             <div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box  bg-gradient-navy">
