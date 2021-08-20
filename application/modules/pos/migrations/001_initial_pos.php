@@ -62,9 +62,13 @@ class Migration_initial_pos extends CI_Migration {
             ],
             'inv_datetime' => [
                 'type' => 'timestamp'            
+            ],
+            'inv_currency'  =>[
+                'type'  => 'VARCHAR',
+                'constraint'=>'3'
             ]
-
         ]);
+
         $this->dbforge->add_key('invoice_id',TRUE);
         $this->dbforge->create_table($this->tables['invoice'],TRUE);
 
@@ -191,8 +195,3 @@ class Migration_initial_pos extends CI_Migration {
 
 }
 
-/* End of file Class_name.php */
-
-
-
-/* End of file filename.php */
