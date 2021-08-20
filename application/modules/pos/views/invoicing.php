@@ -24,18 +24,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 </head>
 
 <body class="container-fluid">
-	<header class="header row p-3 my-3 bg-dark text-white non_print">
-		<ul class="inline block">
-			<li>
-				<h2>Breah auto facture</h2>
-			</li>
-			<li>
-				<h2> Point de vente : <?php echo $pos['pos_name'] ?></h2>
+	
 
-			</li>
-		</ul>
-
-	</header>
+		<nav class="navbar navbar-inverse nav">
+			<ul class=" nav-item menu">
+				<li class="nav-link">
+					Breah auto facture
+				</li>
+				<li class="nav-link">
+					 Point de vente : <?php echo $pos['pos_name'] ?>
+	
+				</li>
+			</ul>
+	
+		</nav>
+	
 	<div class="row">
 		<section class="col-md-6 col-sm-12 col-xs-12 non_print">
 			<div class="card card-outline">

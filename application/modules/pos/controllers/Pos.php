@@ -137,17 +137,18 @@ class Pos extends MX_Controller
 		$pos_id = $this->posID;
 		$commandes = $this->input->get('commandes'); //commandes
 		$totaux = $this->input->get('totaux'); //totaux
-		$this->pos_model->add_invoice(array(
+		$vat = $totaux * 0.16;
+		$invoice_id = $this->pos_model->add_invoice(array(
 			"inv_pos_id" => $pos_id,
 			"inv_total_amount" => $totaux,
-			"inv_discount_amount" => 1,
-			"inv_vat_amount" => ($totaux) + ($this->pos_model->pourcentage(16, $totaux)),
+			"inv_discount_amount" => 0,
+			"inv_vat_amount" => $vat,
 			"user_id" => $user_id
-
+			
 		));
 		foreach ($commandes as $commande) {
 			$model = array(
-				'pi_invoice_id' => 0,
+				'pi_invoice_id' => $invoice_id,
 				'pi_product_id' => $commande["prId"],
 				'pi_quantity' => (int)$commande["prQty"]
 			);

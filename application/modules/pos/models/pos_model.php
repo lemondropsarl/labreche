@@ -16,6 +16,7 @@ class pos_model extends CI_Model
 	public function add_invoice($model)
 	{
 		$this->db->insert('invoice', $model);
+		return $this->db->insert_id();	
 	}
 	public function get_critical_stock($pos_id)
 	{
