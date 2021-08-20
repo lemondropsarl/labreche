@@ -73,17 +73,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</section>
 		<section class="col-md-6 col-sm-12 col-xs-12 card card-outline">
 			<h3 class="non_print">FACTURE</h3>
-			<div class="container-fluid non_print">
+			<div class="container-fluid">
 				<div class="row">
-					<div class="form">
+					<div class="form-inline">
 						<div class="form-group">
-
+							<label for="client">CLIENT: </label>
 							<input type="text" name="client" id="client" placeholder="Nom du client" class="form-control" />
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="container">
+			<div class="container cache">
 				<?php
 				foreach ($store_information as $item) {
 				?>
@@ -94,8 +94,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</h1>
 					</div>
 					<div class="row">
-                          <h5 class="col-6 text-center">RCCM: <?php echo strtoupper($item["rccm"]); ?></h5>
-						  <h5 class="col-6 text-center">IDNAT: <?php echo strtoupper($item["id_nat"]); ?></h5>
+						<h5 class="col-6 text-center">RCCM: <?php echo strtoupper($item["rccm"]); ?></h5>
+						<h5 class="col-6 text-center">IDNAT: <?php echo strtoupper($item["id_nat"]); ?></h5>
 					</div>
 				<?php
 				}

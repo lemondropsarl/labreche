@@ -61,13 +61,35 @@ label {
 	color: red;
 }
 
+#client {
+	border: none;
+
+
+}
+
+.cache {
+	display: none;
+}
+
 @media print {
-	.print{
-        width: 100vw;
-		margin: auto;	
+	.print {
+		display: block;
+		width: 100vw;
+		margin: auto;
 		color: black;
-	}	
+	}
+
 	.non_print {
 		display: none;
+	}
+
+	.cache {
+		display: block;
+	}
+
+	#client {
+		border: none;
+		text-transform: uppercase;
+
 	}
 }
