@@ -62,7 +62,7 @@ class Pos extends MX_Controller
 		$data["rate"]=$this->pos_model->get_rate();
 		$data["store_information"]=$this->pos_model->get_store_information();
 		$this->load->view('invoicing', $data);
-		$this->load->view('templates/footer');
+		$this->load->view('templates/footer',$data);
 	}
 	public function check()
 	{

@@ -56,7 +56,9 @@ $this->app = $this->config->item('application', 'app');
 
 <!-- Toastr -->
 <script type="text/javascript">
+
 	$(function() {
+	
 		toastr.options = {
 			"closeButton": true,
 			"debug": false,
@@ -75,12 +77,7 @@ $this->app = $this->config->item('application', 'app');
 			"hideMethod": "fadeOut"
 		}
 
-	});
-</script>
-<script>
-	(function() {
-		const taux = <?php echo $rate; ?>;
-	
+		const taux=<?php echo $rate; ?>;
 		//function creattion de produit ou article
 		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();

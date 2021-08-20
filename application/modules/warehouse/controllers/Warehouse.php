@@ -40,7 +40,7 @@ class Warehouse extends MX_Controller
 		$data['products'] =  $this->warehouse_model->get_products();
 		$data['zones'] = $this->warehouse_model->get_zones();
 		$data['shelfs'] = $this->warehouse_model->get_shelfs();
-
+		$data["rate"]=$this->pos_model->get_rate();
 		$data['title'] =  'Entrée stock';
 		$this->load->view('templates/header', $data);
 		$this->load->view('entry_in', $data);
@@ -54,11 +54,12 @@ class Warehouse extends MX_Controller
 		$data['products']		       =   $this->warehouse_model->get_list_of_stock();
 		$data['warehouses']				   = $this->warehouse_model->get_warehouses();
 		$data['ws_products']			= $this->warehouse_model->get_entries_out();
-		
+		$data["rate"]=$this->pos_model->get_rate();
 		$data['title']				   =  'Sortie stock';
 		$this->load->view('templates/header', $data);
 		$this->load->view('entry_out', $data);
-		$this->load->view('templates/footer');
+		$data["rate"]=$this->pos_model->get_rate();
+		$this->load->view('templates/footer',$data);
 	}
 	public function create_warehouse()
 	{
@@ -88,10 +89,8 @@ class Warehouse extends MX_Controller
 		$data['count_critical_stock'] = $this->warehouse_model->count_critical_stock();
 		$data['value_cdf'] = $this->warehouse_model->get_stock_value_cdf();
 		$data['value_usd'] = $this->warehouse_model->get_stock_value_usd();
-
+		$data["rate"]=$this->pos_model->get_rate();
 		//get different data
-
-
 		$this->load->view('templates/header', $data);
 		$this->load->view('browse', $data);
 		$this->load->view('templates/footer');
@@ -104,7 +103,7 @@ class Warehouse extends MX_Controller
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']				   =  'Liste stock critique';
-
+		$data["rate"]=$this->pos_model->get_rate();
 		$data['critical_stock']		= $this->warehouse_model->get_critical_stock_list();
 
 		$this->load->view('templates/header', $data);
