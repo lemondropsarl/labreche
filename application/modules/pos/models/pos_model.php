@@ -149,6 +149,22 @@ class pos_model extends CI_Model
 	{
 		$this->db->update('warehouse_stock', $data, array('ws_product_id' => $prid, 'warehouse_id' => $posid));
 	}
+	//get rate
+	public function get_rate()
+	{
+		$query = $this->db->query("SELECT * FROM `currency_rate`");
+		$row = $query->row();
+		if (isset($row)) {
+			return $row->rate;
+		}
+	}
+	public function get_store_information()
+	{
+		$sql ="SELECT *FROM store_information";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	
+	}
 }
 
 /* End of file pos_model.php */

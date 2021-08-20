@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Pos extends MX_Controller
 {
 	private $posID;
+	private $rate;
 
 	public function __construct()
 	{
@@ -27,8 +28,8 @@ class Pos extends MX_Controller
 		$user_id 	= $this->session->userdata('user_id');
 		$query =  $this->pos_model->get_pos_by_userID($user_id);
 		$this->posID = $query['pos_id'];
-
-
+		
+	
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 
@@ -58,6 +59,8 @@ class Pos extends MX_Controller
 		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
 		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1, $this->posID);
 		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
+		$data["rate"]=$this->pos_model->get_rate();
+		$data["store_information"]=$this->pos_model->get_store_information();
 		$this->load->view('invoicing', $data);
 		$this->load->view('templates/footer');
 	}
