@@ -67,13 +67,9 @@ label {
 
 }
 
-.cache {
-	display: none;
-}
-
 @media print {
 	.print {
-		display: block;
+	
 		width: 100vw;
 		margin: auto;
 		color: black;
@@ -81,10 +77,6 @@ label {
 
 	.non_print {
 		display: none;
-	}
-
-	.cache {
-		display: block;
 	}
 
 	#client {

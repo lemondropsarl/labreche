@@ -83,7 +83,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</div>
 				</div>
 			</div>
-			<div class="container cache">
+			<div class="container">
 				<?php
 				foreach ($store_information as $item) {
 				?>
