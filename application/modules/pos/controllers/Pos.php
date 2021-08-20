@@ -24,6 +24,9 @@ class Pos extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
+		if (!$this->ion_auth->logged_in()) {
+			redirect('auth/login');
+		}
 
 		$user_id 	= $this->session->userdata('user_id');
 		$query =  $this->pos_model->get_pos_by_userID($user_id);

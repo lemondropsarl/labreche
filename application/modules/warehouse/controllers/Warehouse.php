@@ -20,7 +20,9 @@ class Warehouse extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-
+		if (!$this->ion_auth->logged_in()) {
+			redirect('auth/login');
+		}
 		$this->user_id 	= $this->session->userdata('user_id');
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {

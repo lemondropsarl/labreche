@@ -13,6 +13,9 @@ class Badmin extends MX_Controller {
         
         $this->load->model('nav_model');
         $this->load->model('admin_model');
+        if (!$this->ion_auth->logged_in()) {
+			redirect('auth/login');
+		}
         
         $siteLang = $this->session->userdata('site_lang');
         if ($siteLang) {

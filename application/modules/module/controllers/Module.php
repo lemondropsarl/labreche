@@ -23,7 +23,9 @@ class Module extends MX_Controller {
 		$this->load->library('ion_auth_acl');
 		$this->load->library('toastr');
 		
-        
+        if (!$this->ion_auth->logged_in()) {
+			redirect('auth/login');
+		}
 		$siteLang = $this->session->userdata('site_lang');
         if ($siteLang) {
 		  
