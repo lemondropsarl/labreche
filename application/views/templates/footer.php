@@ -56,9 +56,8 @@ $this->app = $this->config->item('application', 'app');
 
 <!-- Toastr -->
 <script type="text/javascript">
-
 	$(function() {
-	
+
 		toastr.options = {
 			"closeButton": true,
 			"debug": false,
@@ -77,7 +76,7 @@ $this->app = $this->config->item('application', 'app');
 			"hideMethod": "fadeOut"
 		}
 
-		const taux=<?php echo $rate; ?>;
+		const taux = <?php echo $rate; ?>;
 		//function creattion de produit ou article
 		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();
@@ -770,7 +769,7 @@ $this->app = $this->config->item('application', 'app');
 			$("#totaux_facture_usd").text(somme_usd + " USD");
 			$("#totaux_facture_cdf").text(somme_cdf + " CDF");
 
-			usd_cdf("CDF",taux); //conversion pardefaut usd to franc
+			usd_cdf("CDF", taux); //conversion pardefaut usd to franc
 		}
 
 		function usd_cdf(monaie, taux) {
@@ -808,11 +807,15 @@ $this->app = $this->config->item('application', 'app');
 			totaux(); //on effectue un nouveau calcul
 		});
 		//nouvelle facture
-		$("body").on("click", "#btn_nouvelle_fac", function() {
+		function vider_facture() {
 			$("#facture_corp").html("");
 			totaux(); //on effectue un nouveau calcul
 			refresh_liste_product();
 			$("#filtre_pr_stock_fac").val("");
+		}
+
+		$("body").on("click", "#btn_nouvelle_fac", function() {
+			vider_facture();
 		});
 		//print fature
 		$("body").on("click", "#print-facture", function() {
@@ -847,6 +850,7 @@ $this->app = $this->config->item('application', 'app');
 					toastr.success("Facture imprimer");
 					print();
 					refresh_liste_product();
+					vider_facture();
 				});
 
 			} else {
@@ -884,10 +888,9 @@ $this->app = $this->config->item('application', 'app');
 					totaux: get_totaux(),
 					commandes: commandes
 				}, function(data) {
-
 					toastr.success("Facture Enregistrer");
-
 					refresh_liste_product();
+					vider_facture();
 				});
 
 			} else {

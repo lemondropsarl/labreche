@@ -12,6 +12,7 @@ class Warehouse extends MX_Controller
 		$this->load->model('nav_model');
 		$this->load->model('product/product_model');
 		$this->load->model('warehouse_model');
+		$this->load->model('pos/pos_model');
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');

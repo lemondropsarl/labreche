@@ -27,7 +27,12 @@ class Pos extends MX_Controller
 
 		$user_id 	= $this->session->userdata('user_id');
 		$query =  $this->pos_model->get_pos_by_userID($user_id);
-		$this->posID = $query['pos_id'];
+		if(!$query){
+			$this->posID=1;
+		}else{
+			$this->posID = $query['pos_id'];
+		}
+		
 		
 	
 		$siteLang = $this->session->userdata('site_lang');
