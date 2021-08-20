@@ -79,7 +79,8 @@ $this->app = $this->config->item('application', 'app');
 </script>
 <script>
 	(function() {
-
+		const taux = <?php echo $rate; ?>;
+	
 		//function creattion de produit ou article
 		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();
@@ -772,7 +773,7 @@ $this->app = $this->config->item('application', 'app');
 			$("#totaux_facture_usd").text(somme_usd + " USD");
 			$("#totaux_facture_cdf").text(somme_cdf + " CDF");
 
-			usd_cdf("CDF", 2000); //conversion pardefaut usd to franc
+			usd_cdf("CDF",taux); //conversion pardefaut usd to franc
 		}
 
 		function usd_cdf(monaie, taux) {
@@ -788,7 +789,7 @@ $this->app = $this->config->item('application', 'app');
 		}
 		$("input:radio[name='monaie_pay']").on("click", function() {
 			let monaie = $(this).val();
-			usd_cdf(monaie, 2000);
+			usd_cdf(monaie, taux);
 		});
 
 		function get_totaux() {
@@ -888,7 +889,7 @@ $this->app = $this->config->item('application', 'app');
 				}, function(data) {
 
 					toastr.success("Facture Enregistrer");
-					
+
 					refresh_liste_product();
 				});
 

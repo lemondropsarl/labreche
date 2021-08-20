@@ -30,11 +30,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<h2>Breah auto facture</h2>
 			</li>
 			<li>
-				<h2>  Point de vente : <?php echo $pos['pos_name']?></h2>
-				
+				<h2> Point de vente : <?php echo $pos['pos_name'] ?></h2>
+
 			</li>
 		</ul>
-		
+
 	</header>
 	<div class="row">
 		<section class="col-md-6 col-sm-12 col-xs-12 non_print">
@@ -51,7 +51,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<label for="filtre_pr_stock_fac">Code ou nom</label>
 							<input type="search" placeholder="Code ou Nom article" name="filtre_pr_stock_fac" id="filtre_pr_stock_fac" class="form-control" required="required">
 						</div>
-					
+
 					</form>
 				</div>
 				<div class="card-body">
@@ -72,16 +72,34 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 		</section>
 		<section class="col-md-6 col-sm-12 col-xs-12 card card-outline">
-			<h3>FACTURE</h3>
+			<h3 class="non_print">FACTURE</h3>
 			<div class="container-fluid non_print">
 				<div class="row">
 					<div class="form">
 						<div class="form-group">
-							
+
 							<input type="text" name="client" id="client" placeholder="Nom du client" class="form-control" />
 						</div>
 					</div>
 				</div>
+			</div>
+			<div class="container">
+				<?php
+				foreach ($store_information as $item) {
+				?>
+					<div class="row">
+						<h2 class="col-2 text-center">N° <span>0</span></h2>
+						<h1 class="col-8 text-center">
+							<?php echo strtoupper($item["store_name"]); ?>
+						</h1>
+					</div>
+					<div class="row">
+                          <h5 class="col-6 text-center">RCCM: <?php echo strtoupper($item["rccm"]); ?></h5>
+						  <h5 class="col-6 text-center">IDNAT: <?php echo strtoupper($item["id_nat"]); ?></h5>
+					</div>
+				<?php
+				}
+				?>
 			</div>
 			<table class="table table-striped table-bordered table-hover print">
 				<thead class="text-center">
