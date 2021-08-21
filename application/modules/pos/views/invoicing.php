@@ -1,5 +1,6 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -141,7 +142,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						foreach ($store_information as $item) {
 						?>
 					<div class="row">
-						<h2 class="col-2 text-center">N° <span>0</span></h2>
+						<h2 class="col-2 text-center">N° <span id='numero_facture'>0</span></h2>
 						<h1 class="col-8 text-center">
 							<?php echo strtoupper($item["store_name"]); ?>
 						</h1>
