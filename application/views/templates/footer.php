@@ -817,6 +817,11 @@ $this->app = $this->config->item('application', 'app');
 		$("body").on("click", "#btn_nouvelle_fac", function() {
 			vider_facture();
 		});
+		//get devise totaux de totaux
+		function get_devise_paye() {
+			let devise = document.getElementById("totaux_facture_usd_cdf").textContent;
+			return devise.substring(devise.length, (devise.length - 3));
+		}
 		//print fature
 		$("body").on("click", "#print-facture", function() {
 			let prCode = "";
@@ -825,13 +830,13 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
+
 			if (count_ligne_facture() > 0) {
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
 					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
 					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-
 					prQty = $(".qty_" + (i + 1)).text();
 					commande = {
 						"prId": prId,
@@ -844,7 +849,8 @@ $this->app = $this->config->item('application', 'app');
 
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
-					commandes: commandes
+					commandes: commandes,
+					devise: get_devise_paye()
 				}, function(data) {
 
 					toastr.success("Facture imprimer");
@@ -868,6 +874,9 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
+
+
+
 			if (count_ligne_facture() > 0) {
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
@@ -887,7 +896,8 @@ $this->app = $this->config->item('application', 'app');
 
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
-					commandes: commandes
+					commandes: commandes,
+					devise: get_devise_paye()
 				}, function(data) {
 					toastr.success("Facture Enregistrer");
 					refresh_liste_product();
