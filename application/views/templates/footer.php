@@ -851,6 +851,7 @@ $this->app = $this->config->item('application', 'app');
 					print();
 					refresh_liste_product();
 					vider_facture();
+					numero_facature(); //on charche le nullero de la facture
 				});
 
 			} else {
@@ -891,6 +892,7 @@ $this->app = $this->config->item('application', 'app');
 					toastr.success("Facture Enregistrer");
 					refresh_liste_product();
 					vider_facture();
+					numero_facature(); //on charche le nullero de la facture
 				});
 
 			} else {
@@ -942,7 +944,13 @@ $this->app = $this->config->item('application', 'app');
 
 
 		});
-
+		numero_facature(); //on charche le nullero de la facture
+		function numero_facature() {
+			$.get('<?php echo base_url('pos/count_invoice') ?>',
+				function(data) {
+					$("#numero_facture").text(data);
+				});
+		}
 	})();
 </script>
 

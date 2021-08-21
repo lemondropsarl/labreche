@@ -16,7 +16,7 @@ class pos_model extends CI_Model
 	public function add_invoice($model)
 	{
 		$this->db->insert('invoice', $model);
-		return $this->db->insert_id();	
+		return $this->db->insert_id();
 	}
 	public function get_critical_stock($pos_id)
 	{
@@ -161,10 +161,13 @@ class pos_model extends CI_Model
 	}
 	public function get_store_information()
 	{
-		$sql ="SELECT *FROM store_information";
+		$sql = "SELECT *FROM store_information";
 		$query = $this->db->query($sql);
 		return $query->result_array();
-	
+	}
+	public function get_count_in()
+	{
+		return $this->db->count_all('invoice');
 	}
 }
 

@@ -30,14 +30,14 @@ class Pos extends MX_Controller
 
 		$user_id 	= $this->session->userdata('user_id');
 		$query =  $this->pos_model->get_pos_by_userID($user_id);
-		if(!$query){
-			$this->posID=1;
-		}else{
+		if (!$query) {
+			$this->posID = 1;
+		} else {
 			$this->posID = $query['pos_id'];
 		}
-		
-		
-	
+
+
+
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
 
@@ -67,10 +67,10 @@ class Pos extends MX_Controller
 		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
 		$data['product_stock'] = $this->pos_model->get_list_stock_by_wsID(1, $this->posID);
 		$data['pos'] = $this->pos_model->get_pos_byID($pos_id);
-		$data["rate"]=$this->pos_model->get_rate();
-		$data["store_information"]=$this->pos_model->get_store_information();
+		$data["rate"] = $this->pos_model->get_rate();
+		$data["store_information"] = $this->pos_model->get_store_information();
 		$this->load->view('invoicing', $data);
-		$this->load->view('templates/footer',$data);
+		$this->load->view('templates/footer', $data);
 	}
 	public function check()
 	{
@@ -147,7 +147,7 @@ class Pos extends MX_Controller
 			"inv_discount_amount" => 0,
 			"inv_vat_amount" => $vat,
 			"user_id" => $user_id
-			
+
 		));
 		foreach ($commandes as $commande) {
 			$model = array(
@@ -194,6 +194,10 @@ class Pos extends MX_Controller
 	public function get_posID_session()
 	{
 		# code...
+	}
+	public function count_invoice()
+	{
+		echo $this->pos_model->get_count_in();
 	}
 }
 
