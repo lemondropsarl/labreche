@@ -107,7 +107,7 @@ class Migration_initial_setting extends CI_Migration {
             [
                 'name'	=> 'setting',
                 'url'	=> '',
-                'icon'  => 'fa fa-cog`',
+                'icon'  => 'fa fa-cog',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Paramètres',
 				'parent'=> '',
