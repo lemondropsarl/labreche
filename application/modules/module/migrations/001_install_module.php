@@ -40,7 +40,7 @@ class Migration_install_module extends CI_Migration {
             [
                 'name'	=> 'module',
                 'url'	=> '',
-                'icon'  => 'fa-th-large21`',
+                'icon'  => 'fa fa-puzzle-piece',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Modules',
 				'parent'=> '',

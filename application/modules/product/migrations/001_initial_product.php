@@ -202,7 +202,7 @@ class Migration_initial_product extends CI_Migration {
             [
                 'name'	=> 'product',
                 'url'	=> '',
-                'icon'  => 'fa-th-large21`',
+                'icon'  => 'fa fa-tags',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Articles',
 				'parent'=> '',

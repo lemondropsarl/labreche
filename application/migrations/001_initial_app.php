@@ -108,7 +108,7 @@ class Migration_initial_app extends CI_Migration {
 				'url'	=> 'dashboard',
 				'icon'  => 'fa-tachometer-alt',
 				'icon-name'	=> 'dashboard',
-				'text'	=> 'dashboard',
+				'text'	=> 'Tableau de bord',
 				'parent'=> 'dashboard',
 				'order' => 1,
 				'perm_key'=> 'R'

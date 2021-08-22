@@ -49,9 +49,9 @@ class Migration_initial_backup extends CI_Migration {
             [
                 'name'	=> 'backup',
                 'url'	=> '',
-                'icon'  => 'fa-th-large21`',
-				'icon-name'	=> 'apps',
-				'text'	=> 'Option avancés',
+                'icon'  => 'fa fa-refresh`',
+				'icon-name'	=> 'refresh',
+				'text'	=> 'Sauvegarde',
 				'parent'=> '',
 				'order' => 2000,
 				'perm_key'=> 'A'
@@ -61,7 +61,7 @@ class Migration_initial_backup extends CI_Migration {
                 'url'	=> 'backup',
                 'icon'  => 'material-icons',
 				'icon-name'	=> 'apps',
-				'text'	=> 'REcuperation de données',
+				'text'	=> 'Sauvegarde & Recuperation',
 				'parent'=> 'backup',
 				'order' => 2100,
 				'perm_key'=> 'A'

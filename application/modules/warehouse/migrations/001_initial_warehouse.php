@@ -250,7 +250,7 @@ class Migration_initial_warehouse extends CI_Migration {
             [
                 'name'	=> 'warehouse',
                 'url'	=> '',
-                'icon'  => 'fa-cog',
+                'icon'  => 'fa fa-warehouse',
 				'icon-name'	=> '',
 				'text'	=> 'Gestion stock',
 				'parent'=> '',

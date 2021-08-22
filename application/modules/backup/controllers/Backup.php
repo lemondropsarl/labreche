@@ -36,7 +36,7 @@ class Backup extends MX_Controller {
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  lang('dashboard');
-        $data['backups']                = $this->get_list_backups();
+        $data['files']                = $this->get_list_backups();
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer'); 
@@ -56,18 +56,52 @@ class Backup extends MX_Controller {
         $this->dbutil->backup($prefs);
         $backup =  $this->dbutil->backup();
        $latest = time();
-       write_file('db_sql/'.$latest.'_'.'database.sql',$backup);
+       write_file('db_sql/database_'.$latest.'.sql',$backup);
        
        redirect('backup/index','refresh');
        
     }
-    public function restore_backup(Type $var = null)
+    public function restore_backup()
     {
-        # code...
+        
+        $sql_filename = $this->uri->segment(3);
+        $sql_contents = file_get_contents(APPPATH.'/db_sql/'.$sql_filename);
+        $sql_contents = explode(";", $sql_contents);
+    
+        foreach($sql_contents as $query)
+        {
+    
+            $pos = strpos($query,'ci_sessions');
+            var_dump($pos);
+            if($pos == false)
+            {
+                $result = $this->db->query($query);
+            }
+            else
+            {
+                continue;
+            }
+    
+        }
+        
+        redirect('backup/index','refresh');
+        
     }
     public function get_list_backups()
     {
-        return directory_map(APPPATH.'/db_sql/');
+        //directory_map(APPPATH.'/db_sql/');
+        $ar =[];
+        $path    = './db_sql';
+        chdir($path);
+        array_multisort(array_map('filemtime', ($files = glob("*.*"))), SORT_DESC, $files);
+        foreach($files as $filename)
+        {
+            $ar[] = $filename;
+        }
+
+        return $ar;
+        //$files = scandir($path);
+        // return $files = array_diff(scandir($path), array('.', '..'));
     }
 
 }

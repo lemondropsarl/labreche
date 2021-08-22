@@ -152,7 +152,7 @@ class Migration_initial_pos extends CI_Migration {
             [
                 'name'	=> 'pos',
                 'url'	=> '',
-                'icon'  => 'fa-th-large21`',
+                'icon'  => 'fa fa-store',
 				'icon-name'	=> 'apps',
 				'text'	=> 'Points de vente',
 				'parent'=> '',
