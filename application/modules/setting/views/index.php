@@ -133,7 +133,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										<label for="">1$=</label>
 									</div>
 									<div class="col-sm-6 row">
-										<input type="number" step="any" name="rate" id="rate" value="<?php echo $c_rate['rate']?>" class="form-control">
+										<input type="number" step="any" name="rate" id="rate" value="<?php echo $rate['rate']?>" class="form-control">
 										<label for="">CDF</label>
 									</div>
 									<div class="col-sm-4">

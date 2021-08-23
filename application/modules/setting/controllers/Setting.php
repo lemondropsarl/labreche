@@ -47,7 +47,7 @@ class Setting extends 	MX_Controller {
 		$data['pos']					= $this->pos_model->get_pos();
 	
 		$data['up']						= $this->pos_model->get_users_pos();
-		$data["rate"] = $this->pos_model->get_rate();
+		$data['rate'] = $this->setting_model->get_rate();
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    

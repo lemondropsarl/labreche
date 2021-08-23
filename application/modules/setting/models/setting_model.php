@@ -40,7 +40,7 @@ class setting_model extends CI_Model
 			return false;
 		}
 	}
-	public function get_rate($id)
+	public function get_rate()
 	{
 		$this->db->select('rate');
 		$this->db->from('currency_rate');
