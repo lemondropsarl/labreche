@@ -12,7 +12,6 @@ class Setting extends 	MX_Controller {
         $this->load->model('warehouse/warehouse_model');
         $this->load->model('pos/pos_model');  
 		$this->load->model('setting_model');
-		
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
@@ -23,14 +22,11 @@ class Setting extends 	MX_Controller {
 		if (!$this->ion_auth->logged_in()) {
 			redirect('auth/login');
 		}
-
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
-
 			$this->lang->load('main', $siteLang);
 			$this->lang->load('ion_auth', $siteLang);
 		} else {
-
 			$this->lang->load('main', 'french');
 			$this->lang->load('ion_auth', 'french');
 		}
@@ -49,9 +45,9 @@ class Setting extends 	MX_Controller {
 		$data['store']					= $this->setting_model->get_store_infos();
 		$data['warehouses']				= $this->warehouse_model->get_warehouses();
 		$data['pos']					= $this->pos_model->get_pos();
-		$data['c_rate']					= $this->setting_model->get_rate(1);
+	
 		$data['up']						= $this->pos_model->get_users_pos();
-
+		$data["rate"] = $this->pos_model->get_rate();
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
         $this->load->view('templates/footer');    
@@ -64,21 +60,24 @@ class Setting extends 	MX_Controller {
 		$rccm	= $this->input->get('rccm');
 		$id_nat	= $this->input->get('id_nat');
 		$nif	= $this->input->get('nif');
-
+		$telephone	= $this->input->get('telephone');
+		$adresse	= $this->input->get('adresse');
+		
 		if ($this->setting_model->is_store_exist()) {
 			$store = $this->setting_model->get_store_infos();
 			$store_id = $store['store_id'];
 
-			$this->setting_model->update_store($store_id,$store_name,$id_nat,$rccm, $nif);
+			$this->setting_model->update_store($store_id,$store_name,$id_nat,$rccm, $nif,$telephone,$adresse);
 		}else {
 			# code...
 			$model = array(
 				'Store_name' => $store_name,
 				'rccm'	=> $rccm,
 				'id_nat'	=> $id_nat,
-				'nif'	=>  $nif 
+				'nif'	=>  $nif,
+				'telephone'	=> $telephone,
+				'adresse'	=> 	$adresse 
 			);
-			
 			$this->setting_model->add_store($model);	
 		}
 			

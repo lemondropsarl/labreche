@@ -24,6 +24,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <dd class="col-sm-8"><?php echo $store['id_nat'];?></dd>
                                 <dt class="col-sm-4">No IMPOT</dt>
                                 <dd class="col-sm-8"><?php echo $store['nif'];?></dd>
+								<dt class="col-sm-4">TELEPHONE</dt>
+                                <dd class="col-sm-8"><?php echo $store['telephone'];?></dd>
+								<dt class="col-sm-4">ADRESSE</dt>
+                                <dd class="col-sm-8"><?php echo $store['adresse'];?></dd>
                                 
                           </dl>  
                                 
@@ -237,12 +241,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<label for="nif">NUMERO IMPOT</label>
 						<input type="text"  value="<?php echo $store['nif']?>" class="form-control" name="nif" id="nif" placeholder="Numero Impot">
 					</div>
-			
+					<div class="form-group">
+						<label for="telephone">TELEPHONE</label>
+						<input type="tel"  value="<?php echo $store['telephone']?>" class="form-control" name="telephone" id="telephone" placeholder="Téléphone">
+					</div>
+					<div class="form-group">
+						<label for="adresse">ADRESSE</label>
+						<input type="text"  value="<?php echo $store['adresse']?>" class="form-control" name="adresse" id="adresse" placeholder="Adresse">
+					</div>
 						
 				<?php }else {?>
-				
-
-					
 					<div class="form-group">
 						<label for="store_name">DESIGNATION</label>
 						<input type="text"  class="form-control" name="store_name" id="store_name" placeholder="Nom du magasin">
@@ -260,7 +268,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<label for="nif">NUMERO IMPOT</label>
 						<input type="text"   class="form-control" name="nif" id="nif" placeholder="Numero Impot">
 					</div>
-				
+					<div class="form-group">
+						<label for="telephone">TELEPHONE</label>
+						<input type="tel"  class="form-control" name="telephone" id="telephone" placeholder="Téléphone">
+					</div>
+					<div class="form-group">
+						<label for="adresse">ADRESSE</label>
+						<input type="text"  class="form-control" name="adresse" id="adresse" placeholder="Adresse">
+					</div>
 				<?php }?>
 			</div>
 			<div class="modal-footer">

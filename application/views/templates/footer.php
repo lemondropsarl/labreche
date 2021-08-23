@@ -910,21 +910,29 @@ $this->app = $this->config->item('application', 'app');
 				toastr.warning("Rien à enregistrer");
 			}
 		});
-
+	
 		//add store information
+		
 		$("#btn_add_store").on("click", function(e) {
+			
 			e.preventDefault();
+			
 			const store_name = $("#store_name").val();
 			const rccm = $("#rccm").val();
 			const id_nat = $("#id_nat").val();
 			const nif = $("#nif").val();
-
+			const telephone = $("#telephone").val();
+			const adresse = $("#adresse").val();
+		    
 			$.get('<?php echo base_url('setting/create_store') ?>', {
 				store_name: store_name,
 				rccm: rccm,
 				id_nat: id_nat,
-				nif: nif
+				nif: nif,
+				telephone: telephone,
+				adresse: adresse
 			}, function(data) {
+		
 				$("#modalStore").hide();
 				location.reload();
 				toastr.success('Information du magasin ajoutée');
