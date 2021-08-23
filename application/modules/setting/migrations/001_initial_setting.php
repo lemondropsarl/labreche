@@ -44,6 +44,19 @@ class Migration_initial_setting extends CI_Migration {
                 'unique' => TRUE,
                 'null' => TRUE
             ]
+			,
+            'telephone' => [
+                'type' => 'VARCHAR',
+                'constraint' => '20',
+                'unique' => TRUE,
+                'null' => TRUE
+            ],
+            'adresse' => [
+                'type' => 'VARCHAR',
+                'constraint' => '200',
+                'unique' => TRUE,
+                'null' => TRUE
+            ]
         ]);
         $this->dbforge->add_key('store_id',TRUE);
         $this->dbforge->create_table($this->tables['store'],TRUE);
