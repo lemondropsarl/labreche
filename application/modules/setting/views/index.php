@@ -60,7 +60,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                            <div class="col-md-6">
 
                                <label>Nom depot</label>
-                               <select name="ws" id="" class="form-control">
+                               <select name="ws" id="ws" class="form-control">
                                    <?php foreach ($warehouses as $item) {?>
                                        
                                        <option value="<?php echo $item['warehouse_id']?>"><?php echo $item['warehouse_name']?></option>
@@ -87,7 +87,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                            <hr class="line divider"/>
                             <div class="col-md-6">
                                 <label>Point de vente</label>
-                               <select name="pos" id="" class="form-control">
+                               <select name="pos" id="pos" class="form-control">
 								   <?php foreach ($pos as $item) {?>
 									   
 									   <option value="<?php echo $item['pos_ws_id']?>"><?php echo $item['pos_name']?></option>
@@ -113,7 +113,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 										</select>
 								</div>
 								
-							<button type="submit" id="" class="btn btn-primary">Ajouter point de vente</button>
+							<button type="submit"  class="btn btn-primary">Ajouter point de vente</button>
 		
 							<?php echo form_close(); ?>
                             </div>
@@ -175,7 +175,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<label for="">Utilisateurs(Facturiers)</label>
 							<div class="col-sm-8">
 
-								<select name="user" id="" class="form-control">
+								<select name="user" id="user" class="form-control">
 									<?php foreach ($users as $item) {?>
 										# code...
 										<option value="<?php echo $item['user_id']?>"><?php echo $item['username']?></option>
@@ -188,7 +188,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 							<label for="">Point de vente(Affectation)</label>
 							<div class="col-sm-8">
 
-								<select name="pos" id="" class="form-control">
+								<select name="pos" id="pos" class="form-control">
 									<?php foreach ($pos as $item) {?>
 										
 										<option value="<?php echo $item['pos_ws_id']?>"><?php echo $item['pos_name']?></option>

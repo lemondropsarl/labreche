@@ -52,7 +52,9 @@ $this->app = $this->config->item('application', 'app');
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js') ?>"></script>
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js') ?>"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js') ?>"></script>
+
+<!--script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script-->
 
 <!-- Toastr -->
 <script type="text/javascript">

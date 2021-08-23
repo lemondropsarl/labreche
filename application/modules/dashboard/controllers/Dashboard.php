@@ -11,6 +11,7 @@ class Dashboard extends MX_Controller {
 		$this->load->library('migration');
 		$this->migration->latest();
 		$this->load->model('nav_model');
+		$this->load->model('setting/setting_model');
 		
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
@@ -36,6 +37,10 @@ class Dashboard extends MX_Controller {
 	 */
 	public function index()
 	{
+		if (!$this->setting_model->is_store_exist()) {
+			
+			redirect('setting/index');		
+		}
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
 		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();

@@ -63,7 +63,7 @@ class Migration_initial_pos extends CI_Migration {
             'inv_datetime' => [
                 'type' => 'timestamp'            
             ],
-            'inv_currency'  =>[
+            'devise'  =>[
                 'type'  => 'VARCHAR',
                 'constraint'=>'3'
             ]
