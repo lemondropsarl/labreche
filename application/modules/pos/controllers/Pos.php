@@ -51,6 +51,22 @@ class Pos extends MX_Controller
 		//Do your magic here
 	}
 
+	public function detail_invoice()
+	{
+		$invoice_id = $this->uri->segment(3);
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'détails facture';
+		$data['inv_details']			= $this->pos_model->get_inv_details($invoice_id);
+
+		$this->load->view('templates/header', $data);
+		$this->load->view('detail_invoice', $data);
+		$this->load->view('templates/footer');
+	
+	}
 	public function list_invoice()
 	{
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();

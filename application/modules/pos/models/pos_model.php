@@ -9,17 +9,32 @@ class pos_model extends CI_Model
 		$this->load->database();
 	}
 
+	public function get_inv_details($inv_id)
+	{
+		$sql = "SELECT 
+		`product`.`product_name` as `pname`,
+		`product`.`unit_price` as `uprice`,
+		`product_in_invoice`.`pi_quantity` as `quantity`,
+		(`product`.`unit_price` * `product_in_invoice`.`pi_quantity`) as `total`
+		 FROM (`product`, `product_in_invoice`) 
+		 WHERE (`product`.`product_id` = `product_in_invoice`.`pi_product_id`) and `product`.`product_id` IN ( SELECT `product_in_invoice`.`pi_product_id` FROM `product_in_invoice` WHERE `product_in_invoice`.`pi_invoice_id` =".$inv_id.")
+		 ";
+		 $query = $this->db->query($dql);
+		 
+		 return $query->result_array();
+		 
+	}
 	public function get_list_invoices($pos_id)
 	{
-		$sql = 'SELECT 
+		$sql = "SELECT 
 		`pos`.`pos_name` as `pos`,
 		`invoice`.`invoice_id` as `inv_id`,
 		`invoice`.`transaction_type` as `type`,
 		`invoice`.`inv_total_amount` as `amount`,
 		`invoice`.`inv_datetime` as `date`
 		 FROM (`pos`, `invoice`) 
-		 WHERE (`pos`.`pos_ws_id` = `invoice`.`invoice_id`)
-		 ORDER BY `invoice`.`inv_datetime` DESC';
+		 WHERE (`pos`.`pos_ws_id` = `invoice`.`invoice_id`) and (`invoice`.`pos_id` =".$pos_id.")
+		 ORDER BY `invoice`.`inv_datetime` DESC";
 		 $query = $this->db->query($sql);
 		return $$query->result_array();		
 	}
