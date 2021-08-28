@@ -1,6 +1,10 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Reader\Csv;
+use PhpOffice\PhpSpreadsheet\Reader\Xlsx;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 class Product extends MX_Controller
 {
 
@@ -18,6 +22,13 @@ class Product extends MX_Controller
 		$this->load->library('form_validation');
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
+		$config['upload_path'] = './uploads/files/';
+        $config['allowed_types'] = 'csv|xlsx';
+        $config['max_size']     = '100';
+        $config['max_width'] = '1024';
+        $config['max_height'] = '768';
+
+        $this->load->library('upload',$config);
 		if (!$this->ion_auth->logged_in()) {
 			redirect('auth/login');
 		}
@@ -229,6 +240,41 @@ class Product extends MX_Controller
 				$this->product_model->update_product($id, array('product_currency' => $valeur));
 				break;
 		}
+	}
+	public function add_multiple()
+	{
+		if ($this->upload->do_upload('exfile')){
+           
+            $file_name = $this->upload->data('full_path');
+            $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+            $spreadsheet = $reader->load($file_name);
+
+            $sheetWork = $spreadsheet->getActiveSheet();
+            $highestRow = $sheetWork->getHighestRow(); // e.g. 10
+            $highestColumn = $sheetWork->getHighestColumn(); // e.g 'F'
+            $highestColumnIndex = \PhpOffice\PhpSpreadsheet\Cell\Coordinate::columnIndexFromString($highestColumn); // e.g. 5
+            $added=0;
+            
+            for ($row=2; $row <= $highestRow ; $row++) { 
+                $model = array();
+                
+                for ($col=1; $col <= $highestColumnIndex ; $col++) { 
+                   $model[$col] = $sheetWork->getCellByColumnAndRow($col,$row)->getValue();
+                }
+                $data = array(
+                    'dproduct_code'=> $model[0],
+                    'product_name'=> $model[1],
+                    'unit_price'=> $model[2],
+                    'product_uom'=> $model[3],
+                    'product_cat_id'=> intval($model[4]),
+                    'product_vehicule_id'=> $model[5]
+                );
+                
+                $added++;
+            }           
+            //$this->session->set_flashdata('added', strval($added));           
+            redirect('product/create_product','refresh');           
+        }     
 	}
 }
 
