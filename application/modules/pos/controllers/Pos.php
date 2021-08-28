@@ -51,7 +51,22 @@ class Pos extends MX_Controller
 		//Do your magic here
 	}
 
-
+	public function list_invoice()
+	{
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Point de vente';
+		$data['invoices']				= $this->pos_model->get_list_invoices($this->posID);
+		$this->load->view('templates/header', $data);
+		$this->load->view('list_invoices', $data);
+		$this->load->view('templates/footer');
+		
+		
+		
+	}
 	public function invoicing()
 	{
 		$pos_id = $this->posID;

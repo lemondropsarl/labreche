@@ -9,6 +9,20 @@ class pos_model extends CI_Model
 		$this->load->database();
 	}
 
+	public function get_list_invoices($pos_id)
+	{
+		$sql = 'SELECT 
+		`pos`.`pos_name` as `pos`,
+		`invoice`.`invoice_id` as `inv_id`,
+		`invoice`.`transaction_type` as `type`,
+		`invoice`.`inv_total_amount` as `amount`,
+		`invoice`.`inv_datetime` as `date`
+		 FROM (`pos`, `invoice`) 
+		 WHERE (`pos`.`pos_ws_id` = `invoice`.`invoice_id`)
+		 ORDER BY `invoice`.`inv_datetime` DESC';
+		 $query = $this->db->query($sql);
+		return $$query->result_array();		
+	}
 	public function add_prods_in_invoice($model)
 	{
 		$this->db->insert('product_in_invoice', $model);
