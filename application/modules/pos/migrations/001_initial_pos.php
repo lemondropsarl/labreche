@@ -182,6 +182,16 @@ class Migration_initial_pos extends CI_Migration {
 				'parent'=> 'pos',
 				'order' => 420,
 				'perm_key'=> 'W'
+            ],
+            [
+                'name'	=> 'list_invoices',
+                'url'	=> 'pos/list_invoice',
+                'icon'  => 'material-icons',
+				'icon-name'	=> 'apps',
+				'text'	=> 'Liste Factures',
+				'parent'=> 'pos',
+				'order' => 430,
+				'perm_key'=> 'R'
             ]
             
         ];
