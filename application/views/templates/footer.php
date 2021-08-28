@@ -101,9 +101,7 @@ $this->app = $this->config->item('application', 'app');
 			const verification = $("#prCode").data("verification");
 			const pcode = $("#prCode").val();
 			const pname = $("#nomArticle").val();
-			const pbrand = $("#prMarque").val();
-			const pmodel = $("#prModele").val();
-			const price = $("#prPrix").val();
+						const price = $("#prPrix").val();
 			const prUnite = $("#prUnite").val();
 			const pcurrency = $("#pcurrency").val();
 			const vehicule = $("#pv_id").val();
@@ -130,14 +128,7 @@ $this->app = $this->config->item('application', 'app');
 				$("#erreur_nom").css("display", "flex");
 
 			}
-			if (pbrand === "") {
-				erreur.push("");
-				$("#erreur_marque").css("display", "flex");
-			}
-			if (pmodel === "") {
-				erreur.push("");
-				$("#erreur_modele").css("display", "flex");
-			}
+		
 			if (price === "") {
 				erreur.push("");
 				$("#erreur_prix").css("display", "flex");
@@ -170,8 +161,6 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("product/create_operation") ?>', {
 					pname: pname,
 					pcode: pcode,
-					pbrand: pbrand,
-					pmodel: pmodel,
 					price: price,
 					prUnite: prUnite,
 					pcurrency: pcurrency,
