@@ -9,6 +9,61 @@ class pos_model extends CI_Model
 		$this->load->database();
 	}
 
+	public function get_list_refunds_admin()
+	{
+		$sql = "SELECT 
+		`pos`.`pos_name` as `pos`,
+		`invoice`.`invoice_id` as `inv_id`,
+		`invoice`.`transaction_type` as `type`,
+		`invoice`.`inv_total_amount` as `amount`,
+		`invoice`.`devise` as `devise`,
+		`invoice`.`status` as `status`,
+		`invoice`.`inv_datetime` as `date`
+		 FROM (`pos`, `invoice`) 
+		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
+		 and `invoice`.`invoice_id` in (SELECT `ref_inv_id` FROM `refund_invoice`)
+		 ORDER BY `invoice`.`inv_datetime` DESC";
+		 $query = $this->db->query($sql);
+		return $query->result_array();	
+	}
+	public function get_list_refunds($pos_id)
+	{
+		$sql = "SELECT 
+		`pos`.`pos_name` as `pos`,
+		`invoice`.`invoice_id` as `inv_id`,
+		`invoice`.`transaction_type` as `type`,
+		`invoice`.`inv_total_amount` as `amount`,
+		`invoice`.`devise` as `devise`,
+		`invoice`.`status` as `status`,
+		`invoice`.`inv_datetime` as `date`
+		 FROM (`pos`, `invoice`) 
+		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
+		 and (`invoice`.`inv_pos_id` =".$pos_id.")
+		 and `invoice`.`invoice_id` in (SELECT `ref_inv_id` FROM `refund_invoice`)
+		 ORDER BY `invoice`.`inv_datetime` DESC";
+		 $query = $this->db->query($sql);
+		return $query->result_array();		
+	}
+	public function is_refund_exist($invoice_id)
+	{
+		$this->db->where('ref_inv_id', $invoice_id);
+		$query = $this->db->get('refund_invoice');
+		if ($query->num_rows() > 0) {
+			return true;
+		}else{
+			return false;
+		}
+	}
+	public function add_refund($model)
+	{
+		$this->db->insert('refund_invoice', $model);
+	}
+	public function get_refund_byID($invoice_id)
+	{
+		$this->db->where('ref_inv_id', $invoice_id);
+		$query = $this->db->get('refund_invoice');	
+		return $query->row_array();	
+	}
 	public function get_inv_byID($invoice_id)
 	{
 		$this->db->where('invoice_id', $invoice_id);

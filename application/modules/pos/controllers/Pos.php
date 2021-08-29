@@ -51,6 +51,46 @@ class Pos extends MX_Controller
 		//Do your magic here
 	}
 
+	public function approve_refund()
+	{
+		// c'est ici qu'il faut faire le reverse de la facture
+
+	}
+	public function list_refund()
+	{
+		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
+		$data['user_permissions']      =   $this->ion_auth_acl->build_Acl();
+		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
+		$data['subs']				   =   $data['menus'];
+		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
+		$data['title']					=  'Remboursement facture';
+		if ($this->ion_auth_acl->has_permission('A')) {
+		$data['invoices']				= $this->pos_model->get_list_refunds_admin();
+		}else {
+			
+			$data['invoices']				= $this->pos_model->get_list_refunds($this->posID);
+		}
+		$this->load->view('templates/header', $data);
+		$this->load->view('list_refund', $data);
+		$this->load->view('templates/footer');
+	}
+	public function create_refund()
+	{
+		$invoice_id = $this->uri->segment(3);
+		if ($this->pos_model->is_refund_exist($invoice_id) != true) {
+			# code...
+			$model = array('ref_inv_id' => $invoice_id );
+			$this->pos_model->add_refund($model);
+			
+			redirect('pos/list_invoice','refresh');
+		}else{
+			
+			redirect('pos/detail_invoice/'.$invoice_id);
+			
+		}
+		
+		
+	}
 	public function detail_invoice()
 	{
 		$invoice_id = $this->uri->segment(3);
@@ -62,6 +102,8 @@ class Pos extends MX_Controller
 		$data['title']					=  'détails facture';
 		$data['inv_details']			= $this->pos_model->get_inv_details($invoice_id);
 		$data['inv']					= $this->pos_model->get_inv_byID($invoice_id);
+		$data['invoice_id']				= $invoice_id;
+		$data['refund']					= $this->pos_model->get_refund_byID($invoice_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('details_invoice', $data);

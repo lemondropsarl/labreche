@@ -9,6 +9,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                 <div class="card card-outline card-info">
                     <div class="card-header">
                         <h4 class="title">Détails facture</h4>
+                        <div class="card-tools">
+                            <?php if ($inv['status']) {
+                                if($refund['refund_status'] === false){?>
+                            <text class="badge badge-success">Encaissé</text>
+                           <?php }else {?>
+                            <text class="badge badge-warning">En cours de remboursement</text>
+                            
+                          <?php }
+                        }else{?>
+                            
+                            <text class="badge badge-danger">Remboursé</text>
+                             <?php }?>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div class="table-responsive">
@@ -31,7 +44,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                            <td><?php echo $item['pname'] ?></td>
                                            <td><?php echo $item['quantity'] ?></td>
                                            <td><?php echo $item['uprice'] ?></td>
-                                           <td><?php echo $item['total'] ?></td>
+                                           <td class="text-md-right"><?php echo $item['total'] ?></td>
                                        </tr>
                                        <?php
                                        $num++;
@@ -40,21 +53,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <tfooter>
                                     <tr>
                                         <th colspan="4" class="bg-dark">Sous Total</th>
-                                        <td class="bold"><?php echo strval((int)$inv['inv_total_amount'] - (int)$inv['inv_vat_amount'])?></td>
+                                        <td class="text-bold text-md-right"><?php echo strval((int)$inv['inv_total_amount'] - (int)$inv['inv_vat_amount'])?></td>
                                     </tr>
                                     <tr>
                                         <th colspan="4" class="bg-dark">Reduction</th>
-                                        <td><?php echo $inv['inv_discount_amount']?></td>
+                                        <td class="text-bold text-md-right"><?php echo $inv['inv_discount_amount']?></td>
                                     </tr>
                                     <tr>
                                         <th colspan="3" class="bg-dark">TVA</th>
                                         <td>16%</td>
-                                        <td><?php echo $inv['inv_vat_amount']?></td>
+                                        <td class="text-bold text-md-right"><?php echo $inv['inv_vat_amount']?></td>
                                     </tr>
                                     <tr>
                                         <th colspan="4" class="bg-dark">Total General</th>
                                         
-                                        <td><?php echo $inv['inv_total_amount']?></td>
+                                        <td class="text-bold text-md-right"><?php echo $inv['inv_total_amount']?></td>
                                     </tr>
                                 </tfooter>
                             </table>
@@ -75,7 +88,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                             </div>
                             <div class="col-sm-6">
 
-                                <button type="button" name="btn_refund" id="btn_refund" class="btn btn-danger">Rembouser</button>
+                                <a href="<?php echo site_url('pos/create_refund/'.$invoice_id)?>" class="btn btn-danger">Rembourser</a>
                             </div>         
                         </div>
                     </div>

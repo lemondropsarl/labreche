@@ -70,6 +70,10 @@ class Migration_initial_pos extends CI_Migration {
             'devise'  =>[
                 'type'  => 'VARCHAR',
                 'constraint'=>'3'
+            ],
+            'status' =>[
+                'type' => 'boolean',
+                'default'   => 1
             ]
         ]);
 
@@ -110,6 +114,25 @@ class Migration_initial_pos extends CI_Migration {
         ]);
         $this->dbforge->add_key('id',TRUE);
         $this->dbforge->create_table($this->tables['user_pos'],TRUE);
+
+        $this->dbforge->drop_table($this->tables['refund_invoice'],TRUE);
+        $this->dbforge->add_field([
+            'refund_id' => [
+                'type'  => 'MEDIUMINT',
+                'constraint'    => '4',
+                'auto_increment'    => TRUE
+            ],
+            'ref_inv_id' =>[
+                'type' => 'MEDIUMINT',
+                'constraint'    => '4'
+            ],
+            'refund_status' =>[
+                'type' => 'boolean',
+                'default'   => 0
+            ]
+        ]);
+        $this->dbforge->add_key('refund_id',TRUE);
+        $this->dbforge->create_table($this->tables['refund_invoice'],TRUE);
 
         //add one constraint
         $query = 'ALTER TABLE'.' '.$this->tables['invoice'].'  '.
@@ -191,6 +214,16 @@ class Migration_initial_pos extends CI_Migration {
 				'text'	=> 'Liste Factures',
 				'parent'=> 'pos',
 				'order' => 430,
+				'perm_key'=> 'R'
+            ],
+            [
+                'name'	=> 'refund_invoices',
+                'url'	=> 'pos/list_refund',
+                'icon'  => 'material-icons',
+				'icon-name'	=> 'apps',
+				'text'	=> 'Liste remboursement',
+				'parent'=> 'pos',
+				'order' => 440,
 				'perm_key'=> 'R'
             ]
             
