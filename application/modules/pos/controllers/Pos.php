@@ -61,9 +61,10 @@ class Pos extends MX_Controller
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  'détails facture';
 		$data['inv_details']			= $this->pos_model->get_inv_details($invoice_id);
+		$data['inv']					= $this->pos_model->get_inv_byID($invoice_id);
 
 		$this->load->view('templates/header', $data);
-		$this->load->view('detail_invoice', $data);
+		$this->load->view('details_invoice', $data);
 		$this->load->view('templates/footer');
 	
 	}
@@ -79,9 +80,6 @@ class Pos extends MX_Controller
 		$this->load->view('templates/header', $data);
 		$this->load->view('list_invoices', $data);
 		$this->load->view('templates/footer');
-		
-		
-		
 	}
 	public function invoicing()
 	{

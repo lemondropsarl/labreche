@@ -15,23 +15,23 @@ defined('BASEPATH') OR exit('No direct script access allowed');
                                 <thead class="thead-dark">
                                     <tr>
                                         <th>#</th>
-                                        <th>PDV</th>
-                                        <th>type opération</th>
-                                        <th>montant</th>
                                         <th>date opération</th>
-                                        
+                                        <th>PDV</th>
+                                        <th>montant</th>
+                                        <th>type opération</th>
+                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php foreach ($invoices as $item) {?>
                                        <tr>
                                            <td><?php echo $item['inv_id']?></td>
+                                           <td><?php echo $item['date'] ?></td>
                                            <td><?php echo $item['pos']?></td>
-                                           <td><?php echo $item['type']?></td>
                                            <td><?php echo $item['amount']?></td>
-                                           <td><?php echo date("d/m/Y",$item['date'])?></td>
-                                            <td>
-                                                <a href="<?php echo site_url('pos/detail_invoice/'.$item['inv_id'])?>">voir détails</a>
+                                           <td><?php echo $item['type']?></td>
+                                           <td>
+                                               <a href="<?php echo site_url('pos/detail_invoice/'.$item['inv_id'])?>">voir détails</a>
                                             </td>
                                        </tr>
                                    <?php }?>
