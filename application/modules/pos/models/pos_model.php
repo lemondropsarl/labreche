@@ -110,12 +110,81 @@ class pos_model extends CI_Model
 		$this->db->insert('invoice', $model);
 		return $this->db->insert_id();
 	}
-	public function get_critical_stock($pos_id)
+	public function get_critical_stock_pos($pos_id)
 	{
-		# code...
+		$sql = "select
+		`product`.`product_id` AS `pid`,
+		`product`.`product_code` AS `pcode`,
+		`product`.`product_name` AS `pname`,
+		`product`.`product_uom` AS `uom`,
+		`product`.`min_qty` AS `min_qty`,
+		`warehouse_stock`.`ws_quantity` AS `actual_quantity`
+	  from
+		(
+		  `product`
+		  ,`warehouse_stock`
+		)
+	  where
+		(
+		  (
+			`product`.`product_id` = `warehouse_stock`.`ws_product_id`
+		  )
+		  AND `warehouse_stock`.`warehouse_id` =".$pos_id."
+		  and (
+			`product`.`min_qty` = `warehouse_stock`.`ws_quantity`
+		  )
+		)
+		ORDER BY
+		`product`.`product_name`";
+		$query = $this->db->query($sql);
+		
+		return $query->result_array();
+		
+	}
+	public function count_critical_stock_pos($pos_id)
+	{
+		$sql = "
+		select
+		
+		  SUM(`warehouse_stock`.`ws_product_id`) AS `total`
+		  
+		from
+		  `warehouse_stock` join `product`
+		  WHERE
+		  (
+			`product`.`product_id` = `warehouse_stock`.`ws_product_id` AND
+			`warehouse_stock`.`warehouse_id` =".$pos_id."
+			
+			and (
+			  `product`.`min_qty` = `warehouse_stock`.`ws_quantity`
+			)
+		  )
+		  GROUP BY
+		  `warehouse_stock`.`ws_product_id`";
+		  $query = $this->db->query($sql);
+		  return $query->row_array();
+		 
+		 
 	}
 	public function get_daily_sales($pos_id)
 	{
+		$date = date("Y-m-d");
+		//retirer le taux
+		$rate  = $this->db->get('currency_rate')->row_array();
+		
+		
+		$sql = "SELECT SUM(`inv_total_amount`) as `total`
+		FROM `invoice`
+		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DATE(inv_datetime) ='".$date."'"." and devise= 'USD'";
+		 $usd = $this->db->query($sql); 
+		 $sales_usd = $usd->row_array();
+
+		 $sql2 = "SELECT SUM(`inv_total_amount`) as `total`
+		FROM `invoice`
+		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DATE(inv_datetime) ='".$date."'"." and devise= 'CDF'";
+		 $cdf = $this->db->query($sql2); 
+		 $sales_cdf = $usd->row_array();
+		 return $sales_usd['total'] + ($sales_cdf['total']/$rate['rate']);
 	}
 	public function get_list_pr_stock()
 	{

@@ -163,6 +163,8 @@ class Pos extends MX_Controller
 		$data['list_stock']           = $this->pos_model->get_list_stock_by_wsID(1, $pos_id);
 		$data['value_stock_cdf'] 	= $this->pos_model->get_value_stock_cdf($pos_id);
 		$data['value_stock_usd'] 	= $this->pos_model->get_value_stock_usd($pos_id);
+		$data['sales']		        = $this->pos_model->get_daily_sales($pos_id);
+		$data['count_critical']		= $this->pos_model->count_critical_stock_pos($pos_id);
 
 		//$data['count_p_moteur']			= $this->product_model->count_by_engine();
 		# code...
