@@ -659,6 +659,9 @@ $this->app = $this->config->item('application', 'app');
 			}
 
 		});
+		$("body").on("change", "#type_facture_select", function() {
+			$("#type_facture").text($(this).val());
+		});
 
 		$("body").on("click", ".ligne_pr_fact_search", function() {
 			let id = $(this).data("pr_id");
@@ -667,6 +670,8 @@ $this->app = $this->config->item('application', 'app');
 			let devise = $(this).data("pr_devise");
 			let price = parseFloat($(this).data("pr_price"));
 			let qty = parseInt($(this).data("pr_qty"));
+			$("#reduction").val(1); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0.0 %");
 			///
 			let qty_commander = 1;
 			//add ligne facture
@@ -716,6 +721,7 @@ $this->app = $this->config->item('application', 'app');
 			let totaux_reduit = 0;
 			let totaux_de_totaux = 0;
 			let totaux_v = (parseFloat($("#totaux_facture_usd").text().substring(0, $("#totaux_facture_usd").text().length - 3))).toFixed(2);
+			$("#reduction_aff").text(reduction + '%');
 			if (reduction <= 1) {
 				totaux();
 			} else {
@@ -737,6 +743,9 @@ $this->app = $this->config->item('application', 'app');
 				$(".pt_" + id).text(prix_total + " " + devise);
 			} else {
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
+				$("#reduction").val(1); //initialisation du champ reduction à 1
+				$("#reduction_aff").text("0.0 %");
+			
 			}
 			//
 			totaux();
@@ -791,6 +800,7 @@ $this->app = $this->config->item('application', 'app');
 		/////supprimer un article de la facture
 		$("body").on("click", ".delete_ligne_article", function() {
 			$(this).parent('tr').remove();
+			totaux();
 		});
 		/////////
 		$("body").on("click", ".ligne_facture_pr", function() {
@@ -808,6 +818,8 @@ $this->app = $this->config->item('application', 'app');
 
 		$("body").on("click", "#btn_nouvelle_fac", function() {
 			vider_facture();
+			$("#reduction").val(1); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0.0 %");
 		});
 		//get devise totaux de totaux
 		function get_devise_paye() {
@@ -850,6 +862,9 @@ $this->app = $this->config->item('application', 'app');
 					refresh_liste_product();
 					vider_facture();
 					numero_facature(); //on charche le nullero de la facture
+					$("#reduction").val(1); //initialisation du champ reduction à 1
+					$("#reduction_aff").text("0.0 %");
+					$("#type_facture").text("DETAIL");
 				});
 
 			} else {
@@ -866,16 +881,12 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
-
-
-
 			if (count_ligne_facture() > 0) {
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
 					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
 					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-
 					prQty = $(".qty_" + (i + 1)).text();
 					commande = {
 						"prId": prId,
@@ -895,6 +906,9 @@ $this->app = $this->config->item('application', 'app');
 					refresh_liste_product();
 					vider_facture();
 					numero_facature(); //on charche le nullero de la facture
+					$("#reduction").val(1); //reinitialisation du champ reduction
+					$("#reduction_aff").text("0.0 %");
+					$("#type_facture").text("DETAIL");
 				});
 
 			} else {

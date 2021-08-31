@@ -123,9 +123,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				?>
 			</div>
 
-			<table class="table table-striped table-bordered table-hover print">
+			<table class="table table-bordered table-hover print">
 				<thead class="text-center">
-					<tr class="bg-secondary">
+					<tr class="">
 						<th>DESIGNATION</th>
 						<th>QUANTITE</th>
 						<th>P.UNITAIRE</th>
@@ -133,17 +133,29 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</tr>
 				</thead>
 				<tbody id="facture_corp"></tbody>
-				<tfoot class="bg-warning">
-					<tr class="font-weight-bold text-center" style="font-size: 1.2em">
-						<td>TOTAUX</td>
-						<td id="totaux_facture_usd" data-totaux="0" colspan="3">0 USD</td>
+				<tfoot class="facture_footer" >
+					<tr class="text-center">
+					    <td>TYPE FACTURE</td>
+						<td>REDUCTION</td>
+						<td colspan="2">TOTAUX</td>
+					</tr>
+					<tr class="text-center">
+						<td id="type_facture">DETAIL</td>
+						<td id="reduction_aff">0.0%</td>
+						<td id="totaux_facture_usd" data-totaux="0" colspan="2">0 USD</td>
 					</tr>
 				</tfoot>
 			</table>
-			<div class="form-group non_print">
+			<div class="non_print reduction_type_detail">
 				<label>REDUCTION </label>
-				<input type="number" name="reduction" min="1" id="reduction" class="form-control">
+				<input type="number" name="reduction" min="1" id="reduction" class="" placeholder="REDUCTION">
+				<label>TYPE FACTURE</label>
+				<select name="type_facture" id="type_facture_select" class="">
+					<option value="DETAIL">DETAIL</option>
+					<option value="GROS">GROS</option>
+				</select>
 			</div>
+
 			<div class="row non_print" style="margin-bottom: 2%">
 				<div class="col-3">
 					<button class="btn btn-danger print text-uppercase" id="btn_nouvelle_fac">
