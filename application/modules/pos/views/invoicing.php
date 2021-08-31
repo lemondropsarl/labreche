@@ -136,25 +136,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<tfoot class="bg-warning">
 					<tr class="font-weight-bold text-center" style="font-size: 1.2em">
 						<td>TOTAUX</td>
-						<td id="totaux_facture_usd" data-totaux="0">0 USD</td>
-						<td id="totaux_facture_cdf" data-totaux="0">0 CDF</td>
-						<td id="totaux_facture_usd_cdf" class="bg-success" data-totaux="0">
-							0
-						</td>
+						<td id="totaux_facture_usd" data-totaux="0" colspan="3">0 USD</td>
 					</tr>
 				</tfoot>
 			</table>
-			<div class="form-inline non_print">
-				<div class="form-group col-4">
-					<span>MONAIE A PAYER AVEC </span>
-				</div>
-				<div class="form-group col-3">
-					<label for="monaie_cdf"> CDF </label><input type="radio" name="monaie_pay" id="monaie_cdf" value="CDF" class="form-control" checked />
-				</div>
-				<div class="form-group col-3">
-					<label for="monaie_cdf"> USD</label>
-					<input type="radio" name="monaie_pay" id="monaie_usd" value="USD" class="form-control" />
-				</div>
+			<div class="form-group non_print">
+				<label>REDUCTION </label>
+				<input type="number" name="reduction" min="1" id="reduction" class="form-control">
 			</div>
 			<div class="row non_print" style="margin-bottom: 2%">
 				<div class="col-3">

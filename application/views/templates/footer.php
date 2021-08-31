@@ -101,7 +101,7 @@ $this->app = $this->config->item('application', 'app');
 			const verification = $("#prCode").data("verification");
 			const pcode = $("#prCode").val();
 			const pname = $("#nomArticle").val();
-						const price = $("#prPrix").val();
+			const price = $("#prPrix").val();
 			const prUnite = $("#prUnite").val();
 			const pcurrency = $("#pcurrency").val();
 			const vehicule = $("#pv_id").val();
@@ -128,7 +128,7 @@ $this->app = $this->config->item('application', 'app');
 				$("#erreur_nom").css("display", "flex");
 
 			}
-		
+
 			if (price === "") {
 				erreur.push("");
 				$("#erreur_prix").css("display", "flex");
@@ -710,11 +710,24 @@ $this->app = $this->config->item('application', 'app');
 			//totaux de totaux
 			totaux(); //on effectue le calcul pour trouver la somme des articles sur le facture
 		});
+		//reduction total
+		$("body").on("change keyup", "#reduction", function() {
+			let reduction = $(this).val();
+			let totaux_reduit = 0;
+			let totaux_de_totaux = 0;
+			let totaux_v = (parseFloat($("#totaux_facture_usd").text().substring(0, $("#totaux_facture_usd").text().length - 3))).toFixed(2);
+			if (reduction <= 1) {
+				totaux();
+			} else {
+				totaux_reduit = (totaux_v / 100) * reduction;
+				totaux_de_totaux = (totaux_v - totaux_reduit).toFixed(2);
+				$("#totaux_facture_usd").text((totaux_de_totaux) + ' USD');
+			}
+		});
 		//reduction de la quantité
 		$("body").on("click", ".ligne_facture_pr", function() {
 			let id = $(this).data('id');
 			let devise = $(this).data('devise');
-
 			let qty = parseInt($(".qty_" + id).text()) - 1;
 			if (qty > 0) {
 				$(".qty_" + id).text(qty);
@@ -722,7 +735,6 @@ $this->app = $this->config->item('application', 'app');
 				//prix total
 				let prix_total = prix_u * qty;
 				$(".pt_" + id).text(prix_total + " " + devise);
-
 			} else {
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
 			}
@@ -748,36 +760,25 @@ $this->app = $this->config->item('application', 'app');
 				taille_montant = montant_total_qty_pu.length;
 				montant_numerique = montant_total_qty_pu.substring(0, (taille_montant - 3));
 				monaie = montant_total_qty_pu.substring((taille_montant - 3), taille_montant);
-
-				if ((monaie === " USD") || (monaie === "USD")) {
-					somme_usd = somme_usd + parseFloat(montant_numerique);
-				}
-				if ((monaie === " CDF") || (monaie === "CDF")) {
-					somme_cdf = somme_cdf + parseFloat(montant_numerique);
-				}
-
+				somme_usd = somme_usd + parseFloat(montant_numerique);
 			}
 			$("#totaux_facture_usd").text(somme_usd + " USD");
-			$("#totaux_facture_cdf").text(somme_cdf + " CDF");
 
-			usd_cdf("CDF", taux); //conversion pardefaut usd to franc
+
 		}
 
 		function usd_cdf(monaie, taux) {
-			let somme_usd = document.getElementById("totaux_facture_usd").textContent;
-			let somme_cdf = document.getElementById("totaux_facture_cdf").textContent;
+			//	let somme_usd = document.getElementById("totaux_facture_usd").textContent;
+			//	let somme_cdf = document.getElementById("totaux_facture_cdf").textContent;
 			if (monaie === "CDF") {
-				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3))) * taux) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))));
-				$("#totaux_facture_usd_cdf").text(totaux + " CDF");
+				//	let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3))) * taux) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))));
+				//$("#totaux_facture_usd_cdf").text(totaux + " CDF");
 			} else {
-				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3)))) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))) / taux);
-				$("#totaux_facture_usd_cdf").text(totaux + " USD");
+				//let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3)))) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))) / taux);
+				//$("#totaux_facture_usd_cdf").text(totaux + " USD");
 			}
 		}
-		$("input:radio[name='monaie_pay']").on("click", function() {
-			let monaie = $(this).val();
-			usd_cdf(monaie, taux);
-		});
+
 
 		function get_totaux() {
 			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
@@ -810,7 +811,7 @@ $this->app = $this->config->item('application', 'app');
 		});
 		//get devise totaux de totaux
 		function get_devise_paye() {
-			let devise = document.getElementById("totaux_facture_usd_cdf").textContent;
+			let devise = document.getElementById("totaux_facture_usd").textContent;
 			return devise.substring(devise.length, (devise.length - 3));
 		}
 		//print fature
@@ -901,20 +902,20 @@ $this->app = $this->config->item('application', 'app');
 				toastr.warning("Rien à enregistrer");
 			}
 		});
-	
+
 		//add store information
-		
+
 		$("#btn_add_store").on("click", function(e) {
-			
+
 			e.preventDefault();
-			
+
 			const store_name = $("#store_name").val();
 			const rccm = $("#rccm").val();
 			const id_nat = $("#id_nat").val();
 			const nif = $("#nif").val();
 			const telephone = $("#telephone").val();
 			const adresse = $("#adresse").val();
-		    
+
 			$.get('<?php echo base_url('setting/create_store') ?>', {
 				store_name: store_name,
 				rccm: rccm,
@@ -923,7 +924,7 @@ $this->app = $this->config->item('application', 'app');
 				telephone: telephone,
 				adresse: adresse
 			}, function(data) {
-		
+
 				$("#modalStore").hide();
 				location.reload();
 				toastr.success('Information du magasin ajoutée');
