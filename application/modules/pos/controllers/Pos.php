@@ -215,10 +215,11 @@ class Pos extends MX_Controller
 		$totaux = $this->input->get('totaux'); //totaux
 		$vat = $totaux * 0.16;
 		$devise =  $this->input->get('devise'); //devise
+		$discount_amount =  $this->input->get('discount_amount'); //devise
 		$invoice_id = $this->pos_model->add_invoice(array(
 			"inv_pos_id" => $pos_id,
 			"inv_total_amount" => $totaux,
-			"inv_discount_amount" => 0,
+			"inv_discount_amount" => $discount_amount,
 			"devise" => $devise,
 			"inv_vat_amount" => $vat,
 			"user_id" => $user_id

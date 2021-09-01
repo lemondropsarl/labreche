@@ -745,7 +745,7 @@ $this->app = $this->config->item('application', 'app');
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
 				$("#reduction").val(1); //initialisation du champ reduction à 1
 				$("#reduction_aff").text("0.0 %");
-			
+
 			}
 			//
 			totaux();
@@ -834,8 +834,9 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
-
+			let discount_amount = $("#reduction").val();
 			if (count_ligne_facture() > 0) {
+				if($("#client").val()!=""){
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
@@ -854,7 +855,8 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
 					commandes: commandes,
-					devise: get_devise_paye()
+					devise: get_devise_paye(),
+					discount_amount: discount_amount
 				}, function(data) {
 
 					toastr.success("Facture imprimer");
@@ -867,7 +869,10 @@ $this->app = $this->config->item('application', 'app');
 					$("#type_facture").text("DETAIL");
 				});
 
-			} else {
+			}else{
+				toastr.warning("LE NOM DU CLIENT");
+			}
+		} else {
 
 				toastr.warning("Rien à imprimer");
 			}
@@ -881,7 +886,9 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
+			let discount_amount = $("#reduction").val();
 			if (count_ligne_facture() > 0) {
+				if($("#client").val()!=""){
 				for (i = 0; i < count_ligne_facture(); i++) {
 					///////////////////////
 					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
@@ -900,7 +907,8 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("pos/create_invoice") ?>', {
 					totaux: get_totaux(),
 					commandes: commandes,
-					devise: get_devise_paye()
+					devise: get_devise_paye(),
+					discount_amount: discount_amount
 				}, function(data) {
 					toastr.success("Facture Enregistrer");
 					refresh_liste_product();
@@ -911,7 +919,11 @@ $this->app = $this->config->item('application', 'app');
 					$("#type_facture").text("DETAIL");
 				});
 
-			} else {
+			}else{
+				toastr.warning("LE NOM DU CLIENT");
+			}
+		
+		} else {
 
 				toastr.warning("Rien à enregistrer");
 			}
