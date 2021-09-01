@@ -79,7 +79,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</section>
 		<section class="col-md-6 col-sm-12 col-xs-12 card card-outline">
 			<h3 class="non_print">FACTURE</h3>
-
 			<div class="container-fluid">
 				<div class="row">
 					<div class="form-inline">

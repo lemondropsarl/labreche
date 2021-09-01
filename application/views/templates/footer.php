@@ -78,7 +78,7 @@ $this->app = $this->config->item('application', 'app');
 			"hideMethod": "fadeOut"
 		}
 
-		const taux = <?php echo $rate; ?>;
+		const taux = 2000;
 		//function creattion de produit ou article
 		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();
@@ -86,7 +86,6 @@ $this->app = $this->config->item('application', 'app');
 					pcode: pcode
 				},
 				function(data) {
-
 					if (data === "true") {
 						toastr.warning("Ce code existe déjà");
 						$("#prCode").data("verification", pcode);
@@ -836,43 +835,43 @@ $this->app = $this->config->item('application', 'app');
 			let commande = {};
 			let discount_amount = $("#reduction").val();
 			if (count_ligne_facture() > 0) {
-				if($("#client").val()!=""){
-				for (i = 0; i < count_ligne_facture(); i++) {
-					///////////////////////
-					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
-					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
-					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-					prQty = $(".qty_" + (i + 1)).text();
-					commande = {
-						"prId": prId,
-						"prCode": prCode,
-						"prQty": prQty,
-						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
-					};
-					commandes[i] = commande;
+				if ($("#client").val() != "") {
+					for (i = 0; i < count_ligne_facture(); i++) {
+						///////////////////////
+						prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
+						prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+						qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
+						prQty = $(".qty_" + (i + 1)).text();
+						commande = {
+							"prId": prId,
+							"prCode": prCode,
+							"prQty": prQty,
+							"qty_new": (parseInt(qty_ws) - parseInt(prQty))
+						};
+						commandes[i] = commande;
+					}
+
+					$.get('<?php echo base_url("pos/create_invoice") ?>', {
+						totaux: get_totaux(),
+						commandes: commandes,
+						devise: get_devise_paye(),
+						discount_amount: discount_amount
+					}, function(data) {
+
+						toastr.success("Facture imprimer");
+						print();
+						refresh_liste_product();
+						vider_facture();
+						numero_facature(); //on charche le nullero de la facture
+						$("#reduction").val(1); //initialisation du champ reduction à 1
+						$("#reduction_aff").text("0.0 %");
+						$("#type_facture").text("DETAIL");
+					});
+
+				} else {
+					toastr.warning("LE NOM DU CLIENT");
 				}
-
-				$.get('<?php echo base_url("pos/create_invoice") ?>', {
-					totaux: get_totaux(),
-					commandes: commandes,
-					devise: get_devise_paye(),
-					discount_amount: discount_amount
-				}, function(data) {
-
-					toastr.success("Facture imprimer");
-					print();
-					refresh_liste_product();
-					vider_facture();
-					numero_facature(); //on charche le nullero de la facture
-					$("#reduction").val(1); //initialisation du champ reduction à 1
-					$("#reduction_aff").text("0.0 %");
-					$("#type_facture").text("DETAIL");
-				});
-
-			}else{
-				toastr.warning("LE NOM DU CLIENT");
-			}
-		} else {
+			} else {
 
 				toastr.warning("Rien à imprimer");
 			}
@@ -888,42 +887,42 @@ $this->app = $this->config->item('application', 'app');
 			let commande = {};
 			let discount_amount = $("#reduction").val();
 			if (count_ligne_facture() > 0) {
-				if($("#client").val()!=""){
-				for (i = 0; i < count_ligne_facture(); i++) {
-					///////////////////////
-					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
-					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
-					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-					prQty = $(".qty_" + (i + 1)).text();
-					commande = {
-						"prId": prId,
-						"prCode": prCode,
-						"prQty": prQty,
-						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
-					};
-					commandes[i] = commande;
+				if ($("#client").val() != "") {
+					for (i = 0; i < count_ligne_facture(); i++) {
+						///////////////////////
+						prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
+						prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+						qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
+						prQty = $(".qty_" + (i + 1)).text();
+						commande = {
+							"prId": prId,
+							"prCode": prCode,
+							"prQty": prQty,
+							"qty_new": (parseInt(qty_ws) - parseInt(prQty))
+						};
+						commandes[i] = commande;
+					}
+
+					$.get('<?php echo base_url("pos/create_invoice") ?>', {
+						totaux: get_totaux(),
+						commandes: commandes,
+						devise: get_devise_paye(),
+						discount_amount: discount_amount
+					}, function(data) {
+						toastr.success("Facture Enregistrer");
+						refresh_liste_product();
+						vider_facture();
+						numero_facature(); //on charche le nullero de la facture
+						$("#reduction").val(1); //reinitialisation du champ reduction
+						$("#reduction_aff").text("0.0 %");
+						$("#type_facture").text("DETAIL");
+					});
+
+				} else {
+					toastr.warning("LE NOM DU CLIENT");
 				}
 
-				$.get('<?php echo base_url("pos/create_invoice") ?>', {
-					totaux: get_totaux(),
-					commandes: commandes,
-					devise: get_devise_paye(),
-					discount_amount: discount_amount
-				}, function(data) {
-					toastr.success("Facture Enregistrer");
-					refresh_liste_product();
-					vider_facture();
-					numero_facature(); //on charche le nullero de la facture
-					$("#reduction").val(1); //reinitialisation du champ reduction
-					$("#reduction_aff").text("0.0 %");
-					$("#type_facture").text("DETAIL");
-				});
-
-			}else{
-				toastr.warning("LE NOM DU CLIENT");
-			}
-		
-		} else {
+			} else {
 
 				toastr.warning("Rien à enregistrer");
 			}
@@ -931,8 +930,7 @@ $this->app = $this->config->item('application', 'app');
 
 		//add store information
 
-		$("#btn_add_store").on("click", function(e) {
-
+		$("body").on("click", "#btn_add_store", function(e) {
 			e.preventDefault();
 
 			const store_name = $("#store_name").val();
