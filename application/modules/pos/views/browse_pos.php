@@ -67,7 +67,7 @@ global $pos_ws_id;
 				<div class="small-box bg-red">
 					<div class="inner">
 						<h3><?php echo
-                        $count_critical['total']?></h3>
+                        $count_critical?></h3>
                        
 						<p>Total stock en critique</p>
 					</div>
