@@ -876,57 +876,7 @@ $this->app = $this->config->item('application', 'app');
 			}
 
 		});
-		//save facture
-		$("body").on("click", "#save-facture", function() {
-			let prCode = "";
-			let prId = "";
-			let prQty = 0;
-			let qty_ws = 0;
-			let commandes = [];
-			let commande = {};
-			let discount_amount = $("#reduction").val();
-			if (count_ligne_facture() > 0) {
-				if ($("#client").val() != "") {
-					for (i = 0; i < count_ligne_facture(); i++) {
-						///////////////////////
-						prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
-						prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
-						qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-						prQty = $(".qty_" + (i + 1)).text();
-						commande = {
-							"prId": prId,
-							"prCode": prCode,
-							"prQty": prQty,
-							"qty_new": (parseInt(qty_ws) - parseInt(prQty))
-						};
-						commandes[i] = commande;
-					}
-
-					$.get('<?php echo base_url("pos/create_invoice") ?>', {
-						totaux: get_totaux(),
-						commandes: commandes,
-						devise: get_devise_paye(),
-						discount_amount: discount_amount
-					}, function(data) {
-						toastr.success("Facture Enregistrer");
-						refresh_liste_product();
-						vider_facture();
-						numero_facature(); //on charche le nullero de la facture
-						$("#reduction").val(1); //reinitialisation du champ reduction
-						$("#reduction_aff").text("0.0 %");
-						$("#type_facture").text("DETAIL");
-					});
-
-				} else {
-					toastr.warning("LE NOM DU CLIENT");
-				}
-
-			} else {
-
-				toastr.warning("Rien à enregistrer");
-			}
-		});
-
+	
 		//add store information
 
 		$("body").on("click", "#btn_add_store", function(e) {
