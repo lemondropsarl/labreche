@@ -124,7 +124,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 			<table class="table table-bordered table-hover print">
 				<thead class="text-center">
-					<tr class="">
+					<tr class="bg-dark">
 						<th>DESIGNATION</th>
 						<th>QUANTITE</th>
 						<th>P.UNITAIRE</th>
@@ -132,16 +132,18 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</tr>
 				</thead>
 				<tbody id="facture_corp"></tbody>
-				<tfoot class="facture_footer" >
-					<tr class="text-center">
-					    <td>TYPE FACTURE</td>
-						<td>REDUCTION</td>
-						<td colspan="2">TOTAUX</td>
+				<tfoot class="facture_footer">
+					<tr>
+						<td class="bg-dark">REDUCTION</td>
+						<td id="reduction_aff" colspan="3">0.0%</td>
 					</tr>
-					<tr class="text-center">
-						<td id="type_facture">DETAIL</td>
-						<td id="reduction_aff">0.0%</td>
-						<td id="totaux_facture_usd" data-totaux="0" colspan="2">0 USD</td>
+					<tr>
+						<td class="bg-dark">TOTAUX</td>
+						<td id="totaux_facture_usd" data-totaux="0" colspan="3">0 USD</td>
+					</tr>
+					<tr>
+						<td class="bg-dark">TYPE FACTURE</td>
+						<td id="type_facture" colspan="3">DETAIL</td>
 					</tr>
 				</tfoot>
 			</table>
@@ -156,19 +158,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 			</div>
 
 			<div class="row non_print" style="margin-bottom: 2%">
-				<div class="col-3">
-					<button class="btn btn-danger print text-uppercase" id="btn_nouvelle_fac">
+				<div class="col-5">
+					<button class="btn btn-danger print  form-control" id="btn_nouvelle_fac">
 						Nouvelle <i class="fas fa-file"></i>
 					</button>
 				</div>
 				<div class="col-5">
-					<button class="btn btn-success text-uppercase" id="print-facture">
-						Imprimer & Enregistrer <i class="fas fa-print"></i>
-					</button>
-				</div>
-				<div class="col-3">
-					<button class="btn btn-primary print text-uppercase" id="save-facture">
-						Enregistrer<i class="fas fa-save"></i>
+					<button class="btn btn-success text-uppercase form-control" id="print-facture">
+						Imprimer<i class="fas fa-print"></i>
 					</button>
 				</div>
 			</div>
