@@ -43,25 +43,10 @@ var global_sales = JSON.parse(`<?php echo $global_sales_chart ?>`);
 			datasets:[{
 				label: "Vente mensuel",
             data: global_sales.data,
-            backgroundColor: [
-              "#DEB887",
-              "#A9A9A9",
-              "#DC143C",
-              "#F4A460",
-              "#2E8B57",
-              "#1D7A46",
-              "#CDA776",
-            ],
-            borderColor: [
-              "#CDA776",
-              "#989898",
-              "#CB252B",
-              "#E39371",
-              "#1D7A46",
-              "#F4A460",
-              "#CDA776",
-            ],
-            borderWidth: [1, 1, 1, 1, 1,1,1]
+            fill : false,
+            backgroundColor: 'RGBA(255,42,80,0.4)',
+            borderColor: 'RGBA(138,42,80,0.4)',
+            borderWidth: [2, 2, 2, 2, 2,2,2]
 			}]
 		};
 		var options ={
@@ -69,8 +54,8 @@ var global_sales = JSON.parse(`<?php echo $global_sales_chart ?>`);
         title: {
           display: true,
           position: "top",
-          text: "Evolution global",
-          fontSize: 18,
+          text: "Evolution global USD",
+          fontSize: 16,
           fontColor: "#111"
         },
         legend: {
