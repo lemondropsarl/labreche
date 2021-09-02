@@ -9,6 +9,33 @@ class pos_model extends CI_Model
 		$this->load->database();
 	}
 
+	public function get_pos_sales()
+	{
+		$sql = "SELECT 
+		`pos`.`pos_name` as `pos`,
+		SUM(`inv_total_amount`) as `sales`
+		FROM `invoice`, `pos`
+		WHERE `invoice`.`inv_pos_id` = `pos`.`pos_ws_id` AND  month(`inv_datetime`) = month(NOW()) 
+		 GROUP BY
+		 `invoice`.`inv_pos_id`";
+		 $query = $this->db->query($sql);
+		 
+		 return $query->result_array();
+		 
+	}
+	public function get_global_sales()
+	{
+		$sql ="SELECT 
+		MONTHNAME(`inv_datetime`) as `month_name`,
+		SUM(`inv_total_amount`) as `sales`
+		FROM `invoice`
+		WHERE year(`inv_datetime`) = year(NOW()) 
+		 GROUP BY
+		 MONTHNAME(`inv_datetime`)";
+		 $query = $this->db->query($sql);
+		 return $query->result_array();
+	 
+	}
 	public function get_list_refunds_admin()
 	{
 		$sql = "SELECT 
@@ -168,23 +195,23 @@ class pos_model extends CI_Model
 	}
 	public function get_daily_sales($pos_id)
 	{
-		$date = date("Y-m-d");
+		
 		//retirer le taux
 		$rate  = $this->db->get('currency_rate')->row_array();
 		
 		
 		$sql = "SELECT SUM(`inv_total_amount`) as `total`
 		FROM `invoice`
-		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DATE(inv_datetime) ='".$date."'"." and devise= 'USD'";
+		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DAY(inv_datetime) = DAY(NOW())";
 		 $usd = $this->db->query($sql); 
 		 $sales_usd = $usd->row_array();
 
-		 $sql2 = "SELECT SUM(`inv_total_amount`) as `total`
+		 /*$sql2 = "SELECT SUM(`inv_total_amount`) as `total`
 		FROM `invoice`
 		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DATE(inv_datetime) ='".$date."'"." and devise= 'CDF'";
 		 $cdf = $this->db->query($sql2); 
-		 $sales_cdf = $usd->row_array();
-		 return $sales_usd['total'] + ($sales_cdf['total']/$rate['rate']);
+		 $sales_cdf = $usd->row_array();*/
+		 return $sales_usd['total'];
 	}
 	public function get_list_pr_stock()
 	{

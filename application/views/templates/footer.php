@@ -32,9 +32,8 @@ $this->app = $this->config->item('application', 'app');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js') ?>"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<!--script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script-->
 <script src="<?php echo base_url('assets/dist/js/warehouse.js') ?>"></script>
-<script src="<?php echo base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/chart.js/Chart.js')?>"></script>
 <!-- jQuery -->
 <!-- Bootstrap 4 -->
 <!-- Select2 -->

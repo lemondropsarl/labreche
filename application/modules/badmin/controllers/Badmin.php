@@ -17,18 +17,16 @@ class Badmin extends MX_Controller {
 			redirect('auth/login');
 		}
         
-        $siteLang = $this->session->userdata('site_lang');
-        if ($siteLang) {
+       // $siteLang = $this->session->userdata('site_lang');
+        /*if ($siteLang) {
 		  
            $this->lang->load('main',$siteLang);
            $this->lang->load('ion_auth',$siteLang);
-        } else {
+        } */
 		  
            $this->lang->load('main','french');
            $this->lang->load('ion_auth','french');
-
-        }
-        
+           $this->lang->load('auth_lang','french');   
         if( ! $this->ion_auth_acl->has_permission('A') )
             redirect('dashboard');
     }
