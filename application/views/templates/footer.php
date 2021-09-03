@@ -668,8 +668,8 @@ $this->app = $this->config->item('application', 'app');
 			let devise = $(this).data("pr_devise");
 			let price = parseFloat($(this).data("pr_price"));
 			let qty = parseInt($(this).data("pr_qty"));
-			$("#reduction").val(1); //initialisation du champ reduction à 1
-			$("#reduction_aff").text("0.0 %");
+			$("#reduction").val(0); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0%");
 			///
 			let qty_commander = 1;
 			//add ligne facture
@@ -718,12 +718,14 @@ $this->app = $this->config->item('application', 'app');
 			let reduction = $(this).val();
 			let totaux_reduit = 0;
 			let totaux_de_totaux = 0;
-			let totaux_v = (parseFloat($("#totaux_facture_usd").text().substring(0, $("#totaux_facture_usd").text().length - 3))).toFixed(2);
+			let totaux_v =get_totaux();// (parseFloat($("#totaux_facture_usd").text().substring(0, $("#totaux_facture_usd").text().length - 3)));
+		
 			$("#reduction_aff").text(reduction + '%');
 			if (reduction <= 1) {
 				totaux();
 			} else {
-				totaux_reduit = (totaux_v / 100) * reduction;
+				totaux_reduit = (totaux_v / 100);
+				totaux_reduit=totaux_reduit*reduction;
 				totaux_de_totaux = (totaux_v - totaux_reduit).toFixed(2);
 				$("#totaux_facture_usd").text((totaux_de_totaux) + ' USD');
 			}
@@ -741,8 +743,8 @@ $this->app = $this->config->item('application', 'app');
 				$(".pt_" + id).text(prix_total + " " + devise);
 			} else {
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
-				$("#reduction").val(1); //initialisation du champ reduction à 1
-				$("#reduction_aff").text("0.0 %");
+				$("#reduction").val(0); //initialisation du champ reduction à 1
+				$("#reduction_aff").text("0 %");
 
 			}
 			//
@@ -816,8 +818,8 @@ $this->app = $this->config->item('application', 'app');
 
 		$("body").on("click", "#btn_nouvelle_fac", function() {
 			vider_facture();
-			$("#reduction").val(1); //initialisation du champ reduction à 1
-			$("#reduction_aff").text("0.0 %");
+			$("#reduction").val(0); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0%");
 		});
 		//get devise totaux de totaux
 		function get_devise_paye() {
@@ -862,8 +864,8 @@ $this->app = $this->config->item('application', 'app');
 						refresh_liste_product();
 						vider_facture();
 						numero_facature(); //on charche le nullero de la facture
-						$("#reduction").val(1); //initialisation du champ reduction à 1
-						$("#reduction_aff").text("0.0 %");
+						$("#reduction").val(0); //initialisation du champ reduction à 1
+						$("#reduction_aff").text("0 %");
 						$("#type_facture").text("DETAIL");
 					});
 
