@@ -852,6 +852,7 @@ $this->app = $this->config->item('application', 'app');
 			vider_facture();
 			$("#reduction").val(0); //initialisation du champ reduction à 1
 			$("#reduction_aff").text("0%");
+			location.reload();
 		});
 		//get devise totaux de totaux
 		function get_devise_paye() {
@@ -899,6 +900,7 @@ $this->app = $this->config->item('application', 'app');
 						$("#reduction").val(0); //initialisation du champ reduction à 1
 						$("#reduction_aff").text("0 %");
 						$("#type_facture").text("DETAIL");
+						location.reload();
 					});
 
 				} else {
