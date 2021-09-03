@@ -33,7 +33,7 @@ $this->app = $this->config->item('application', 'app');
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="<?php echo base_url('assets/dist/js/warehouse.js') ?>"></script>
-<script src="<?php echo base_url('assets/plugins/chart.js/Chart.js')?>"></script>
+<script src="<?php echo base_url('assets/plugins/chart.js/Chart.js') ?>"></script>
 <!-- jQuery -->
 <!-- Bootstrap 4 -->
 <!-- Select2 -->
@@ -459,9 +459,41 @@ $this->app = $this->config->item('application', 'app');
 			$("#date_entree").val("");
 		});
 
-		$("#zone_entree,#etagere_produit").on("change", function() {
-			//let desc = $("#description_zone").val();
-			//$("#description_zone").text(desc + " " + $(this).val());
+		function zone(id_v) {
+			const id = id_v;
+			$.get('<?php echo base_url("warehouse/create_entry_in") ?>', {
+				id: id
+			}, function(data) {
+				return data;
+			});
+
+		}
+		$("#zone_entree").on("change", function() {
+			let zone = $.trim($("#zone_entree option:selected").text());
+			let etagere = $.trim($("#etagere_produit option:selected").text());
+			if (zone.length > 4) {
+				if ($("#etagere_produit option:selected").val() == "") {
+					$("#description_zone").text(zone);
+				} else {
+					$("#description_zone").text(zone + "," + etagere);
+				}
+			} else {
+				$("#description_zone").empty();
+			}
+		});
+		$("#etagere_produit").on("change", function() {
+			let etagere = $.trim($("#etagere_produit option:selected").text());
+			if (etagere.length > 7) {
+				if ($("#zone_entree").val() == "") {
+					toastr.warning("LA ZONE EST VIDE");
+				} else {
+					let desc = $.trim($("#zone_entree option:selected").text() + " , " + etagere);
+					$("#description_zone").text($.trim(desc));
+				}
+			} else {
+				$("#description_zone").empty();
+			}
+
 		});
 
 		$("body").on("click", "#valider_entree", function(e) {
@@ -718,14 +750,14 @@ $this->app = $this->config->item('application', 'app');
 			let reduction = $(this).val();
 			let totaux_reduit = 0;
 			let totaux_de_totaux = 0;
-			let totaux_v =get_totaux();// (parseFloat($("#totaux_facture_usd").text().substring(0, $("#totaux_facture_usd").text().length - 3)));
-		
+			let totaux_v = get_totaux();
+
 			$("#reduction_aff").text(reduction + '%');
 			if (reduction <= 1) {
 				totaux();
 			} else {
 				totaux_reduit = (totaux_v / 100);
-				totaux_reduit=totaux_reduit*reduction;
+				totaux_reduit = totaux_reduit * reduction;
 				totaux_de_totaux = (totaux_v - totaux_reduit).toFixed(2);
 				$("#totaux_facture_usd").text((totaux_de_totaux) + ' USD');
 			}
@@ -878,7 +910,7 @@ $this->app = $this->config->item('application', 'app');
 			}
 
 		});
-	
+
 		//add store information
 
 		$("body").on("click", "#btn_add_store", function(e) {
