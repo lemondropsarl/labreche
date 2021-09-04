@@ -53,21 +53,13 @@ class Dashboard extends MX_Controller {
 		//Get different data
 		$data['global_sales_chart']		= $this->global_sales_chart();
 		$data['pos_sales_chart']		= $this->pos_sales_chart();
-		$data['overview_chart']		= $this->product_overview_chart();
+		$data['psold']				= $this->pos_model->get_product_sold();
 		$this->load->view('templates/header',$data);
 		$this->load->view('index',$data);
 		$this->load->view('templates/footer');
 		
 	}
-	function product_overview_chart(){
-		$record = $this->pos_model->get_product_sold();
-		$data = [];
-		foreach ($record as $row) {
-			$data['label'][] = $row['pname'];
-			$data['data'][] = $row['quantity'];
-		}
-		return json_encode($data);
-	}
+	
 	function global_sales_chart()
 	{
 		$record = $this->pos_model->get_global_sales();

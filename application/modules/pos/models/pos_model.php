@@ -12,12 +12,15 @@ class pos_model extends CI_Model
 public function get_product_sold()
 {
 	$sql = "SELECT 
+	`product`.`product_code` as `pcode`,
 	`product`.`product_name` as `pname`,
 	SUM(`product_in_invoice`.`pi_quantity`) as `quantity`
 	FROM `product`, `product_in_invoice`
 	WHERE `product`.`product_id` = `product_in_invoice`.`pi_product_id`
 	 GROUP BY
-	 `product_in_invoice`.`pi_product_id`";
+	 `product_in_invoice`.`pi_product_id`
+	 ORDER BY
+	SUM(`product_in_invoice`.`pi_quantity`) DESC";
 	 $query = $this->db->query($sql);	 
 	 return $query->result_array();
 	 
