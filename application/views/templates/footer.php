@@ -868,6 +868,8 @@ $this->app = $this->config->item('application', 'app');
 			let commandes = [];
 			let commande = {};
 			let discount_amount = $("#reduction").val();
+			let type_facture=$("#type_facture_select").val();
+
 			if (count_ligne_facture() > 0) {
 				if ($("#client").val() != "") {
 					for (i = 0; i < count_ligne_facture(); i++) {
@@ -889,7 +891,8 @@ $this->app = $this->config->item('application', 'app');
 						totaux: get_totaux(),
 						commandes: commandes,
 						devise: get_devise_paye(),
-						discount_amount: discount_amount
+						discount_amount: discount_amount,
+						type_facture:type_facture
 					}, function(data) {
 
 						toastr.success("Facture imprimer");
