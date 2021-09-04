@@ -115,25 +115,6 @@ class Migration_initial_pos extends CI_Migration {
         $this->dbforge->add_key('id',TRUE);
         $this->dbforge->create_table($this->tables['user_pos'],TRUE);
 
-        $this->dbforge->drop_table($this->tables['refund_invoice'],TRUE);
-        $this->dbforge->add_field([
-            'refund_id' => [
-                'type'  => 'MEDIUMINT',
-                'constraint'    => '4',
-                'auto_increment'    => TRUE
-            ],
-            'ref_inv_id' =>[
-                'type' => 'MEDIUMINT',
-                'constraint'    => '4'
-            ],
-            'refund_status' =>[
-                'type' => 'boolean',
-                'default'   => 0
-            ]
-        ]);
-        $this->dbforge->add_key('refund_id',TRUE);
-        $this->dbforge->create_table($this->tables['refund_invoice'],TRUE);
-
         //add one constraint
         $query = 'ALTER TABLE'.' '.$this->tables['invoice'].'  '.
         'ADD CONSTRAINT fk_pos_id FOREIGN KEY (inv_pos_id) REFERENCES'.' '.$this->tables['pos'].' '.' (pos_id)';
