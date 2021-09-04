@@ -221,7 +221,7 @@ class Migration_initial_pos extends CI_Migration {
                 'url'	=> 'pos/list_refund',
                 'icon'  => 'material-icons',
 				'icon-name'	=> 'apps',
-				'text'	=> 'Liste remboursement',
+				'text'	=> 'Remboursement',
 				'parent'=> 'pos',
 				'order' => 440,
 				'perm_key'=> 'R'
