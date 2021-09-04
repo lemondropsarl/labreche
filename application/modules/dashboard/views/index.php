@@ -13,6 +13,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         <div class="col-md-6">
           <canvas id="pos_sales_chart" height="200px"></canvas>
         </div>
+        <div class="col-md-12">
+          <canvas id="p_overview"></canvas>
+        </div>
 				
 			</div>
 			
@@ -34,7 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 <script type="text/javascript">
 
 //global_sales
-var global_sales = JSON.parse(`<?php echo $global_sales_chart ?>`);
+  var global_sales = JSON.parse(`<?php echo $global_sales_chart ?>`);
 	var ctx = document.getElementById('sales_chart');
 	
 		//chart data
@@ -79,21 +82,60 @@ var global_sales = JSON.parse(`<?php echo $global_sales_chart ?>`);
     var pos_sales = JSON.parse(`<?php echo $pos_sales_chart ?>`);
 	  var posChart = document.getElementById('pos_sales_chart');
     const pos_data = {
-  labels: pos_sales.label,
-  datasets: [{
-    label: 'Point de vente',
-    data: pos_sales.data,
-    backgroundColor: [
-      'rgb(255, 99, 132)',
-      'rgb(54, 162, 235)',
-      'rgb(255, 205, 86)'
-    ],
-    hoverOffset: 4
-  }]
+      labels: pos_sales.label,
+      datasets: [{
+        label: 'Point de vente',
+        data: pos_sales.data,
+        backgroundColor: [
+          'rgb(255, 99, 132)',
+          'rgb(54, 162, 235)',
+          'rgb(255, 205, 86)'
+        ],
+        hoverOffset: 4
+      }]
 };
 const config_pos = {
   type: 'pie',
   data: pos_data,
 };
 var pos_salesChart = new Chart(posChart, config_pos);
+
+//product overview chart
+var overview = JSON.parse(`<?php echo $overview_chart ?>`);
+var overviewChart = document.getElementById('p_overview');
+ const overData = {
+    labels : overview.label,
+    datasets : [{
+      label : 'produit les plus vendu',
+      data : overview.data,
+      backgroundColor : 'rgba(153, 102, 255, 0.2)',
+      borderColor : 'rgb(153, 102, 255)',
+      borderWidth : 1
+    }]
+ };
+ const overviewConfig ={
+  type: 'bar',
+  data: overData,
+  options: {
+    indexAxis: 'y',
+    // Elements options apply to all of the options unless overridden in a dataset
+    // In this case, we are setting the border of each horizontal bar to be 2px wide
+    elements: {
+      bar: {
+        borderWidth: 2,
+      }
+    },
+    responsive: true,
+    plugins: {
+      legend: {
+        position: 'right',
+      },
+      title: {
+        display: true,
+        text: 'Chart.js Horizontal Bar Chart'
+      }
+    }
+  },
+ };
+ var overviewChart = new Chart(overData,overviewConfig);
 </script>
