@@ -423,6 +423,16 @@ $this->app = $this->config->item('application', 'app');
 			});
 
 		}
+		function search_product_vehicule(id) {
+
+$.get('<?php echo base_url("product/search_by_veh") ?>', {
+	id: id,
+}, function(data) {
+
+	$("#contenair_products").html(data);
+});
+
+}
 		//function list product if de search box is empty
 		function list_product() {
 			$.get('<?php echo base_url("product/list_product") ?>', function(data) {
@@ -450,6 +460,16 @@ $this->app = $this->config->item('application', 'app');
 			} else {
 
 				search_product_cat(categorie);
+			}
+
+		});
+		$("body").on("change", "#id_vehicule_drop_down", function() {
+			const vehicule= $(this).val();
+			if (vehicule === "") {
+				list_product();
+			} else {
+
+				search_product_vehicule(vehicule);
 			}
 
 		});

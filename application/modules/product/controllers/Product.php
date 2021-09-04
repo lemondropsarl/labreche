@@ -71,6 +71,7 @@ class Product extends MX_Controller
 		$data['title']					=  'Articles';
 		$data['products']               = $this->product_model->get_all_products();
 		$data['categories']               = $this->product_model->get_categories();
+		$data['vehicules']               = $this->product_model->get_vehicules();
 		$data["rate"] = $this->pos_model->get_rate();
 
 		//$data['count_p_moteur']			= $this->product_model->count_by_engine();
@@ -168,6 +169,24 @@ class Product extends MX_Controller
 		# code...
 		$code = $this->input->get('id');
 		$products = $this->product_model->get_product_by_cat($code);
+
+		foreach ($products as $item) {
+		?>
+			<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
+				<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
+				<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
+				<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
+				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
+				<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
+			</tr>
+		<?php
+		}
+	}
+	public function search_by_veh()
+	{
+		# code...
+		$code = $this->input->get('id');
+		$products = $this->product_model->get_product_by_veh($code);
 
 		foreach ($products as $item) {
 		?>

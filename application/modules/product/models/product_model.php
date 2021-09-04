@@ -90,6 +90,11 @@ class product_model extends CI_Model
 		$query = $this->db->get_where('product', array('product_cat_id' => $cat_id));
 		return $query->result_array();
 	}
+	public function get_product_by_veh($veh_id)
+	{
+		$query = $this->db->get_where('product', array('product_vehicule_id' => $veh_id));
+		return $query->result_array();
+	}
 	public function count_by_engine($cat_id)
 	{
 		$this->db->where('product_cat_id', $cat_id);

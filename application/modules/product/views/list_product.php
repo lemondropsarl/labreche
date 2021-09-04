@@ -51,7 +51,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="row" style="margin-top:1%;">
-						<div class="col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
+					<div class="col-md-4 col-sm-10 col-xs-10 offset-md-1 form-group">
+							<select class="form-control" id='id_vehicule_drop_down'>
+								<option value="">VEHICULE</option>
+								<?php foreach ($vehicules as $item) { ?>
+									<option value="<?php echo $item['vehicule_id']; ?>"><?php echo $item['vehicule_brand']; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="col-md-3 col-sm-10 col-xs-10  form-group">
 							<select class="form-control" id='id_categorie_drop_down'>
 								<option value="">CATEGORIE</option>
 								<?php foreach ($categories as $item) { ?>
@@ -59,7 +67,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<?php } ?>
 							</select>
 						</div>
-						<div class="col-md-5 col-sm-10 col-xs-10 form-group">
+						<div class="col-md-3 col-sm-10 col-xs-10 form-group">
 							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
