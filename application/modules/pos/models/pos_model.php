@@ -34,23 +34,21 @@ public function get_product_sold()
 		WHERE `invoice`.`inv_pos_id` = `pos`.`pos_ws_id` AND  month(`inv_datetime`) = month(NOW()) 
 		 GROUP BY
 		 `invoice`.`inv_pos_id`";
-		 $query = $this->db->query($sql);
-		 
-		 return $query->result_array();
-		 
+		$query = $this->db->query($sql);
+
+		return $query->result_array();
 	}
 	public function get_global_sales()
 	{
-		$sql ="SELECT 
+		$sql = "SELECT 
 		MONTHNAME(`inv_datetime`) as `month_name`,
 		SUM(`inv_total_amount`) as `sales`
 		FROM `invoice`
 		WHERE year(`inv_datetime`) = year(NOW()) 
 		 GROUP BY
 		 MONTHNAME(`inv_datetime`)";
-		 $query = $this->db->query($sql);
-		 return $query->result_array();
-	 
+		$query = $this->db->query($sql);
+		return $query->result_array();
 	}
 	public function get_list_refunds_admin()
 	{
@@ -66,8 +64,8 @@ public function get_product_sold()
 		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
 		 and `invoice`.`invoice_id` in (SELECT `ref_inv_id` FROM `refund_invoice`)
 		 ORDER BY `invoice`.`inv_datetime` DESC";
-		 $query = $this->db->query($sql);
-		return $query->result_array();	
+		$query = $this->db->query($sql);
+		return $query->result_array();
 	}
 	public function get_list_refunds($pos_id)
 	{
@@ -81,11 +79,11 @@ public function get_product_sold()
 		`invoice`.`inv_datetime` as `date`
 		 FROM (`pos`, `invoice`) 
 		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
-		 and (`invoice`.`inv_pos_id` =".$pos_id.")
+		 and (`invoice`.`inv_pos_id` =" . $pos_id . ")
 		 and `invoice`.`invoice_id` in (SELECT `ref_inv_id` FROM `refund_invoice`)
 		 ORDER BY `invoice`.`inv_datetime` DESC";
-		 $query = $this->db->query($sql);
-		return $query->result_array();		
+		$query = $this->db->query($sql);
+		return $query->result_array();
 	}
 	public function is_refund_exist($invoice_id)
 	{
@@ -93,7 +91,7 @@ public function get_product_sold()
 		$query = $this->db->get('refund_invoice');
 		if ($query->num_rows() > 0) {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -104,8 +102,8 @@ public function get_product_sold()
 	public function get_refund_byID($invoice_id)
 	{
 		$this->db->where('ref_inv_id', $invoice_id);
-		$query = $this->db->get('refund_invoice');	
-		return $query->row_array();	
+		$query = $this->db->get('refund_invoice');
+		return $query->row_array();
 	}
 	public function get_inv_byID($invoice_id)
 	{
@@ -116,18 +114,19 @@ public function get_product_sold()
 	public function get_inv_details($inv_id)
 	{
 		$sql = "SELECT 
+		`product`.`product_id` as  `id`,
 		`product`.`product_name` as `pname`,
 		`product`.`unit_price` as `uprice`,
 		`product_in_invoice`.`pi_quantity` as `quantity`,
+		`product_in_invoice`.`pi_invoice_id` as `pi_invoice_id`, 
 		(`product`.`unit_price` * `product_in_invoice`.`pi_quantity`) as `total`
 		 FROM (`product`, `product_in_invoice`) 
-		 WHERE (`product`.`product_id` = `product_in_invoice`.`pi_product_id`) and (`product_in_invoice`.`pi_invoice_id` =".$inv_id.")
-		 and `product`.`product_id` IN ( SELECT `product_in_invoice`.`pi_product_id` FROM `product_in_invoice` WHERE `product_in_invoice`.`pi_invoice_id` =".$inv_id.")
+		 WHERE (`product`.`product_id` = `product_in_invoice`.`pi_product_id`) and (`product_in_invoice`.`pi_invoice_id` =" . $inv_id . ")
+		 and `product`.`product_id` IN ( SELECT `product_in_invoice`.`pi_product_id` FROM `product_in_invoice` WHERE `product_in_invoice`.`pi_invoice_id` =" . $inv_id . ")
 		 ";
-		 $query = $this->db->query($sql);
-		 
-		 return $query->result_array();
-		 
+		$query = $this->db->query($sql);
+
+		return $query->result_array();
 	}
 	public function get_list_invoices($pos_id)
 	{
@@ -139,10 +138,10 @@ public function get_product_sold()
 		`invoice`.`inv_datetime` as `date`
 		 FROM (`pos`, `invoice`) 
 		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
-		 and (`invoice`.`inv_pos_id` =".$pos_id.")
+		 and (`invoice`.`inv_pos_id` =" . $pos_id . ")
 		 ORDER BY `invoice`.`inv_datetime` DESC";
-		 $query = $this->db->query($sql);
-		return $query->result_array();		
+		$query = $this->db->query($sql);
+		return $query->result_array();
 	}
 	public function add_prods_in_invoice($model)
 	{
@@ -172,7 +171,7 @@ public function get_product_sold()
 		  (
 			`product`.`product_id` = `warehouse_stock`.`ws_product_id`
 		  )
-		  AND `warehouse_stock`.`warehouse_id` =".$pos_id."
+		  AND `warehouse_stock`.`warehouse_id` =" . $pos_id . "
 		  and (
 			`product`.`min_qty` = `warehouse_stock`.`ws_quantity`
 		  )
@@ -180,9 +179,8 @@ public function get_product_sold()
 		ORDER BY
 		`product`.`product_name`";
 		$query = $this->db->query($sql);
-		
+
 		return $query->result_array();
-		
 	}
 	public function count_critical_stock_pos($pos_id)
 	{
@@ -196,7 +194,7 @@ public function get_product_sold()
 		  WHERE
 		  (
 			`product`.`product_id` = `warehouse_stock`.`ws_product_id` AND
-			`warehouse_stock`.`warehouse_id` =".$pos_id."
+			`warehouse_stock`.`warehouse_id` =" . $pos_id . "
 			
 			and (
 			  `product`.`min_qty` = `warehouse_stock`.`ws_quantity`
@@ -204,30 +202,28 @@ public function get_product_sold()
 		  )
 		  GROUP BY
 		  `warehouse_stock`.`ws_product_id`";
-		  $query = $this->db->query($sql);
-		  return $query->row_array();
-		 
-		 
+		$query = $this->db->query($sql);
+		return $query->row_array();
 	}
 	public function get_daily_sales($pos_id)
 	{
-		
+
 		//retirer le taux
 		$rate  = $this->db->get('currency_rate')->row_array();
-		
-		
+
+
 		$sql = "SELECT SUM(`inv_total_amount`) as `total`
 		FROM `invoice`
-		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DAY(inv_datetime) = DAY(NOW())";
-		 $usd = $this->db->query($sql); 
-		 $sales_usd = $usd->row_array();
+		 WHERE `inv_pos_id` =" . $pos_id . " and status = 1 AND DAY(inv_datetime) = DAY(NOW())";
+		$usd = $this->db->query($sql);
+		$sales_usd = $usd->row_array();
 
-		 /*$sql2 = "SELECT SUM(`inv_total_amount`) as `total`
+		/*$sql2 = "SELECT SUM(`inv_total_amount`) as `total`
 		FROM `invoice`
 		 WHERE `inv_pos_id` =".$pos_id." and status = 1 AND DATE(inv_datetime) ='".$date."'"." and devise= 'CDF'";
 		 $cdf = $this->db->query($sql2); 
 		 $sales_cdf = $usd->row_array();*/
-		 return $sales_usd['total'];
+		return $sales_usd['total'];
 	}
 	public function get_list_pr_stock()
 	{
@@ -304,8 +300,8 @@ public function get_product_sold()
         from(  
            `product`, `warehouse_stock`
         ) 
-        WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`) 
-         GROUP BY `product`.`product_id`";
+        WHERE (`warehouse_stock`.`warehouse_id` =" . $ws_id . ") and (`warehouse_stock`.`ws_product_id` = `product`.`product_id`)
+         GROUP BY `product`.`product_id` LIMIT 0,50";
 		}
 		return $this->db->query($query)->result_array();
 	}

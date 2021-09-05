@@ -423,16 +423,17 @@ $this->app = $this->config->item('application', 'app');
 			});
 
 		}
+
 		function search_product_vehicule(id) {
 
-$.get('<?php echo base_url("product/search_by_veh") ?>', {
-	id: id,
-}, function(data) {
+			$.get('<?php echo base_url("product/search_by_veh") ?>', {
+				id: id,
+			}, function(data) {
 
-	$("#contenair_products").html(data);
-});
+				$("#contenair_products").html(data);
+			});
 
-}
+		}
 		//function list product if de search box is empty
 		function list_product() {
 			$.get('<?php echo base_url("product/list_product") ?>', function(data) {
@@ -464,7 +465,7 @@ $.get('<?php echo base_url("product/search_by_veh") ?>', {
 
 		});
 		$("body").on("change", "#id_vehicule_drop_down", function() {
-			const vehicule= $(this).val();
+			const vehicule = $(this).val();
 			if (vehicule === "") {
 				list_product();
 			} else {
@@ -888,7 +889,7 @@ $.get('<?php echo base_url("product/search_by_veh") ?>', {
 			let commandes = [];
 			let commande = {};
 			let discount_amount = $("#reduction").val();
-			let type_facture=$("#type_facture_select").val();
+			let type_facture = $("#type_facture_select").val();
 
 			if (count_ligne_facture() > 0) {
 				if ($("#client").val() != "") {
@@ -912,7 +913,7 @@ $.get('<?php echo base_url("product/search_by_veh") ?>', {
 						commandes: commandes,
 						devise: get_devise_paye(),
 						discount_amount: discount_amount,
-						type_facture:type_facture
+						type_facture: type_facture
 					}, function(data) {
 
 						toastr.success("Facture imprimer");
@@ -983,8 +984,6 @@ $.get('<?php echo base_url("product/search_by_veh") ?>', {
 
 			);
 
-
-
 		});
 		numero_facature(); //on charche le nullero de la facture
 		function numero_facature() {
@@ -993,6 +992,22 @@ $.get('<?php echo base_url("product/search_by_veh") ?>', {
 					$("#numero_facture").text(data);
 				});
 		}
+
+		$("body").on("click", "#bt_rembourser", function(e) {
+			e.preventDefault();
+			let nombre_produit = $(".ligne_rembourser").length;
+			let quantite = 0;
+			let produit_id = 0;
+			let numero_facture=$(".ligne_rembourser").data("facture");
+		    
+
+			for (i = 0; i < nombre_produit; i++) {
+				quantite = $(".ligne_rembourser" + (i + 1)).data("quantite" + (i + 1));
+				produit_id = $(".ligne_rembourser" + (i + 1)).data("id" + (i + 1));
+
+
+			}
+		});
 	})();
 </script>
 
