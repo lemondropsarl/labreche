@@ -1,7 +1,5 @@
 <?php 
 defined('BASEPATH') OR exit('No direct script access allowed');
-
-
 class Migration_initial_app extends CI_Migration {
 
     public function __construct()
@@ -41,7 +39,6 @@ class Migration_initial_app extends CI_Migration {
 		]);
 		$this->dbforge->add_key('id',TRUE);
 		$this->dbforge->create_table('ci_sessions');
-
 		$this->dbforge->drop_table('navigation_menu',TRUE);
 		$this->dbforge->add_field([
 			'id'=>[

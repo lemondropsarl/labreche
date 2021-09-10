@@ -34,7 +34,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 											<td><?php echo $item['pname'] ?></td>
 											<td><?php echo $item['quantity'] ?></td>
 											<td><?php echo $item['uprice'] ?></td>
-											<td class="text-md-right"><?php echo $item['total'] ?></td>
+											<td class="text-md-right"><?php echo $item['total']?></td>
 										</tr>
 									<?php
 										$num++;

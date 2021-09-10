@@ -16,7 +16,6 @@ class Pos extends MX_Controller
 		$this->load->model('setting/setting_model');
 
 		$this->load->model('pos_model');
-
 		$this->load->helper('url');
 		$this->load->helper('path');
 		$this->load->helper('form');
@@ -36,15 +35,11 @@ class Pos extends MX_Controller
 			$this->posID = $query['pos_id'];
 		}
 
-
-
 		$siteLang = $this->session->userdata('site_lang');
 		if ($siteLang) {
-
 			$this->lang->load('main', $siteLang);
 			$this->lang->load('ion_auth', $siteLang);
 		} else {
-
 			$this->lang->load('main', 'french');
 			$this->lang->load('ion_auth', 'french');
 		}
@@ -53,8 +48,25 @@ class Pos extends MX_Controller
 
 	public function approve_refund()
 	{
-		// c'est ici qu'il faut faire le reverse de la facture
+		$invoice_id = $this->input->get('numero_facture');
+		$prod_id = $this->input->get('prod_id'); //tableau
+		$quantite_prod = $this->input->get('quantite'); //tableau
+		$pos_id = $this->posID;
 
+		// $this->pos_model->refund($post_id,$prod_id,$quantite_prod);
+		//$this->pos_model->delete_inv_byID($post_id, $invoice_id);
+		//$this->pos_model->delete_product_inv_byID($invoice_id);
+		//echo $numeroFacture; 
+		// c'est ici qu'il faut faire le reverse de la facture
+		$nombre = 0;
+		foreach ($prod_id as $i) {
+			$quantite_actuel = (int)$this->pos_model->get_qty($pos_id, $i);
+			$quantite_update = $quantite_actuel + $quantite_prod[$nombre];
+			$this->pos_model->update_qty_pos($i, $pos_id, array('ws_quantity' => (int)$quantite_update)); //invoice		
+
+			$nombre++;
+		}
+		$this->pos_model->update_status_invoice($pos_id,$invoice_id,array('status' => 0));
 	}
 	public function list_refund()
 	{
@@ -63,15 +75,10 @@ class Pos extends MX_Controller
 		$data['menus']			  	   =   $this->nav_model->get_nav_menus();
 		$data['subs']				   =   $data['menus'];
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
-		$data['title']					=  'Remboursement facture';
-		if ($this->ion_auth_acl->has_permission('A')) {
-		$data['invoices']				= $this->pos_model->get_list_refunds_admin();
-		}else {
-			
-			$data['invoices']				= $this->pos_model->get_list_refunds($this->posID);
-		}
+		$data['title']					=  'Point de vente';
+		$data['invoices']				= $this->pos_model->get_list_invoices_refund($this->posID);
 		$this->load->view('templates/header', $data);
-		$this->load->view('list_refund', $data);
+		$this->load->view('list_invoices', $data);
 		$this->load->view('templates/footer');
 	}
 	public function create_refund()
@@ -79,17 +86,12 @@ class Pos extends MX_Controller
 		$invoice_id = $this->uri->segment(3);
 		if ($this->pos_model->is_refund_exist($invoice_id) != true) {
 			# code...
-			$model = array('ref_inv_id' => $invoice_id );
+			$model = array('ref_inv_id' => $invoice_id);
 			$this->pos_model->add_refund($model);
-			
-			redirect('pos/list_invoice','refresh');
-		}else{
-			
-			redirect('pos/detail_invoice/'.$invoice_id);
-			
+			redirect('pos/list_invoice', 'refresh');
+		} else {
+			redirect('pos/detail_invoice/' . $invoice_id);
 		}
-		
-		
 	}
 	public function detail_invoice()
 	{
@@ -103,12 +105,10 @@ class Pos extends MX_Controller
 		$data['inv_details']			= $this->pos_model->get_inv_details($invoice_id);
 		$data['inv']					= $this->pos_model->get_inv_byID($invoice_id);
 		$data['invoice_id']				= $invoice_id;
-		$data['refund']					= $this->pos_model->get_refund_byID($invoice_id);
 
 		$this->load->view('templates/header', $data);
 		$this->load->view('details_invoice', $data);
 		$this->load->view('templates/footer');
-	
 	}
 	public function list_invoice()
 	{
@@ -132,7 +132,6 @@ class Pos extends MX_Controller
 		} else {
 			$pos_id = $this->posID;
 		}
-
 		// il faut utiliser la deuxieme fonction pour avoir la bonne liste de stock par POS
 		//reference POs_model
 		//$data["product_stock"] = $this->pos_model->get_list_pr_stock();
@@ -216,7 +215,7 @@ class Pos extends MX_Controller
 		$vat = $totaux * 0.16;
 		$devise =  $this->input->get('devise'); //devise
 		$discount_amount =  $this->input->get('discount_amount'); //devise
-		$type_facture=$this->input->get('type_facture');//type facture
+		$type_facture = $this->input->get('type_facture'); //type facture
 		$invoice_id = $this->pos_model->add_invoice(array(
 			"inv_pos_id" => $pos_id,
 			"inv_total_amount" => $totaux,
@@ -224,7 +223,7 @@ class Pos extends MX_Controller
 			"devise" => $devise,
 			"inv_vat_amount" => $vat,
 			"user_id" => $user_id,
-			"transaction_type"=>$type_facture
+			"transaction_type" => $type_facture
 
 		));
 		foreach ($commandes as $commande) {

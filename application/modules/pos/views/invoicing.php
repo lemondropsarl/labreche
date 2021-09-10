@@ -134,22 +134,22 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				<tbody id="facture_corp"></tbody>
 				<tfoot class="facture_footer">
 					<tr>
-						<td class="bg-dark">REDUCTION</td>
-						<td id="reduction_aff" colspan="3">0%</td>
+						<td class="bg-dark" colspan="3">REDUCTION</td>
+						<td id="reduction_aff" >0%</td>
 					</tr>
 					<tr>
-						<td class="bg-dark">TOTAUX</td>
-						<td id="totaux_facture_usd" data-totaux="0" colspan="3">0 USD</td>
+						<td class="bg-dark" colspan="3">TOTAUX</td>
+						<td id="totaux_facture_usd" data-totaux="0">0 USD</td>
 					</tr>
 					<tr>
-						<td class="bg-dark">TYPE FACTURE</td>
-						<td id="type_facture" colspan="3">DETAIL</td>
+						<td class="bg-dark" colspan="3">TYPE FACTURE</td>
+						<td id="type_facture">DETAIL</td>
 					</tr>
 				</tfoot>
 			</table>
 			<div class="non_print reduction_type_detail">
 				<label>REDUCTION </label>
-				<input type="number" name="reduction" min="0" id="reduction" class="" placeholder="REDUCTION">
+				<input type="number" name="reduction" min="0" id="reduction"  class="" placeholder="REDUCTION">
 				<label>TYPE FACTURE</label>
 				<select name="type_facture" id="type_facture_select" class="">
 					<option value="DETAIL">DETAIL</option>

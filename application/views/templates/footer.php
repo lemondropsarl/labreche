@@ -996,17 +996,23 @@ $this->app = $this->config->item('application', 'app');
 		$("body").on("click", "#bt_rembourser", function(e) {
 			e.preventDefault();
 			let nombre_produit = $(".ligne_rembourser").length;
-			let quantite = 0;
-			let produit_id = 0;
-			let numero_facture=$(".ligne_rembourser").data("facture");
-		    
+			let quantite = [];
+			let produit_id = [];
+			
+			let numero_facture = $(".ligne_rembourser").data("facture");
 
 			for (i = 0; i < nombre_produit; i++) {
-				quantite = $(".ligne_rembourser" + (i + 1)).data("quantite" + (i + 1));
-				produit_id = $(".ligne_rembourser" + (i + 1)).data("id" + (i + 1));
-
-
+				quantite[i] = $(".ligne_rembourser" + (i + 1)).data("quantite" + (i + 1));
+				produit_id[i] = $(".ligne_rembourser" + (i + 1)).data("id" + (i + 1));
 			}
+			//quantite.forEach(item=>alert(item));
+			$.get('<?php echo base_url('pos/approve_refund') ?>',{"numero_facture":numero_facture,"prod_id":produit_id,"quantite":quantite},
+				function(data) {
+					toastr.success('Facture rembourssée');
+				window.location.replace("<?php echo base_url('pos/list_invoice') ?>");
+				});
+
+
 		});
 	})();
 </script>

@@ -9,9 +9,9 @@ class pos_model extends CI_Model
 		$this->load->database();
 	}
 
-public function get_product_sold()
-{
-	$sql = "SELECT 
+	public function get_product_sold()
+	{
+		$sql = "SELECT 
 	`product`.`product_code` as `pcode`,
 	`product`.`product_name` as `pname`,
 	SUM(`product_in_invoice`.`pi_quantity`) as `quantity`
@@ -21,10 +21,9 @@ public function get_product_sold()
 	 `product_in_invoice`.`pi_product_id`
 	 ORDER BY
 	SUM(`product_in_invoice`.`pi_quantity`) DESC";
-	 $query = $this->db->query($sql);	 
-	 return $query->result_array();
-	 
-}
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
 	public function get_pos_sales()
 	{
 		$sql = "SELECT 
@@ -111,6 +110,15 @@ public function get_product_sold()
 		$query = $this->db->get('invoice');
 		return $query->row_array();
 	}
+	//delete invoice
+	public function delete_inv_byID($inv_pos_id, $invoice_id)
+	{
+		$this->db->delete(' invoice', array('invoice_id' => $invoice_id, 'inv_pos_id' => $inv_pos_id));
+	}
+	public function delete_product_inv_byID($invoice_id)
+	{
+		$this->db->delete('product_in_invoice', array("pi_invoice_id" => $invoice_id));
+	}
 	public function get_inv_details($inv_id)
 	{
 		$sql = "SELECT 
@@ -138,7 +146,22 @@ public function get_product_sold()
 		`invoice`.`inv_datetime` as `date`
 		 FROM (`pos`, `invoice`) 
 		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
-		 and (`invoice`.`inv_pos_id` =" . $pos_id . ")
+		 and (`invoice`.`inv_pos_id` =" . $pos_id . ") and (`invoice`.`status` =1)
+		 ORDER BY `invoice`.`inv_datetime` DESC";
+		$query = $this->db->query($sql);
+		return $query->result_array();
+	}
+	public function get_list_invoices_refund($pos_id)
+	{
+		$sql = "SELECT 
+		`pos`.`pos_name` as `pos`,
+		`invoice`.`invoice_id` as `inv_id`,
+		`invoice`.`transaction_type` as `type`,
+		`invoice`.`inv_total_amount` as `amount`,
+		`invoice`.`inv_datetime` as `date`
+		 FROM (`pos`, `invoice`) 
+		 WHERE (`pos`.`pos_ws_id` = `invoice`.`inv_pos_id`) 
+		 and (`invoice`.`inv_pos_id` =" . $pos_id . ") and (`invoice`.`status` =0)
 		 ORDER BY `invoice`.`inv_datetime` DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
@@ -350,6 +373,13 @@ public function get_product_sold()
 	{
 		$this->db->update('warehouse_stock', $data, array('ws_product_id' => $prid, 'warehouse_id' => $posid));
 	}
+	public function update_status_invoice($inv_pos_id, $invoice_id,$data)
+	{
+		$this->db->update('invoice', $data, array('inv_pos_id' => $inv_pos_id, 'invoice_id' => $invoice_id));
+	}
+	public function refund($post_id, $prod_id, $quantite_prod)
+	{
+	}
 	//get rate
 	public function get_rate()
 	{
@@ -368,6 +398,14 @@ public function get_product_sold()
 	public function get_count_in()
 	{
 		return $this->db->count_all('invoice');
+	}
+	public function get_qty($ws_id, $prod_id)
+	{
+		$query = $this->db->query("SELECT ws_quantity FROM `warehouse_stock` WHERE warehouse_id=" . $ws_id . " AND ws_product_id=" . $prod_id);
+		$row = $query->row();
+		if (isset($row)) {
+			return $row->ws_quantity;
+		}
 	}
 }
 
