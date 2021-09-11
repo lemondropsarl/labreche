@@ -30,7 +30,7 @@ class pos_model extends CI_Model
 		`pos`.`pos_name` as `pos`,
 		SUM(`inv_total_amount`) as `sales`
 		FROM `invoice`, `pos`
-		WHERE `invoice`.`inv_pos_id` = `pos`.`pos_ws_id` AND  month(`inv_datetime`) = month(NOW()) 
+		WHERE `invoice`.`inv_pos_id` = `pos`.`pos_ws_id` AND  month(`inv_datetime`) = month(NOW()) and `invoice`.`status`=1
 		 GROUP BY
 		 `invoice`.`inv_pos_id`";
 		$query = $this->db->query($sql);
@@ -43,7 +43,7 @@ class pos_model extends CI_Model
 		MONTHNAME(`inv_datetime`) as `month_name`,
 		SUM(`inv_total_amount`) as `sales`
 		FROM `invoice`
-		WHERE year(`inv_datetime`) = year(NOW()) 
+		WHERE year(`inv_datetime`) = year(NOW()) and `status` = 1
 		 GROUP BY
 		 MONTHNAME(`inv_datetime`)";
 		$query = $this->db->query($sql);
