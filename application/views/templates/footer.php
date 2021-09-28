@@ -706,6 +706,7 @@ $this->app = $this->config->item('application', 'app');
 				}, function(data) {
 
 					$("#liste_pr_facture").html(data);
+
 				});
 			}
 
@@ -989,7 +990,8 @@ $this->app = $this->config->item('application', 'app');
 		function numero_facature() {
 			$.get('<?php echo base_url('pos/count_invoice') ?>',
 				function(data) {
-					$("#numero_facture").text(data);
+					let numero=parseInt(data)+1;
+					$("#numero_facture").text(numero);
 				});
 		}
 
