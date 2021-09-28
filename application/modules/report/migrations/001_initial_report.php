@@ -13,22 +13,22 @@ class Migration_initial_report extends CI_Migration {
         //adding to acl module table
 		$acls = [
 			[
-				'module_name'   => 'product',
+				'module_name'   => 'report',
 				'group_id'      => 1,
 				'value'         => '1'
 			],
 			[
-				'module_name'   => 'product',
+				'module_name'   => 'report',
 				'group_id'      => 2,
 				'value'         => '1'
 			],
 			[
-				'module_name'   => 'product',
+				'module_name'   => 'report',
 				'group_id'      => 3,
 				'value'         => '1'
 			],
 			[
-				'module_name'   => 'product',
+				'module_name'   => 'report',
 				'group_id'      => 4,
 				'value'         => '1'
 			]
