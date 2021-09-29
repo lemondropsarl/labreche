@@ -750,9 +750,9 @@ $this->app = $this->config->item('application', 'app');
 					toastr.warning("Rupture de stock");
 				}
 				//prix unitaire
-				let prix_u = parseInt($(".pu_" + id).text());
+				let prix_u = parseFloat($(".pu_" + id).text());
 				//prix total
-				let prix_t = parseInt($(".pt_" + id).text());
+				let prix_t = parseFloat($(".pt_" + id).text());
 				$(".pt_" + id).text((prix_u * qt_actuel) + " " + devise);
 				//
 			} else {
@@ -791,7 +791,7 @@ $this->app = $this->config->item('application', 'app');
 			let qty = parseInt($(".qty_" + id).text()) - 1;
 			if (qty > 0) {
 				$(".qty_" + id).text(qty);
-				let prix_u = parseInt($(".pu_" + id).text());
+				let prix_u = parseFloat($(".pu_" + id).text());
 				//prix total
 				let prix_total = prix_u * qty;
 				$(".pt_" + id).text(prix_total + " " + devise);
