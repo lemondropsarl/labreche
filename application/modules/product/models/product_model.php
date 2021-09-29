@@ -21,9 +21,8 @@ class product_model extends CI_Model
 	}
 	public function get_all_products()
 	{
-		# code...
-		$this->db->order_by('product_name ASC');
-		$query = $this->db->get('product');
+		$sql = "SELECT *FROM product INNER JOIN product_location ON `product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id`";
+		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 
@@ -53,9 +52,10 @@ class product_model extends CI_Model
 		return $query->row_array();
 	}
 	//
-	public function get_product_by_code_detail($id,$pos_id)
+	public function get_product_by_code_detail($id, $pos_id)
 	{
-		$sql = "SELECT *FROM product INNER JOIN warehouse_stock ON product.product_id=warehouse_stock.ws_product_id WHERE (warehouse_stock.warehouse_id='".$pos_id."') AND (product.product_id=".$id.")";
+		$sql = "SELECT *FROM product INNER JOIN product_location ON `product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id`INNER JOIN warehouse_stock ON product.product_id=warehouse_stock.ws_product_id INNER JOIN last_update_stock ON `last_update_stock`.`lus_prod_loc_id`=`product_location`.`prod_loc_id` WHERE (warehouse_stock.warehouse_id='" . $pos_id . "') AND (product.product_id=" . $id . ")";
+		//$sql = "SELECT *FROM product INNER JOIN warehouse_stock ON product.product_id=warehouse_stock.ws_product_id WHERE (warehouse_stock.warehouse_id='" . $pos_id . "') AND (product.product_id=" . $id . ")";
 		$query = $this->db->query($sql);
 		return $query->row_array();
 	}
