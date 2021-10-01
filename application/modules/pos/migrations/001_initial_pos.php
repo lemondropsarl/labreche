@@ -93,6 +93,10 @@ class Migration_initial_pos extends CI_Migration {
             'pi_quantity' =>[
                 'type' => 'int',
                 'constraint' => '4'
+            ],
+            'status' =>[
+                'type' => 'boolean',
+                'default'   => 1
             ]
         ]);
         $this->dbforge->create_table($this->tables['prods_in_inv'],TRUE);

@@ -126,7 +126,8 @@ class pos_model extends CI_Model
 		`product`.`product_name` as `pname`,
 		`product`.`unit_price` as `uprice`,
 		`product_in_invoice`.`pi_quantity` as `quantity`,
-		`product_in_invoice`.`pi_invoice_id` as `pi_invoice_id`, 
+		`product_in_invoice`.`pi_invoice_id` as `pi_invoice_id`,
+		`product_in_invoice`.`status` as `status`, 
 		(`product`.`unit_price` * `product_in_invoice`.`pi_quantity`) as `total`
 		 FROM (`product`, `product_in_invoice`) 
 		 WHERE (`product`.`product_id` = `product_in_invoice`.`pi_product_id`) and (`product_in_invoice`.`pi_invoice_id` =" . $inv_id . ")
@@ -165,6 +166,10 @@ class pos_model extends CI_Model
 		 ORDER BY `invoice`.`inv_datetime` DESC";
 		$query = $this->db->query($sql);
 		return $query->result_array();
+	}
+	public function update_prods_in_invoice_status($model, $pi_invoice_id)
+	{
+		$this->db->update('product_in_invoice', $model, array('pi_invoice_id' => $pi_invoice_id));
 	}
 	public function add_prods_in_invoice($model)
 	{
@@ -361,6 +366,13 @@ class pos_model extends CI_Model
 
 		return $query->row_array();
 	}
+	public function get_status_invoice($pos_id)
+	{
+		$this->db->where('pos_ws_id', $pos_id);
+		$query = $this->db->get('pos');
+		return $query->row_array();
+	}
+
 	public function get_users_pos()
 	{
 		$sql = 'SELECT `users`.`username` as `username`, `pos`.`pos_name` as `pos_name`
@@ -373,7 +385,7 @@ class pos_model extends CI_Model
 	{
 		$this->db->update('warehouse_stock', $data, array('ws_product_id' => $prid, 'warehouse_id' => $posid));
 	}
-	public function update_status_invoice($inv_pos_id, $invoice_id,$data)
+	public function update_status_invoice($inv_pos_id, $invoice_id, $data)
 	{
 		$this->db->update('invoice', $data, array('inv_pos_id' => $inv_pos_id, 'invoice_id' => $invoice_id));
 	}

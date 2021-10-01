@@ -66,7 +66,10 @@ class Pos extends MX_Controller
 
 			$nombre++;
 		}
+	
 		$this->pos_model->update_status_invoice($pos_id,$invoice_id,array('status' => 0));
+		$model = array('status' => 0);
+		$this->pos_model->update_prods_in_invoice_status($model,$invoice_id);
 	}
 	public function list_refund()
 	{
@@ -230,7 +233,8 @@ class Pos extends MX_Controller
 			$model = array(
 				'pi_invoice_id' => $invoice_id,
 				'pi_product_id' => $commande["prId"],
-				'pi_quantity' => (int)$commande["prQty"]
+				'pi_quantity' => (int)$commande["prQty"],
+				'status' => 1
 			);
 			/////////
 			$this->pos_model->add_prods_in_invoice($model);

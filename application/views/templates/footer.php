@@ -990,7 +990,7 @@ $this->app = $this->config->item('application', 'app');
 		function numero_facature() {
 			$.get('<?php echo base_url('pos/count_invoice') ?>',
 				function(data) {
-					let numero=parseInt(data)+1;
+					let numero = parseInt(data) + 1;
 					$("#numero_facture").text(numero);
 				});
 		}
@@ -1000,7 +1000,7 @@ $this->app = $this->config->item('application', 'app');
 			let nombre_produit = $(".ligne_rembourser").length;
 			let quantite = [];
 			let produit_id = [];
-			
+
 			let numero_facture = $(".ligne_rembourser").data("facture");
 
 			for (i = 0; i < nombre_produit; i++) {
@@ -1008,10 +1008,14 @@ $this->app = $this->config->item('application', 'app');
 				produit_id[i] = $(".ligne_rembourser" + (i + 1)).data("id" + (i + 1));
 			}
 			//quantite.forEach(item=>alert(item));
-			$.get('<?php echo base_url('pos/approve_refund') ?>',{"numero_facture":numero_facture,"prod_id":produit_id,"quantite":quantite},
+			$.get('<?php echo base_url('pos/approve_refund') ?>', {
+					"numero_facture": numero_facture,
+					"prod_id": produit_id,
+					"quantite": quantite
+				},
 				function(data) {
 					toastr.success('Facture rembourssée');
-				window.location.replace("<?php echo base_url('pos/list_invoice') ?>");
+					window.location.replace("<?php echo base_url('pos/list_invoice') ?>");
 				});
 
 
