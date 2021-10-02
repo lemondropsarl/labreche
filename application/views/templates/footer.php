@@ -32,9 +32,8 @@ $this->app = $this->config->item('application', 'app');
 <script src="<?php echo base_url('assets/dist/js/adminlte.js') ?>"></script>
 
 <!-- OPTIONAL SCRIPTS -->
-<!--script src="<?php echo base_url('assets/plugins/chart.js/Chart.min.js') ?>"></script-->
 <script src="<?php echo base_url('assets/dist/js/warehouse.js') ?>"></script>
-<script src="<?php echo base_url('assets/dist/js/pages/dashboard3.js') ?>"></script>
+<script src="<?php echo base_url('assets/plugins/chart.js/Chart.js') ?>"></script>
 <!-- jQuery -->
 <!-- Bootstrap 4 -->
 <!-- Select2 -->
@@ -78,7 +77,7 @@ $this->app = $this->config->item('application', 'app');
 			"hideMethod": "fadeOut"
 		}
 
-		const taux = <?php echo $rate; ?>;
+		const taux = 2000;
 		//function creattion de produit ou article
 		$("#prCode").on("keyup", function() {
 			const pcode = $(this).val();
@@ -86,7 +85,6 @@ $this->app = $this->config->item('application', 'app');
 					pcode: pcode
 				},
 				function(data) {
-
 					if (data === "true") {
 						toastr.warning("Ce code existe déjà");
 						$("#prCode").data("verification", pcode);
@@ -101,8 +99,6 @@ $this->app = $this->config->item('application', 'app');
 			const verification = $("#prCode").data("verification");
 			const pcode = $("#prCode").val();
 			const pname = $("#nomArticle").val();
-			const pbrand = $("#prMarque").val();
-			const pmodel = $("#prModele").val();
 			const price = $("#prPrix").val();
 			const prUnite = $("#prUnite").val();
 			const pcurrency = $("#pcurrency").val();
@@ -130,14 +126,7 @@ $this->app = $this->config->item('application', 'app');
 				$("#erreur_nom").css("display", "flex");
 
 			}
-			if (pbrand === "") {
-				erreur.push("");
-				$("#erreur_marque").css("display", "flex");
-			}
-			if (pmodel === "") {
-				erreur.push("");
-				$("#erreur_modele").css("display", "flex");
-			}
+
 			if (price === "") {
 				erreur.push("");
 				$("#erreur_prix").css("display", "flex");
@@ -170,8 +159,6 @@ $this->app = $this->config->item('application', 'app');
 				$.get('<?php echo base_url("product/create_operation") ?>', {
 					pname: pname,
 					pcode: pcode,
-					pbrand: pbrand,
-					pmodel: pmodel,
 					price: price,
 					prUnite: prUnite,
 					pcurrency: pcurrency,
@@ -436,6 +423,17 @@ $this->app = $this->config->item('application', 'app');
 			});
 
 		}
+
+		function search_product_vehicule(id) {
+
+			$.get('<?php echo base_url("product/search_by_veh") ?>', {
+				id: id,
+			}, function(data) {
+
+				$("#contenair_products").html(data);
+			});
+
+		}
 		//function list product if de search box is empty
 		function list_product() {
 			$.get('<?php echo base_url("product/list_product") ?>', function(data) {
@@ -466,15 +464,57 @@ $this->app = $this->config->item('application', 'app');
 			}
 
 		});
+		$("body").on("change", "#id_vehicule_drop_down", function() {
+			const vehicule = $(this).val();
+			if (vehicule === "") {
+				list_product();
+			} else {
+
+				search_product_vehicule(vehicule);
+			}
+
+		});
 		//opeartion entree stock
 		$("body").on("change", "#nom_article_entree", function() {
 			$("#entree_quantite").val("");
 			$("#date_entree").val("");
 		});
 
-		$("#zone_entree,#etagere_produit").on("change", function() {
-			//let desc = $("#description_zone").val();
-			//$("#description_zone").text(desc + " " + $(this).val());
+		function zone(id_v) {
+			const id = id_v;
+			$.get('<?php echo base_url("warehouse/create_entry_in") ?>', {
+				id: id
+			}, function(data) {
+				return data;
+			});
+
+		}
+		$("#zone_entree").on("change", function() {
+			let zone = $.trim($("#zone_entree option:selected").text());
+			let etagere = $.trim($("#etagere_produit option:selected").text());
+			if (zone.length > 4) {
+				if ($("#etagere_produit option:selected").val() == "") {
+					$("#description_zone").text(zone);
+				} else {
+					$("#description_zone").text(zone + "," + etagere);
+				}
+			} else {
+				$("#description_zone").empty();
+			}
+		});
+		$("#etagere_produit").on("change", function() {
+			let etagere = $.trim($("#etagere_produit option:selected").text());
+			if (etagere.length > 7) {
+				if ($("#zone_entree").val() == "") {
+					toastr.warning("LA ZONE EST VIDE");
+				} else {
+					let desc = $.trim($("#zone_entree option:selected").text() + " , " + etagere);
+					$("#description_zone").text($.trim(desc));
+				}
+			} else {
+				$("#description_zone").empty();
+			}
+
 		});
 
 		$("body").on("click", "#valider_entree", function(e) {
@@ -666,9 +706,13 @@ $this->app = $this->config->item('application', 'app');
 				}, function(data) {
 
 					$("#liste_pr_facture").html(data);
+
 				});
 			}
 
+		});
+		$("body").on("change", "#type_facture_select", function() {
+			$("#type_facture").text($(this).val());
 		});
 
 		$("body").on("click", ".ligne_pr_fact_search", function() {
@@ -678,6 +722,8 @@ $this->app = $this->config->item('application', 'app');
 			let devise = $(this).data("pr_devise");
 			let price = parseFloat($(this).data("pr_price"));
 			let qty = parseInt($(this).data("pr_qty"));
+			$("#reduction").val(0); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0%");
 			///
 			let qty_commander = 1;
 			//add ligne facture
@@ -704,9 +750,9 @@ $this->app = $this->config->item('application', 'app');
 					toastr.warning("Rupture de stock");
 				}
 				//prix unitaire
-				let prix_u = parseInt($(".pu_" + id).text());
+				let prix_u = parseFloat($(".pu_" + id).text());
 				//prix total
-				let prix_t = parseInt($(".pt_" + id).text());
+				let prix_t = parseFloat($(".pt_" + id).text());
 				$(".pt_" + id).text((prix_u * qt_actuel) + " " + devise);
 				//
 			} else {
@@ -721,21 +767,39 @@ $this->app = $this->config->item('application', 'app');
 			//totaux de totaux
 			totaux(); //on effectue le calcul pour trouver la somme des articles sur le facture
 		});
+		//reduction total
+		$("body").on("change keyup", "#reduction", function() {
+			let reduction = $(this).val();
+			let totaux_reduit = 0;
+			let totaux_de_totaux = 0;
+			let totaux_v = get_totaux();
+
+			$("#reduction_aff").text(reduction + '%');
+			if (reduction <= 1) {
+				totaux();
+			} else {
+				totaux_reduit = (totaux_v / 100);
+				totaux_reduit = totaux_reduit * reduction;
+				totaux_de_totaux = (totaux_v - totaux_reduit).toFixed(2);
+				$("#totaux_facture_usd").text((totaux_de_totaux) + ' USD');
+			}
+		});
 		//reduction de la quantité
 		$("body").on("click", ".ligne_facture_pr", function() {
 			let id = $(this).data('id');
 			let devise = $(this).data('devise');
-
 			let qty = parseInt($(".qty_" + id).text()) - 1;
 			if (qty > 0) {
 				$(".qty_" + id).text(qty);
-				let prix_u = parseInt($(".pu_" + id).text());
+				let prix_u = parseFloat($(".pu_" + id).text());
 				//prix total
 				let prix_total = prix_u * qty;
 				$(".pt_" + id).text(prix_total + " " + devise);
-
 			} else {
 				$(this).remove(); //on supprime la ligne si la quantié devient zéro ou inférieur
+				$("#reduction").val(0); //initialisation du champ reduction à 1
+				$("#reduction_aff").text("0 %");
+
 			}
 			//
 			totaux();
@@ -759,36 +823,25 @@ $this->app = $this->config->item('application', 'app');
 				taille_montant = montant_total_qty_pu.length;
 				montant_numerique = montant_total_qty_pu.substring(0, (taille_montant - 3));
 				monaie = montant_total_qty_pu.substring((taille_montant - 3), taille_montant);
-
-				if ((monaie === " USD") || (monaie === "USD")) {
-					somme_usd = somme_usd + parseFloat(montant_numerique);
-				}
-				if ((monaie === " CDF") || (monaie === "CDF")) {
-					somme_cdf = somme_cdf + parseFloat(montant_numerique);
-				}
-
+				somme_usd = somme_usd + parseFloat(montant_numerique);
 			}
 			$("#totaux_facture_usd").text(somme_usd + " USD");
-			$("#totaux_facture_cdf").text(somme_cdf + " CDF");
 
-			usd_cdf("CDF", taux); //conversion pardefaut usd to franc
+
 		}
 
 		function usd_cdf(monaie, taux) {
-			let somme_usd = document.getElementById("totaux_facture_usd").textContent;
-			let somme_cdf = document.getElementById("totaux_facture_cdf").textContent;
+			//	let somme_usd = document.getElementById("totaux_facture_usd").textContent;
+			//	let somme_cdf = document.getElementById("totaux_facture_cdf").textContent;
 			if (monaie === "CDF") {
-				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3))) * taux) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))));
-				$("#totaux_facture_usd_cdf").text(totaux + " CDF");
+				//	let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3))) * taux) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))));
+				//$("#totaux_facture_usd_cdf").text(totaux + " CDF");
 			} else {
-				let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3)))) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))) / taux);
-				$("#totaux_facture_usd_cdf").text(totaux + " USD");
+				//let totaux = (parseFloat(somme_usd.substring(0, (somme_usd.length - 3)))) + (parseFloat(somme_cdf.substring(0, (somme_cdf.length - 3))) / taux);
+				//$("#totaux_facture_usd_cdf").text(totaux + " USD");
 			}
 		}
-		$("input:radio[name='monaie_pay']").on("click", function() {
-			let monaie = $(this).val();
-			usd_cdf(monaie, taux);
-		});
+
 
 		function get_totaux() {
 			let taille = document.getElementsByClassName("totaux_fact_ligne").length;
@@ -801,6 +854,7 @@ $this->app = $this->config->item('application', 'app');
 		/////supprimer un article de la facture
 		$("body").on("click", ".delete_ligne_article", function() {
 			$(this).parent('tr').remove();
+			totaux();
 		});
 		/////////
 		$("body").on("click", ".ligne_facture_pr", function() {
@@ -818,10 +872,13 @@ $this->app = $this->config->item('application', 'app');
 
 		$("body").on("click", "#btn_nouvelle_fac", function() {
 			vider_facture();
+			$("#reduction").val(0); //initialisation du champ reduction à 1
+			$("#reduction_aff").text("0%");
+			location.reload();
 		});
 		//get devise totaux de totaux
 		function get_devise_paye() {
-			let devise = document.getElementById("totaux_facture_usd_cdf").textContent;
+			let devise = document.getElementById("totaux_facture_usd").textContent;
 			return devise.substring(devise.length, (devise.length - 3));
 		}
 		//print fature
@@ -832,100 +889,67 @@ $this->app = $this->config->item('application', 'app');
 			let qty_ws = 0;
 			let commandes = [];
 			let commande = {};
+			let discount_amount = $("#reduction").val();
+			let type_facture = $("#type_facture_select").val();
 
 			if (count_ligne_facture() > 0) {
-				for (i = 0; i < count_ligne_facture(); i++) {
-					///////////////////////
-					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
-					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
-					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-					prQty = $(".qty_" + (i + 1)).text();
-					commande = {
-						"prId": prId,
-						"prCode": prCode,
-						"prQty": prQty,
-						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
-					};
-					commandes[i] = commande;
+				if ($("#client").val() != "") {
+					for (i = 0; i < count_ligne_facture(); i++) {
+						///////////////////////
+						prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
+						prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
+						qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
+						prQty = $(".qty_" + (i + 1)).text();
+						commande = {
+							"prId": prId,
+							"prCode": prCode,
+							"prQty": prQty,
+							"qty_new": (parseInt(qty_ws) - parseInt(prQty))
+						};
+						commandes[i] = commande;
+					}
+
+					$.get('<?php echo base_url("pos/create_invoice") ?>', {
+						totaux: get_totaux(),
+						commandes: commandes,
+						devise: get_devise_paye(),
+						discount_amount: discount_amount,
+						type_facture: type_facture
+					}, function(data) {
+
+						toastr.success("Facture imprimer");
+						print();
+						refresh_liste_product();
+						vider_facture();
+						numero_facature(); //on charche le nullero de la facture
+						$("#reduction").val(0); //initialisation du champ reduction à 1
+						$("#reduction_aff").text("0 %");
+						$("#type_facture").text("DETAIL");
+						location.reload();
+					});
+
+				} else {
+					toastr.warning("LE NOM DU CLIENT");
 				}
-
-				$.get('<?php echo base_url("pos/create_invoice") ?>', {
-					totaux: get_totaux(),
-					commandes: commandes,
-					devise: get_devise_paye()
-				}, function(data) {
-
-					toastr.success("Facture imprimer");
-					print();
-					refresh_liste_product();
-					vider_facture();
-					numero_facature(); //on charche le nullero de la facture
-				});
-
 			} else {
 
 				toastr.warning("Rien à imprimer");
 			}
 
 		});
-		//save facture
-		$("body").on("click", "#save-facture", function() {
-			let prCode = "";
-			let prId = "";
-			let prQty = 0;
-			let qty_ws = 0;
-			let commandes = [];
-			let commande = {};
 
-
-
-			if (count_ligne_facture() > 0) {
-				for (i = 0; i < count_ligne_facture(); i++) {
-					///////////////////////
-					prId = document.getElementsByClassName("ligne_facture_pr")[i].dataset.id;
-					prCode = document.getElementsByClassName("ligne_facture_pr")[i].dataset.code;
-					qty_ws = document.getElementsByClassName("ligne_facture_pr")[i].dataset.qty;
-
-					prQty = $(".qty_" + (i + 1)).text();
-					commande = {
-						"prId": prId,
-						"prCode": prCode,
-						"prQty": prQty,
-						"qty_new": (parseInt(qty_ws) - parseInt(prQty))
-					};
-					commandes[i] = commande;
-				}
-
-				$.get('<?php echo base_url("pos/create_invoice") ?>', {
-					totaux: get_totaux(),
-					commandes: commandes,
-					devise: get_devise_paye()
-				}, function(data) {
-					toastr.success("Facture Enregistrer");
-					refresh_liste_product();
-					vider_facture();
-					numero_facature(); //on charche le nullero de la facture
-				});
-
-			} else {
-
-				toastr.warning("Rien à enregistrer");
-			}
-		});
-	
 		//add store information
-		
-		$("#btn_add_store").on("click", function(e) {
-			
+
+		$("body").on("click", "#btn_add_store", function(e) {
 			e.preventDefault();
-			
+
 			const store_name = $("#store_name").val();
 			const rccm = $("#rccm").val();
 			const id_nat = $("#id_nat").val();
 			const nif = $("#nif").val();
 			const telephone = $("#telephone").val();
 			const adresse = $("#adresse").val();
-		    
+
 			$.get('<?php echo base_url('setting/create_store') ?>', {
 				store_name: store_name,
 				rccm: rccm,
@@ -934,7 +958,7 @@ $this->app = $this->config->item('application', 'app');
 				telephone: telephone,
 				adresse: adresse
 			}, function(data) {
-		
+
 				$("#modalStore").hide();
 				location.reload();
 				toastr.success('Information du magasin ajoutée');
@@ -961,16 +985,41 @@ $this->app = $this->config->item('application', 'app');
 
 			);
 
-
-
 		});
 		numero_facature(); //on charche le nullero de la facture
 		function numero_facature() {
 			$.get('<?php echo base_url('pos/count_invoice') ?>',
 				function(data) {
-					$("#numero_facture").text(data);
+					let numero = parseInt(data) + 1;
+					$("#numero_facture").text(numero);
 				});
 		}
+
+		$("body").on("click", "#bt_rembourser", function(e) {
+			e.preventDefault();
+			let nombre_produit = $(".ligne_rembourser").length;
+			let quantite = [];
+			let produit_id = [];
+
+			let numero_facture = $(".ligne_rembourser").data("facture");
+
+			for (i = 0; i < nombre_produit; i++) {
+				quantite[i] = $(".ligne_rembourser" + (i + 1)).data("quantite" + (i + 1));
+				produit_id[i] = $(".ligne_rembourser" + (i + 1)).data("id" + (i + 1));
+			}
+			//quantite.forEach(item=>alert(item));
+			$.get('<?php echo base_url('pos/approve_refund') ?>', {
+					"numero_facture": numero_facture,
+					"prod_id": produit_id,
+					"quantite": quantite
+				},
+				function(data) {
+					toastr.success('Facture rembourssée');
+					window.location.replace("<?php echo base_url('pos/list_invoice') ?>");
+				});
+
+
+		});
 	})();
 </script>
 

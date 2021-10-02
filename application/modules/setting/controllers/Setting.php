@@ -45,12 +45,11 @@ class Setting extends 	MX_Controller {
 		$data['store']					= $this->setting_model->get_store_infos();
 		$data['warehouses']				= $this->warehouse_model->get_warehouses();
 		$data['pos']					= $this->pos_model->get_pos();
-	
 		$data['up']						= $this->pos_model->get_users_pos();
 		$data['rate'] = $this->setting_model->get_rate();
         $this->load->view('templates/header', $data);
         $this->load->view('index', $data);
-        $this->load->view('templates/footer');    
+        $this->load->view('templates/footer',$data);    
     }
 	public function create_store()
 	{

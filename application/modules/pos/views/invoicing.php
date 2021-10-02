@@ -79,7 +79,6 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		</section>
 		<section class="col-md-6 col-sm-12 col-xs-12 card card-outline">
 			<h3 class="non_print">FACTURE</h3>
-
 			<div class="container-fluid">
 				<div class="row">
 					<div class="form-inline">
@@ -123,9 +122,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
 				?>
 			</div>
 
-			<table class="table table-striped table-bordered table-hover print">
+			<table class="table table-bordered table-hover print">
 				<thead class="text-center">
-					<tr class="bg-secondary">
+					<tr class="bg-dark">
 						<th>DESIGNATION</th>
 						<th>QUANTITE</th>
 						<th>P.UNITAIRE</th>
@@ -133,43 +132,40 @@ defined('BASEPATH') or exit('No direct script access allowed');
 					</tr>
 				</thead>
 				<tbody id="facture_corp"></tbody>
-				<tfoot class="bg-warning">
-					<tr class="font-weight-bold text-center" style="font-size: 1.2em">
-						<td>TOTAUX</td>
+				<tfoot class="facture_footer">
+					<tr>
+						<td class="bg-dark" colspan="3">REDUCTION</td>
+						<td id="reduction_aff" >0%</td>
+					</tr>
+					<tr>
+						<td class="bg-dark" colspan="3">TOTAUX</td>
 						<td id="totaux_facture_usd" data-totaux="0">0 USD</td>
-						<td id="totaux_facture_cdf" data-totaux="0">0 CDF</td>
-						<td id="totaux_facture_usd_cdf" class="bg-success" data-totaux="0">
-							0
-						</td>
+					</tr>
+					<tr>
+						<td class="bg-dark" colspan="3">TYPE FACTURE</td>
+						<td id="type_facture">DETAIL</td>
 					</tr>
 				</tfoot>
 			</table>
-			<div class="form-inline non_print">
-				<div class="form-group col-4">
-					<span>MONAIE A PAYER AVEC </span>
-				</div>
-				<div class="form-group col-3">
-					<label for="monaie_cdf"> CDF </label><input type="radio" name="monaie_pay" id="monaie_cdf" value="CDF" class="form-control" checked />
-				</div>
-				<div class="form-group col-3">
-					<label for="monaie_cdf"> USD</label>
-					<input type="radio" name="monaie_pay" id="monaie_usd" value="USD" class="form-control" />
-				</div>
+			<div class="non_print reduction_type_detail">
+				<label>REDUCTION </label>
+				<input type="number" name="reduction" min="0" id="reduction"  class="" placeholder="REDUCTION">
+				<label>TYPE FACTURE</label>
+				<select name="type_facture" id="type_facture_select" class="">
+					<option value="DETAIL">DETAIL</option>
+					<option value="GROS">GROS</option>
+				</select>
 			</div>
+
 			<div class="row non_print" style="margin-bottom: 2%">
-				<div class="col-3">
-					<button class="btn btn-danger print text-uppercase" id="btn_nouvelle_fac">
+				<div class="col-5">
+					<button class="btn btn-danger print  form-control" id="btn_nouvelle_fac">
 						Nouvelle <i class="fas fa-file"></i>
 					</button>
 				</div>
 				<div class="col-5">
-					<button class="btn btn-success text-uppercase" id="print-facture">
-						Imprimer & Enregistrer <i class="fas fa-print"></i>
-					</button>
-				</div>
-				<div class="col-3">
-					<button class="btn btn-primary print text-uppercase" id="save-facture">
-						Enregistrer<i class="fas fa-save"></i>
+					<button class="btn btn-success text-uppercase form-control" id="print-facture">
+						Imprimer<i class="fas fa-print"></i>
 					</button>
 				</div>
 			</div>

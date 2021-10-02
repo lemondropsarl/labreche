@@ -63,9 +63,17 @@ class Migration_initial_pos extends CI_Migration {
             'inv_datetime' => [
                 'type' => 'timestamp'            
             ],
+            'transaction_type' => [
+                'type' => 'VARCHAR',
+                'constraint' => '10'
+            ],
             'devise'  =>[
                 'type'  => 'VARCHAR',
                 'constraint'=>'3'
+            ],
+            'status' =>[
+                'type' => 'boolean',
+                'default'   => 1
             ]
         ]);
 
@@ -85,6 +93,10 @@ class Migration_initial_pos extends CI_Migration {
             'pi_quantity' =>[
                 'type' => 'int',
                 'constraint' => '4'
+            ],
+            'status' =>[
+                'type' => 'boolean',
+                'default'   => 1
             ]
         ]);
         $this->dbforge->create_table($this->tables['prods_in_inv'],TRUE);
@@ -178,6 +190,26 @@ class Migration_initial_pos extends CI_Migration {
 				'parent'=> 'pos',
 				'order' => 420,
 				'perm_key'=> 'W'
+            ],
+            [
+                'name'	=> 'list_invoices',
+                'url'	=> 'pos/list_invoice',
+                'icon'  => 'material-icons',
+				'icon-name'	=> 'apps',
+				'text'	=> 'Liste Factures',
+				'parent'=> 'pos',
+				'order' => 430,
+				'perm_key'=> 'R'
+            ],
+            [
+                'name'	=> 'refund_invoices',
+                'url'	=> 'pos/list_refund',
+                'icon'  => 'material-icons',
+				'icon-name'	=> 'apps',
+				'text'	=> 'Remboursement',
+				'parent'=> 'pos',
+				'order' => 440,
+				'perm_key'=> 'R'
             ]
             
         ];

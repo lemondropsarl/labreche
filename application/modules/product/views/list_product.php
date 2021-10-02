@@ -51,7 +51,15 @@ defined('BASEPATH') or exit('No direct script access allowed');
 						</div>
 					</div>
 					<div class="row" style="margin-top:1%;">
-						<div class="col-md-5 col-sm-10 col-xs-10 offset-md-1 form-group">
+					<div class="col-md-4 col-sm-10 col-xs-10 offset-md-1 form-group">
+							<select class="form-control" id='id_vehicule_drop_down'>
+								<option value="">VEHICULE</option>
+								<?php foreach ($vehicules as $item) { ?>
+									<option value="<?php echo $item['vehicule_id']; ?>"><?php echo $item['vehicule_brand']; ?></option>
+								<?php } ?>
+							</select>
+						</div>
+						<div class="col-md-3 col-sm-10 col-xs-10  form-group">
 							<select class="form-control" id='id_categorie_drop_down'>
 								<option value="">CATEGORIE</option>
 								<?php foreach ($categories as $item) { ?>
@@ -59,7 +67,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								<?php } ?>
 							</select>
 						</div>
-						<div class="col-md-5 col-sm-10 col-xs-10 form-group">
+						<div class="col-md-3 col-sm-10 col-xs-10 form-group">
 							<input type="search" name="search_product" id="search_product" class="form-control col-sm-10 col-xs-10" placeholder="Search">
 						</div>
 					</div>
@@ -125,12 +133,11 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<tr>
 										<th>Code article</th>
 										<th>Nom article</th>
-										<th>Marque</th>
-										<th>Modèle</th>
 										<th>Unité</th>
 										<th>Prix </th>
+										<!--	
 										<th>Dévise</th>
-										
+								!-->
 									</tr>
 								</thead>
 								<tbody id='contenair_products'>
@@ -138,14 +145,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 										<tr class='ligne_product' data-product_id="<?php echo $item['product_id']; ?>" data-pr_code="<?php echo $item['product_code']; ?>">
 											<td class="cel-product" data-type_cel="code" data-valeur="<?php echo $item['product_code']; ?>"><?php echo $item['product_code']; ?></td>
 											<td class="cel-product" data-type_cel="name" data-valeur="<?php echo $item['product_name']; ?>"><?php echo $item['product_name']; ?></td>
-											<td class="cel-product" data-type_cel="brand" data-valeur="<?php echo $item['product_brand']; ?>"><?php echo $item['product_brand']; ?></td>
-											<td class="cel-product" data-type_cel="model" data-valeur="<?php echo $item['product_model']; ?>"><?php echo $item['product_model']; ?></td>
 											<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
-											<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']; ?></td>
-											<td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td>
+											<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']." ".$item['product_currency']; ?></td>
+											<!-- td class="cel-product" data-type_cel="currency" data-valeur="<?php echo $item['product_currency']; ?>"><?php echo $item['product_currency']; ?></td !-->
 											<!--td>
 												<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>"><i class="fa fa-arrow-right"></i></a>
-											</td-->
+											</td!-->
 										</tr>
 									<?php } ?>
 								</tbody>

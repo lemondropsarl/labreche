@@ -47,7 +47,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 								</div>
 								<div class="form-group col-md">
 									<label for="zone_entree" class="label">ZONE</label>
-									<select name="zone_entree" id="zone_entree" class="form-control">
+									<select name="zone_entree" id="zone_entree"  class="form-control">
 										<option value="">ZONE</option>
 										<?php
 										foreach ($zones as $items) {

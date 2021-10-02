@@ -124,7 +124,7 @@ class Migration_initial_setting extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'Paramètres',
 				'parent'=> '',
-				'order' => 500,
+				'order' => 600,
 				'perm_key'=> 'A'
             ]  ,
             [
@@ -134,7 +134,7 @@ class Migration_initial_setting extends CI_Migration {
 				'icon-name'	=> 'apps',
 				'text'	=> 'General',
 				'parent'=> 'setting',
-				'order' => 510,
+				'order' => 610,
 				'perm_key'=> 'A'
             ]        
             

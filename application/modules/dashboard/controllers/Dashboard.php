@@ -12,6 +12,9 @@ class Dashboard extends MX_Controller {
 		$this->migration->latest();
 		$this->load->model('nav_model');
 		$this->load->model('setting/setting_model');
+		$this->load->model('pos/pos_model');
+		
+		
 		
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
@@ -48,11 +51,33 @@ class Dashboard extends MX_Controller {
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 		$data['title']					=  lang('dashboard');
 		//Get different data
-		
-				
+		$data['global_sales_chart']		= $this->global_sales_chart();
+		$data['pos_sales_chart']		= $this->pos_sales_chart();
+		$data['psold']				= $this->pos_model->get_product_sold();
 		$this->load->view('templates/header',$data);
 		$this->load->view('index',$data);
 		$this->load->view('templates/footer');
 		
+	}
+	
+	function global_sales_chart()
+	{
+		$record = $this->pos_model->get_global_sales();
+		$sales = [];
+		foreach ($record as $row) {
+			$sales['label'][] = $row['month_name'];
+			$sales['data'][] = $row['sales'];
+		}
+		return json_encode($sales);
+	}
+	function pos_sales_chart()
+	{
+		$record = $this->pos_model->get_pos_sales();
+		$sales = [];
+		foreach ($record as $row) {
+			$sales['label'][] = $row['pos'];
+			$sales['data'][] = $row['sales'];
+		}
+		return json_encode($sales);
 	}
 }

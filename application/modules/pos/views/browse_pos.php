@@ -55,7 +55,7 @@ global $pos_ws_id;
 			<div class="col-lg-3 col-md-2 col-sm-2 col-xs-2">
 				<div class="small-box  bg-success">
 					<div class="inner">
-						<h3>0</h3>
+						<h3><?php echo number_format($sales,2,',',' ')?></h3>
 						<p>Total vente journalière</p>
 					</div>
 					<div class="icon">
@@ -66,7 +66,9 @@ global $pos_ws_id;
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box bg-red">
 					<div class="inner">
-						<h3>0</h3>
+						<h3><?php echo
+                        $count_critical?></h3>
+                       
 						<p>Total stock en critique</p>
 					</div>
 					<div class="icon">

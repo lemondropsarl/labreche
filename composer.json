@@ -11,22 +11,25 @@
 		"source": "https://github.com/bcit-ci/CodeIgniter"
 	},
 	"authors": [
-        {
-            "name": "Cedric Mataso",
-            "homepage": "https://github.com/cedriclange"
-        }
-    ],
+		{
+			"name": "Cedric Mataso",
+			"homepage": "https://github.com/cedriclange"
+		}
+	],
 	"require": {
 		"php": ">=5.3.7",
-		"cedriclange/ci-phpunit": "^0.17.4"
+		"cedriclange/ci-phpunit": "^0.17.4",
+		"phpoffice/phpspreadsheet": "^1.18",
+		"mpdf/mpdf": "^8.0",
+		"dompdf/dompdf": "^1.0"		
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"
 	},
 	"require-dev": {
-		"mikey179/vfsStream": "1.1.*",
+		"mikey179/vfsstream": "1.1.*",
 		"phpunit/phpunit": "4.* || 5.*",
 		"kenjis/ci-phpunit-test": "^0.17.3",
-		"php-coveralls/php-coveralls": "^2.2"		
+		"php-coveralls/php-coveralls": "^2.2"
 	}
 }

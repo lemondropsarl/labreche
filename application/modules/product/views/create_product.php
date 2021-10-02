@@ -7,7 +7,17 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<div class="row">
 			<div class="col-md-12">
 				<div>
-					<h1 id='message_server'></h1>
+					<?php echo form_open_multipart('product/add_multiple')?>
+					<div class="form-group form-row">
+                		<label class="col-sm-2 col-form-label">Fichier</label>
+							<div class="col-sm-6">
+								<input type="file" id="exfile" name="exfile" class="form-control readonly"/>
+							</div>
+            		</div>
+					<div class="form-group form-row">
+						<button type="submit" class="btn btn-success">Charger</button>
+					</div>
+					<?php echo form_close()?>
 				</div>
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
@@ -34,19 +44,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 									</div>
 									<div class="row">
-										<div class="form-group col-4">
-											<label for="prMarque">Marque:</label>
-											<input type="text" class="form-control" id="prMarque" placeholder="Marque" name="pbrand" required>
-											<div class="erreur cache bg-danger" id='erreur_marque'>Vérifier la marque</div>
-
-										</div>
-										<div class="form-group col-4">
-											<label for="prModele">Modele</label>
-											<input type="text" class="form-control" id="prModele" placeholder="Modele" name="pmodel" required>
-											<div class="erreur cache bg-danger" id='erreur_modele'>Vérifier le modele</div>
-
-										</div>
-										<div class="form-group col-4">
+																			<div class="form-group col-4">
 											<label for="pmin_qty">Min. Qté</label>
 											<input type="number" class="form-control" id="pmin_qty" placeholder="Qté minimum" name="pmin_qty" required>
 											<div class="erreur cache" id='erreur_min_qty'>Vérifier le mininum</div>
