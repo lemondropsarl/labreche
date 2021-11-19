@@ -107,8 +107,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<table class="table table-bordered table-striped">
 								<thead class="thead-dark">
 									<tr>
-										<th class="center">DATE ENTREE</th>
+									<th class="center">DATE ENTREE</th>
+										<th class="center">PART  NUMBER</th>
 										<th class="center">NOM ARTICLE</th>
+										<th class="center">TYPE VEHICULE</th>
 										<th class="center">QUANTITE</th>
 									</tr>
 								</thead>
