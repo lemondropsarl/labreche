@@ -2,7 +2,7 @@
 
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class warehouse_model extends CI_Model
+class Warehouse_model extends CI_Model
 {
 
 	public function __construct()
@@ -44,7 +44,7 @@ class warehouse_model extends CI_Model
 	}
 	public function get_list_of_stock()
 	{
-		$query = $this->db->get('list_of_Stock_view');
+		$query = $this->db->get('list_of_stock_view');
 		return $query->result_array();
 	}
 	public function add_lus($model)
@@ -99,9 +99,11 @@ class warehouse_model extends CI_Model
 		$this->db->update('last_update_stock', $model, array("lus_product_id" => $id));
 	}
 	//get categories list
-	public function get_products()
+public function get_products()
 	{
-		$query = $this->db->get('product');
+		$sql="SELECT * FROM product LEFT JOIN last_update_stock  
+		ON product.product_id=last_update_stock.lus_product_id WHERE last_update_stock.lus_product_id IS NULL";
+		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
 	public function get_warehouses()
@@ -165,7 +167,8 @@ class warehouse_model extends CI_Model
 		if ($id == 0 or $id == null) {
 			$query = $this->db->select('*');
 			$query = $this->db->from('stock_entries_in');
-			$query = $this->db->join('product', 'stock_entries_in.si_product_id=product.product_id');
+		$query = $this->db->join('product', 'stock_entries_in.si_product_id=product.product_id');
+			$query = $this->db->join('vehicule', 'vehicule.vehicule_id=product.product_vehicule_id');
 			$query = $this->db->get();
 			return $query->result_array();
 		} else {

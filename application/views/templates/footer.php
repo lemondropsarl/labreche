@@ -245,7 +245,7 @@ $this->app = $this->config->item('application', 'app');
 			const valeur = $(this).text(); //valeur de la cellule
 			const old_value = $(this).data("valeur");
 			$(this).attr("contenteditable", "false"); //delete the content editable attribute
-
+           
 			switch (type_cel) {
 				case 'code':
 					if (valeur !== "") {
@@ -328,12 +328,16 @@ $this->app = $this->config->item('application', 'app');
 					break;
 				case 'price':
 					if (valeur !== "") {
-						if (!isNaN(valeur)) {
+					        
+					        let px=valeur.indexOf("USD");
+					        let prix_2=parseFloat(valeur.substr(0,px));
+					    
+					     	if (!isNaN(prix_2)) {
 							if (confirm(`Vouez-vous modifier le prix de l'article?`)) {
-								update_product(product_id, type_cel, valeur);
+								update_product(product_id, type_cel, prix_2);
 								const message = 'Modification efféctuée';
 								toastr.success(message);
-								$(this).data("valeur", valeur);
+								$(this).data("valeur", prix_2);
 							} else {
 								$(this).text(old_value);
 							}

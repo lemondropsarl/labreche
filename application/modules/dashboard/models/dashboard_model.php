@@ -2,14 +2,13 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class dashboard_model extends CI_Model {
+class Dashboard_model extends CI_Model {
 
     
     public function __construct()
     {
         parent::__construct();
         $this->load->database();
-
         $this->load->model('pos/pos_model');
         $this->load->model('product_product_model');
         

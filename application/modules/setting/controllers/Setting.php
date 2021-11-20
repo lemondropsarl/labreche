@@ -2,7 +2,7 @@
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Setting extends 	MX_Controller {
+class Setting extends MX_Controller {
     
     public function __construct()
     {

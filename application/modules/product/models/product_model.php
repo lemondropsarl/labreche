@@ -1,7 +1,7 @@
 <?php
 
 defined('BASEPATH') or exit('No direct script access allowed');
-class product_model extends CI_Model
+class Product_model extends CI_Model
 {
 	public function __construct()
 	{
@@ -21,7 +21,13 @@ class product_model extends CI_Model
 	}
 	public function get_all_products()
 	{
-		$sql = "SELECT *FROM product INNER JOIN product_location ON `product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id`";
+	    
+	    //SELECT *FROM product INNER JOIN product_location ON
+	    //`product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON
+	  //  `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON
+	  //  `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id`
+	  
+		$sql = "SELECT *FROM product INNER JOIN vehicule ON product.product_vehicule_id=vehicule.vehicule_id";
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}

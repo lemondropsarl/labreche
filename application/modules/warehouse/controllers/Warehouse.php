@@ -170,7 +170,9 @@ class Warehouse extends MX_Controller
 				<?php $old_date = Date_create($items["si_entry_date"]);
 				echo Date_format($old_date, "d/m/Y"); ?>
 			</td>
-				<td><?php echo $items["product_name"]; ?></td>
+			<td><?php echo $items["product_code"]; ?></td>
+			<td><?php echo $items["product_name"]; ?></td>
+			<td><?php echo $items["vehicule_brand"]; ?></td>
 				<td class="text-bold"><?php echo $items["si_quantity"]; ?></td>
 
 			</tr>

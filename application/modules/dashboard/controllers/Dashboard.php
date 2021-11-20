@@ -8,17 +8,14 @@ class Dashboard extends MX_Controller {
 	{
 		parent::__construct();
 		$this->load->database();
-		$this->load->library('migration');
-		$this->migration->latest();
-		$this->load->model('nav_model');
-		$this->load->model('setting/setting_model');
-		$this->load->model('pos/pos_model');
-		
-		
+	
+	    $this->load->model('nav_model');
+	    $this->load->model('setting/setting_model');
+	    $this->load->model('pos/pos_model');
 		
 		$this->load->library('ion_auth');
 		$this->load->library('ion_auth_acl');
-		$this->migration->latest();
+	   
 		if (!$this->ion_auth->logged_in()) {
 			redirect('auth/login');
 		}
