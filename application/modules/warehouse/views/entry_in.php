@@ -25,12 +25,13 @@ defined('BASEPATH') or exit('No direct script access allowed');
 									<label for="label">
 										NOM ARTICLE
 									</label>
+									<input type="search" name="scode" id="scode" class="form-control" placeholder="part number">
 
 									<select id="products" class="form-control">
 										<?php
-										foreach ($products as $items) {
+										foreach ($products as $item) {
 										?>
-											<option class="option" value="<?php echo $items["product_id"]; ?>"><?php echo $items["product_code"] . "-" . $items["product_name"]; ?></option>
+											<option class="option" value="<?php echo $item["product_id"]; ?>"><?php echo $item["product_code"] . "-" . $item["product_name"]; ?></option>
 										<?php
 										}
 
@@ -107,8 +108,10 @@ defined('BASEPATH') or exit('No direct script access allowed');
 							<table class="table table-bordered table-striped">
 								<thead class="thead-dark">
 									<tr>
-										<th class="center">DATE ENTREE</th>
+									<th class="center">DATE ENTREE</th>
+										<th class="center">PART  NUMBER</th>
 										<th class="center">NOM ARTICLE</th>
+										<th class="center">TYPE VEHICULE</th>
 										<th class="center">QUANTITE</th>
 									</tr>
 								</thead>
