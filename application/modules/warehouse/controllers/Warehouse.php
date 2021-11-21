@@ -90,7 +90,7 @@ class Warehouse extends MX_Controller
 		$date_today = date('Y-m-d');
 		$data['count_entries_out'] = $this->warehouse_model->count_entries_out_daily($date_today);
 		$data['count_critical_stock'] = $this->warehouse_model->count_critical_stock();
-		$data['value_cdf'] = $this->warehouse_model->get_stock_value_cdf();
+		$data['count_stock'] = $this->warehouse_model->count_stock();
 		$data['value_usd'] = $this->warehouse_model->get_stock_value_usd();
 		$data["rate"]=$this->pos_model->get_rate();
 		//get different data

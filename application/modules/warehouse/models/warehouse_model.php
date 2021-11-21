@@ -27,20 +27,10 @@ class Warehouse_model extends CI_Model
 	}
 
 
-	public function get_stock_value_cdf()
+	public function count_stock()
 	{
-		$sql = 'select SUM(`Result`) as total
-		FROM(
-		SELECT
-			 SUM(`product`.`unit_price` * `last_update_stock`.`lus_quantity`) as Result
-			from (`product`,`last_update_stock`)
-		WHERE (`product`.`product_id` = `last_update_stock`.`lus_product_id`) and (`product`.`product_currency` = "CDF")
-		group By (`product`.`product_id`)
-		) as T';
-
-		$query = $this->db->query($sql);
+		 return $this->db->count_all('last_update_stock');
 		
-		return $query->row_array();
 	}
 	public function get_list_of_stock()
 	{
