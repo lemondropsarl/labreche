@@ -10,10 +10,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 				<div class="small-box  bg-gradient-navy">
 					<div class="inner">
 						<h3><?php echo $count_stock;?></h3>
-						<p>Articles</p>
+						<p>Articles disponible</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-dollar-sign"></i>
+						<i class="fas fa-product-hunt"></i>
 					</div>
 					<a href="#" class="small-box-footer"></a>
 						
