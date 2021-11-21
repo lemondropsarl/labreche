@@ -96,6 +96,11 @@ public function get_products()
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+	public function get_products_like($code){
+		$query = "SELECT * FROM product LEFT JOIN last_update_stock  
+		ON product.product_id=last_update_stock.lus_product_id WHERE last_update_stock.lus_product_id IS NULL and product.product_code LIKE" . " " . "'" . $code . "%'";
+		return $this->db->query($query)->result_array();
+	}
 	public function get_warehouses()
 	{
 		$this->db->order_by('warehouse_name ASC');

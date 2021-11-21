@@ -98,6 +98,16 @@ class Warehouse extends MX_Controller
 		$this->load->view('browse', $data);
 		$this->load->view('templates/footer');
 	}
+	public function filter_part_number(){
+		$code = $this->input->get('id');
+		$products = $this->warehouse_model->get_products_like($code);
+		foreach ($products as $item) { ?>
+			
+			<option class="option" value="<?php echo $item["product_id"]; ?>"><?php echo $item["product_code"] . "-" . $item["product_name"]; ?></option>
+										<?php
+		}
+		
+	}
 	public function critical_stock()
 	{
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
