@@ -173,7 +173,7 @@ public function get_products()
 			return $query->result_array();
 		} else {
 
-			$query = "SELECT * FROM product INNER JOIN stock_entries_in ON stock_entries_in.si_product_id=product.product_id where product_code LIKE" . " " . "'" . $id . "%'" . " "
+			$query = "SELECT * FROM stock_entries_in INNER JOIN product ON stock_entries_in.si_product_id=product.product_id INNER JOIN vehicule on vehicule.vehicule_id=product.product_vehicule_id where product_code LIKE" . " " . "'" . $id . "%'" . " "
 				. "OR product_name LIKE" . " " . "'" . $id . "%'";
 			return $this->db->query($query)->result_array();
 		}
