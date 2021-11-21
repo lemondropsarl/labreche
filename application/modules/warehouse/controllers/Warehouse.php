@@ -90,13 +90,32 @@ class Warehouse extends MX_Controller
 		$date_today = date('Y-m-d');
 		$data['count_entries_out'] = $this->warehouse_model->count_entries_out_daily($date_today);
 		$data['count_critical_stock'] = $this->warehouse_model->count_critical_stock();
-		$data['value_cdf'] = $this->warehouse_model->get_stock_value_cdf();
+		$data['count_stock'] = $this->warehouse_model->count_stock();
 		$data['value_usd'] = $this->warehouse_model->get_stock_value_usd();
 		$data["rate"]=$this->pos_model->get_rate();
 		//get different data
 		$this->load->view('templates/header', $data);
 		$this->load->view('browse', $data);
 		$this->load->view('templates/footer');
+	}
+	public function filter_part_number(){
+		$code = $this->input->get('id');
+		$products = $this->warehouse_model->get_products_like($code);
+		foreach ($products as $item) { ?>
+			
+			<option class="option" value="<?php echo $item["product_id"]; ?>"><?php echo $item["product_code"] . "-" . $item["product_name"]; ?></option>
+										<?php
+		}
+		
+	}
+	public function filter_entries_out(){
+		$code = $this->input->get('id');
+		$products = $this->warehouse_model->get_entries_out_like($code);
+		foreach ($products as $item ) {?>
+			<option class="option" value="<?php echo $item["product_id"]; ?>"><?php echo $item["product_code"] . "-" . $item["product_name"]; ?></option>
+										<?php
+		}
+		
 	}
 	public function critical_stock()
 	{

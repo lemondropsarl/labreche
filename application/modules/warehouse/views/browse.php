@@ -9,11 +9,11 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<div class="col-lg-3 col-md-4 col-sm-4 col-xs-4">
 				<div class="small-box  bg-gradient-navy">
 					<div class="inner">
-						<h3><?php echo number_format($value_cdf['total'],2,',',' ');?></h3>
-						<p>Valeur du stock CDF</p>
+						<h3><?php echo $count_stock;?></h3>
+						<p>Articles disponible</p>
 					</div>
 					<div class="icon">
-						<i class="fas fa-dollar-sign"></i>
+						<i class="fas fa-product-hunt"></i>
 					</div>
 					<a href="#" class="small-box-footer"></a>
 						

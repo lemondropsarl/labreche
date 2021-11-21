@@ -27,20 +27,10 @@ class Warehouse_model extends CI_Model
 	}
 
 
-	public function get_stock_value_cdf()
+	public function count_stock()
 	{
-		$sql = 'select SUM(`Result`) as total
-		FROM(
-		SELECT
-			 SUM(`product`.`unit_price` * `last_update_stock`.`lus_quantity`) as Result
-			from (`product`,`last_update_stock`)
-		WHERE (`product`.`product_id` = `last_update_stock`.`lus_product_id`) and (`product`.`product_currency` = "CDF")
-		group By (`product`.`product_id`)
-		) as T';
-
-		$query = $this->db->query($sql);
+		 return $this->db->count_all('last_update_stock');
 		
-		return $query->row_array();
 	}
 	public function get_list_of_stock()
 	{
@@ -105,6 +95,16 @@ public function get_products()
 		ON product.product_id=last_update_stock.lus_product_id WHERE last_update_stock.lus_product_id IS NULL";
 		$query = $this->db->query($sql);
 		return $query->result_array();
+	}
+	public function get_products_like($code){
+		$query = "SELECT * FROM product LEFT JOIN last_update_stock  
+		ON product.product_id=last_update_stock.lus_product_id WHERE last_update_stock.lus_product_id IS NULL and product.product_code LIKE" . " " . "'" . $code . "%'";
+		return $this->db->query($query)->result_array();
+	}
+	public function get_entries_out_like($code){
+		$query = "SELECT * FROM product LEFT JOIN last_update_stock  
+		ON product.product_id=last_update_stock.lus_product_id WHERE product.product_code LIKE" . " " . "'" . $code . "%'";
+		return $this->db->query($query)->result_array();
 	}
 	public function get_warehouses()
 	{
@@ -173,7 +173,7 @@ public function get_products()
 			return $query->result_array();
 		} else {
 
-			$query = "SELECT * FROM product INNER JOIN stock_entries_in ON stock_entries_in.si_product_id=product.product_id where product_code LIKE" . " " . "'" . $id . "%'" . " "
+			$query = "SELECT * FROM stock_entries_in INNER JOIN product ON stock_entries_in.si_product_id=product.product_id INNER JOIN vehicule on vehicule.vehicule_id=product.product_vehicule_id where product_code LIKE" . " " . "'" . $id . "%'" . " "
 				. "OR product_name LIKE" . " " . "'" . $id . "%'";
 			return $this->db->query($query)->result_array();
 		}
