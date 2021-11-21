@@ -24,13 +24,14 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 						<div class="row">
 							<div class="form-group col-lg-4">
 								<label for="product">Nom article</label>
+								<input type="search" name="ocode" id="ocode" class="form-control" placeholder="Part number">
 								<select
 									name="ws_product"
 									id="ws_product"
 									class="form-control"
 								>
 									<?php foreach ($products as $item) {?>
-									# code...
+									
 									<option
 										class="option"
 										value="<?php echo $item['pid'];?>"

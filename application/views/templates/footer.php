@@ -476,9 +476,25 @@ $this->app = $this->config->item('application', 'app');
 		});
 
 		//WAREHOUSE SCRPIT
-
+		//Search code to do entry out operation
+		function search_part_number_out(id) {
+			$.get('<?php echo base_url("warehouse/filter_entries_out")?>', {id:id,},
+				function (data) {
+					$("#ws_product").html(data);
+				}
+				
+			);
+		}
+		$("#ocode").on("keyup", function () {
+			const id = $(this).val();
+			if (id === "") {
+				
+			} else {
+				search_part_number_out(id);
+			}
+		});
 		//Search code to do entry in operation
-		function search_part_number(id){
+		function search_part_number_in(id){
 			$.get('<?php echo base_url("warehouse/filter_part_number");?>', {id:id,},
 				
 				function (data) {
@@ -493,10 +509,11 @@ $this->app = $this->config->item('application', 'app');
 			if (id === "") {
 				
 			}else{
-				search_part_number(id);
+				search_part_number_in(id);
 			}
 			
 		});
+
 		//opeartion entree stock
 		$("body").on("change", "#nom_article_entree", function() {
 			$("#entree_quantite").val("");
