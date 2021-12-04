@@ -22,10 +22,10 @@ class Product_model extends CI_Model
 	public function get_all_products()
 	{
 	    
-	    //SELECT *FROM product INNER JOIN product_location ON
-	    //`product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON
-	  //  `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON
-	  //  `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id`
+	    /*$sql ="SELECT *FROM product INNER JOIN product_location ON
+	    `product`.`product_id`=`product_location`.`prod_loc_prod_id` INNER JOIN `zone_location` ON
+	   `zone_location`.`zone_id`=`product_location`.`prod_loc_zone_id` INNER JOIN shelf_location ON
+	  `shelf_location`.`shelf_id`=`product_location`.`prod_loc_shelf_id` inner join vehicule on product.product_vehicule_id=vehicule.vehicule_id";*/
 	  
 		$sql = "SELECT *FROM product INNER JOIN vehicule ON product.product_vehicule_id=vehicule.vehicule_id";
 		$query = $this->db->query($sql);
@@ -87,19 +87,19 @@ class Product_model extends CI_Model
 	}
 	public function get_product_like($code)
 	{
-		$query = "SELECT * FROM product where product_code LIKE" . " " . "'" . $code . "%'" . " "
+		$query = "SELECT * FROM product INNER JOIN vehicule ON product.product_vehicule_id=vehicule.vehicule_id where product_code LIKE" . " " . "'" . $code . "%'" . " "
 			. "OR product_name LIKE" . " " . "'" . $code . "%'";
 		return $this->db->query($query)->result_array();
 	}
 	public function get_product_by_cat($cat_id)
 	{
-		$query = $this->db->get_where('product', array('product_cat_id' => $cat_id));
-		return $query->result_array();
+		$query = "SELECT * FROM product INNER JOIN vehicule ON product.product_vehicule_id=vehicule.vehicule_id where product_category_id =".$cat_id ;
+		return $this->db->query($query)->result_array();
 	}
 	public function get_product_by_veh($veh_id)
 	{
-		$query = $this->db->get_where('product', array('product_vehicule_id' => $veh_id));
-		return $query->result_array();
+		$query = "SELECT * FROM product INNER JOIN vehicule ON product.product_vehicule_id=vehicule.vehicule_id where product_vehicule_id =".$veh_id;
+		return $this->db->query($query)->result_array();
 	}
 	public function count_by_engine($cat_id)
 	{
