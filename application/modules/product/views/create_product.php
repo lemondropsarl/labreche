@@ -6,19 +6,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 		<!-- your content here -->
 		<div class="row">
 			<div class="col-md-12">
-				<div>
-					<?php echo form_open_multipart('product/add_multiple')?>
-					<div class="form-group form-row">
-                		<label class="col-sm-2 col-form-label">Fichier</label>
-							<div class="col-sm-6">
-								<input type="file" id="exfile" name="exfile" class="form-control readonly"/>
-							</div>
-            		</div>
-					<div class="form-group form-row">
-						<button type="submit" class="btn btn-success">Charger</button>
-					</div>
-					<?php echo form_close()?>
-				</div>
+				
 				<div class="card card-outline card-secondary">
 					<div class="card-header">
 						<h4 class="card-title">Nouveau article</h4>
