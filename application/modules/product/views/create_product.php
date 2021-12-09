@@ -73,6 +73,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 									<div class="form-group">
 										<label for="vehicule"  class="label text-secondary">Véhicule</label>
+										<input type="search" name="s_vehicule" id="s_vehicule" class="form-control">
 										<select type="text" class="form-control" id="pv_id" name="pv_id">
 											<?php foreach ($vehicules as $option) { ?>
 												# code...

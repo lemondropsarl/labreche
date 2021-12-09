@@ -438,6 +438,28 @@ $this->app = $this->config->item('application', 'app');
 			});
 
 		}
+		$("#s_vehicule").on("keyup", function () {
+			const id = $(this).val();
+			if (id === "") {
+				vehicule_list();	
+			}else{
+				search_vehicule_like(id);
+			}
+		});
+		function search_vehicule_like (id) {
+			$.get('<?php echo base_url("product/search_vehicule_like")?>', {id:id,},
+				function (data) {
+					$("#pv_id").html(data);
+					
+				});
+		}
+		function vehicule_list () {
+			$.get('<?php echo base_url("product/vehicule_list")?>',
+				function (data) {
+					$("#pv_id").html(data);
+				},
+			);
+		}
 		//function list product if de search box is empty
 		function list_product() {
 			$.get('<?php echo base_url("product/list_product") ?>', function(data) {

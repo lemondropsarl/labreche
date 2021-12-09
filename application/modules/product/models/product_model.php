@@ -8,6 +8,17 @@ class Product_model extends CI_Model
 		parent::__construct();
 		$this->load->database();
 	}
+	public function vehicule_list()
+	{
+		$this->db->order_by('vehicule_brand', 'asc');
+		return $this->db->get('vehicule')->result_array();
+		
+	}
+	public function search_vehicule_like($code)
+	{
+		$sql = "SELECT * FROM vehicule where vehicule_brand like  "."'%" .$code. "%'";
+		return $this->db->query($sql)->result_array();
+	}
 
 	public function is_pcode_exist($pcode)
 	{

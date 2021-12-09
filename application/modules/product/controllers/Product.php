@@ -123,7 +123,23 @@ class Product extends MX_Controller
 		# code...
 
 	}
-
+	public function vehicule_list()
+	{
+		$vehicules = $this->product_model->vehicule_list();
+		foreach ($vehicules as $option) {?>
+			<option value="<?php echo $option['vehicule_id']; ?>"><?php echo $option['vehicule_brand']; ?></option>
+		<?php
+		}
+	}
+	public function search_vehicule_like()
+	{
+		$id = $this->input->get('id');
+		$vehicules = $this->product_model->search_vehicule_like($id);
+		foreach ($vehicules as $option) {?>
+			<option value="<?php echo $option['vehicule_id']; ?>"><?php echo $option['vehicule_brand']; ?></option>
+		<?php
+		}
+	}
 	public function list()
 
 	{
