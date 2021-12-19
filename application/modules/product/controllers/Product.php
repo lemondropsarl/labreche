@@ -236,7 +236,7 @@ class Product extends MX_Controller
 
 			'min_qty'	=> $this->input->get('pmin_qty'),
 
-			'product_currency' => $this->input->get('pcurrency'),
+			'product_currency' => 'USD',
 
 			'product_status' => 1,
 

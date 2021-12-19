@@ -59,14 +59,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 											<div class="erreur cache bg-danger" id='erreur_unite'>Vérifier l'unité</div>
 
 										</div>
-										<div class="form-group col-4">
+										<!--div class="form-group col-4">
 											<label for="currency"  class="label text-secondary">Devise</label>
 											<select class="form-control" id="pcurrency" placeholder="Unite" name="pcurrency">
 												<option value="CDF">CDF</option>
 												<option value="USD">USD</option>
 											</select>
 
-										</div>
+										</div-->
 									</div>
 								</div>
 								<div class="col-md-5 offset-md-1">
