@@ -254,13 +254,44 @@ class Product extends MX_Controller
 
 	}
 
+public function update_operation()
+{
+	$id = $this->input->post('product_id');
+	
+	
+	$model = array(
 
+		'product_code' => $this->input->post('pcode'), // $this->input->post('pcode'),
+
+		'product_name' => strtoupper($this->input->post('pname')),
+
+		'unit_price' => $this->input->post('price'),
+
+		'product_uom' => $this->input->post('prUnite'),
+
+		'min_qty'	=> $this->input->post('pmin_qty'),
+
+		'product_status' => 1,
+
+		'product_cat_id' => $this->input->post('pcat_id'), // $this->input->post('pcat_id'),
+
+		'product_vehicule_id' => $this->input->post('pv_id')
+
+	);
+	$this->product_model->update_product($id, $model);
+	
+	redirect('product/list');
+	
+
+}
 
 
 
 	public function details()
 
 	{
+		$id = $this->uri->segment(3);
+		
 
 		$data['user_groups']           =   $this->ion_auth->get_users_groups()->result();
 
@@ -272,7 +303,13 @@ class Product extends MX_Controller
 
 		$data['acl_modules']		   =   $this->nav_model->get_acl_modules();
 
-		$data["rate"] = $this->pos_model->get_rate();
+		$data["product"] 				=  $this->product_model->get_by_ID($id);
+		$data['categories'] = $this->product_model->get_categories();
+
+		$data['vehicules'] = $this->product_model->get_vehicules();
+
+		$data['uoms'] = $this->product_model->get_uoms();
+		$data['product_id']				= $id;
 
 		$data['title']					=  'Article!Détail';
 
@@ -318,7 +355,9 @@ class Product extends MX_Controller
 				<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
 
 				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price'].' '.$item['product_currency']; ?></td>
-
+				<td>
+					<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>">Modifiér<i class="fa fa-arrow-right"></i></a>
+				</td>
 			
 
 			</tr>
@@ -374,7 +413,9 @@ class Product extends MX_Controller
 
 				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']." ".$item['product_currency']; ?></td>
 
-			
+				<td>
+					<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>">Modifiér<i class="fa fa-arrow-right"></i></a>
+				</td>
 
 			</tr>
 
@@ -412,7 +453,9 @@ class Product extends MX_Controller
 
 				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']." ".$item['product_currency']; ?></td>
 
-			
+				<td>
+					<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>">Modifiér<i class="fa fa-arrow-right"></i></a>
+				</td>
 
 			</tr>
 
@@ -445,7 +488,9 @@ class Product extends MX_Controller
 				<td class="cel-product" data-type_cel="uom" data-valeur="<?php echo $item['product_uom']; ?>"><?php echo $item['product_uom']; ?></td>
 
 				<td class="cel-product" data-type_cel="price" data-valeur="<?php echo $item['unit_price']; ?>"><?php echo $item['unit_price']." ".$item['product_currency']; ?></td>
-
+				<td>
+					<a href="<?php echo site_url('product/details/' . $item['product_id']); ?>">Modifiér<i class="fa fa-arrow-right"></i></a>
+				</td!>
 			
 
 			</tr>

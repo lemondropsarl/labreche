@@ -42,6 +42,13 @@ class Product_model extends CI_Model
 		$query = $this->db->query($sql);
 		return $query->result_array();
 	}
+	public function get_by_ID($id)
+	{
+		$sql = "SELECT *FROM product INNER JOIN vehicule ON 
+		product.product_vehicule_id=vehicule.vehicule_id inner join categories on product.product_cat_id=categories.cat_id where product_id =".$id;
+		$query = $this->db->query($sql);
+		return $query->row_array();
+	}
 
 	public function update_product($id, $data)
 	{
